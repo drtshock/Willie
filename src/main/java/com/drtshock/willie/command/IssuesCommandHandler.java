@@ -41,6 +41,11 @@ public class IssuesCommandHandler implements CommandHandler {
 			
 			GitHubIssue[] issues = job.getIssues();
 			
+			if (issues.length == 0){
+				channel.sendMessage(Colors.GREEN + job.getDisplayName() + " has no open issues \\o/");
+				return;
+			}
+			
 			int perPage = 4;
 			int pages = (int) Math.ceil((double) issues.length / (double) perPage);
 			int start = (page - 1) * perPage;
