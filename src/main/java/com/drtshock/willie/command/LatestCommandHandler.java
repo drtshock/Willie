@@ -16,10 +16,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.drtshock.willie.Willie;
+
 public class LatestCommandHandler implements CommandHandler {
 	
 	@Override
-	public void handle(Channel channel, User sender, String[] args){
+	public void handle(Willie bot, Channel channel, User sender, String[] args){
 		if (args.length != 1){
 			channel.sendMessage(Colors.RED + "Check latest BukkitDev version of a plugin by doing .latest <slug>");
 			return;

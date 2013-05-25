@@ -13,14 +13,8 @@ import com.drtshock.willie.Willie;
 
 public class IssuesCommandHandler implements CommandHandler {
 	
-	private Willie bot;
-	
-	public IssuesCommandHandler(Willie bot){
-		this.bot = bot;
-	}
-	
 	@Override
-	public void handle(Channel channel, User sender, String[] args){
+	public void handle(Willie bot, Channel channel, User sender, String[] args){
 		if (args.length == 0){
 			channel.sendMessage(Colors.RED + "Usage: .issues <job_name> [page]");
 			return;
@@ -43,7 +37,7 @@ public class IssuesCommandHandler implements CommandHandler {
 		}
 		
 		try{
-			JenkinsJob job = this.bot.jenkins.getJob(args[0]);
+			JenkinsJob job = bot.jenkins.getJob(args[0]);
 			
 			GitHubIssue[] issues = job.getIssues();
 			
