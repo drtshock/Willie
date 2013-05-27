@@ -17,15 +17,16 @@ public class DonateCommandHandler implements CommandHandler {
 		this.rand = new Random();
 		this.messages = new ArrayList<String>();
 		
-		this.messages.add(Colors.DARK_GREEN + "Buy me food :3 http://tinyurl.com/drtdonate");
-		this.messages.add(Colors.DARK_GREEN + "Donations are nice. http://tinyurl.com/drtdonate");
-		this.messages.add(Colors.DARK_GREEN + "Hey there http://tinyurl.com/drtdonate");
-		this.messages.add(Colors.DARK_GREEN + "Buy dirt for drt http://tinyurl.com/drtdonate");
+		this.messages.add(Colors.DARK_GREEN + "Buy me food :3 %s");
+		this.messages.add(Colors.DARK_GREEN + "Donations are nice. %s");
+		this.messages.add(Colors.DARK_GREEN + "Hey there %s");
+		this.messages.add(Colors.DARK_GREEN + "Buy dirt for drt %s");
 	}
 	
 	@Override
 	public void handle(Willie bot, Channel channel, User sender, String[] args){
-		channel.sendMessage(this.messages.get(this.rand.nextInt(this.messages.size())));
+        String message = String.format(this.messages.get(this.rand.nextInt(this.messages.size())), bot.getConfig().getDonateUrl());
+		channel.sendMessage(message);
 	}
 	
 }
