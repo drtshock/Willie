@@ -27,7 +27,7 @@ public class YamlHelper {
 
     public YamlHelper loadFile(String filePath) throws FileNotFoundException, ClassCastException {
         InputStream fileStream = new FileInputStream(filePath);
-        dataMap = ((LinkedHashMap<String, Object>)yaml.load(fileStream));
+        dataMap = ((LinkedHashMap<String, Object>) yaml.load(fileStream));
         try {
             fileStream.close();
         } catch (IOException e) {
@@ -37,14 +37,13 @@ public class YamlHelper {
     }
 
     public Object getObject(String path) throws ClassCastException {
-        if(path.isEmpty()) return dataMap;
+        if (path.isEmpty()) return dataMap;
         LinkedHashMap<String, Object> currentMap = dataMap;
         String[] pathArray = path.split("\\.");
         for (int i = 0; i < pathArray.length; i++) {
-            if(i == pathArray.length - 1) {
+            if (i == pathArray.length - 1) {
                 return currentMap.get(pathArray[i]);
-            }
-            else currentMap = (LinkedHashMap) currentMap.get(pathArray[i]);
+            } else currentMap = (LinkedHashMap) currentMap.get(pathArray[i]);
         }
         return null;
     }
@@ -59,15 +58,14 @@ public class YamlHelper {
         ArrayList<String> pathList = new ArrayList<>();
         Collections.addAll(pathList, path.split("\\."));
 
-        if(pathList.contains("")) {
+        if (pathList.contains("")) {
             keys.addAll(dataMap.keySet());
-        }
-        else {
+        } else {
             LinkedHashMap<String, Object> currentMap = dataMap;
             for (String pathKey : path.split("\\.")) {
                 currentMap = (LinkedHashMap) currentMap.get(pathKey);
             }
-            if(currentMap != null) {
+            if (currentMap != null) {
                 keys.addAll(currentMap.keySet());
             }
         }
@@ -85,7 +83,7 @@ public class YamlHelper {
     }
 
     public ArrayList<LinkedHashMap<String, Object>> getMapList(String path) throws ClassCastException {
-        return (ArrayList<LinkedHashMap<String, Object>>)getObject(path);
+        return (ArrayList<LinkedHashMap<String, Object>>) getObject(path);
     }
 
     public int getInt(String path) throws ClassCastException {
@@ -96,7 +94,7 @@ public class YamlHelper {
         return (double) getObject(path);
     }
 
-    public float getFloat(String path) throws ClassCastException  {
+    public float getFloat(String path) throws ClassCastException {
         return (float) getObject(path);
     }
 

@@ -6,7 +6,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 
@@ -56,7 +59,7 @@ public class WillieConfig {
         try {
 
             File file = new File(fileName);
-            if(file.exists()) file.delete();
+            if (file.exists()) file.delete();
             file.createNewFile();
 
             PrintWriter printWriter = new PrintWriter(file);
@@ -65,7 +68,7 @@ public class WillieConfig {
             printWriter.write(yml.dump(configMap));
             printWriter.close();
         } catch (FileNotFoundException ignored) {
-            logger.warning("Could not create configuration file at '"+ fileName + "'");
+            logger.warning("Could not create configuration file at '" + fileName + "'");
         } catch (IOException e) {
             logger.warning("Could not write configuration to file '" + fileName + "'");
         }
@@ -77,7 +80,7 @@ public class WillieConfig {
         try {
             YamlHelper yml = new YamlHelper(fileName);
 
-            for(Map.Entry<String, Object> entry : yml.getMap("").entrySet()) {
+            for (Map.Entry<String, Object> entry : yml.getMap("").entrySet()) {
                 config.put(entry.getKey(), entry.getValue());
             }
             willieConfig.update();

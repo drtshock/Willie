@@ -1,10 +1,10 @@
 package com.drtshock.willie;
 
+import org.pircbotx.Channel;
+
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.TimerTask;
-
-import org.pircbotx.Channel;
 
 public class IssueNotifierTask extends TimerTask {
 
