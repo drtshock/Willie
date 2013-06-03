@@ -1,21 +1,43 @@
 package com.drtshock.willie;
 
-import com.drtshock.willie.command.*;
-import com.google.gson.Gson;
-import com.google.gson.JsonParser;
-import org.pircbotx.*;
-import org.pircbotx.exception.IrcException;
-import org.pircbotx.exception.NickAlreadyInUseException;
-import org.pircbotx.hooks.ListenerAdapter;
-import org.pircbotx.hooks.WaitForQueue;
-import org.pircbotx.hooks.events.NoticeEvent;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.pircbotx.Base64;
+import org.pircbotx.Channel;
+import org.pircbotx.Colors;
+import org.pircbotx.PircBotX;
+import org.pircbotx.User;
+import org.pircbotx.exception.IrcException;
+import org.pircbotx.exception.NickAlreadyInUseException;
+import org.pircbotx.hooks.ListenerAdapter;
+import org.pircbotx.hooks.WaitForQueue;
+import org.pircbotx.hooks.events.NoticeEvent;
+
+import com.drtshock.willie.command.AdminCommandHandler;
+import com.drtshock.willie.command.CICommandHandler;
+import com.drtshock.willie.command.Command;
+import com.drtshock.willie.command.DonateCommandHandler;
+import com.drtshock.willie.command.DrinkCommandHandler;
+import com.drtshock.willie.command.FixCommand;
+import com.drtshock.willie.command.HelpCommandHandler;
+import com.drtshock.willie.command.IssuesCommandHandler;
+import com.drtshock.willie.command.JoinCommandHandler;
+import com.drtshock.willie.command.LatestCommandHandler;
+import com.drtshock.willie.command.LeaveCommandHandler;
+import com.drtshock.willie.command.PluginCommandHandler;
+import com.drtshock.willie.command.PopcornCommandHandler;
+import com.drtshock.willie.command.ReloadCommandHandler;
+import com.drtshock.willie.command.RepoCommandHandler;
+import com.drtshock.willie.command.RulesCommandHandler;
+import com.drtshock.willie.command.SaveCommandHandler;
+import com.drtshock.willie.command.TWSSCommandHandler;
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 
 public class Willie extends PircBotX {
     public static final Logger logger = Logger.getLogger(Willie.class.getName());
@@ -73,6 +95,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("twss", "that's what she said!", new TWSSCommandHandler()));
         this.commandManager.registerCommand(new Command("donate", "shows donation info", new DonateCommandHandler()));
         this.commandManager.registerCommand(new Command("drink", "<name> - gives someone a drink!", new DrinkCommandHandler()));
+        this.commandManager.registerCommand(new Command("fix", "Yell at someone to fix something", new FixCommand()));
 
 
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
@@ -209,7 +232,7 @@ public class Willie extends PircBotX {
     public void save() {
         // Save channels
         willieConfig.getChannels().clear();
-        for (Channel channel : getUserBot().getChannels()) {
+        for(Channel channel:getUserBot().getChannels()) {
             willieConfig.getChannels().add(channel.getName());
         }
 
