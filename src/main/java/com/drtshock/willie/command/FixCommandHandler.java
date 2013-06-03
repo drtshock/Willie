@@ -6,7 +6,7 @@ import org.pircbotx.User;
 import com.drtshock.willie.Willie;
 
 
-public class FixCommand implements CommandHandler {
+public class FixCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
