@@ -27,6 +27,7 @@ import com.drtshock.willie.command.FixCommandHandler;
 import com.drtshock.willie.command.HelpCommandHandler;
 import com.drtshock.willie.command.IssuesCommandHandler;
 import com.drtshock.willie.command.JoinCommandHandler;
+import com.drtshock.willie.command.KickCommandHandler;
 import com.drtshock.willie.command.LatestCommandHandler;
 import com.drtshock.willie.command.LeaveCommandHandler;
 import com.drtshock.willie.command.PluginCommandHandler;
@@ -96,7 +97,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("donate", "shows donation info", new DonateCommandHandler()));
         this.commandManager.registerCommand(new Command("drink", "<name> - gives someone a drink!", new DrinkCommandHandler()));
         this.commandManager.registerCommand(new Command("fix", "[name] - Yell at someone to fix something", new FixCommandHandler()));
-        this.commandManager.registerCommand(new Command("kick", "<name> - Kick a user", new FixCommandHandler()));
+        this.commandManager.registerCommand(new Command("kick", "<name> - Kick a user", new KickCommandHandler()));
 
 
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
