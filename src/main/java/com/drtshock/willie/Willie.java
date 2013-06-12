@@ -3,39 +3,37 @@ package com.drtshock.willie;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.drtshock.willie.command.CommandManager;
-import com.drtshock.willie.github.IssueNotifierTask;
-import com.drtshock.willie.jenkins.JenkinsServer;
-import org.pircbotx.Base64;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.PircBotX;
 import org.pircbotx.exception.IrcException;
 import org.pircbotx.exception.NickAlreadyInUseException;
 
-import com.drtshock.willie.command.admin.AdminCommandHandler;
-import com.drtshock.willie.command.utility.CICommandHandler;
 import com.drtshock.willie.command.Command;
-import com.drtshock.willie.command.misc.DonateCommandHandler;
+import com.drtshock.willie.command.CommandManager;
+import com.drtshock.willie.command.admin.AdminCommandHandler;
+import com.drtshock.willie.command.admin.ReloadCommandHandler;
+import com.drtshock.willie.command.admin.SaveCommandHandler;
 import com.drtshock.willie.command.fun.DrinkCommandHandler;
 import com.drtshock.willie.command.fun.FixCommandHandler;
-import com.drtshock.willie.command.misc.HelpCommandHandler;
-import com.drtshock.willie.command.utility.IssuesCommandHandler;
+import com.drtshock.willie.command.fun.PopcornCommandHandler;
+import com.drtshock.willie.command.fun.TWSSCommandHandler;
 import com.drtshock.willie.command.management.JoinCommandHandler;
 import com.drtshock.willie.command.management.KickCommandHandler;
-import com.drtshock.willie.command.utility.LatestCommandHandler;
 import com.drtshock.willie.command.management.LeaveCommandHandler;
-import com.drtshock.willie.command.utility.PluginCommandHandler;
-import com.drtshock.willie.command.fun.PopcornCommandHandler;
-import com.drtshock.willie.command.admin.ReloadCommandHandler;
-import com.drtshock.willie.command.utility.RepoCommandHandler;
+import com.drtshock.willie.command.misc.DonateCommandHandler;
+import com.drtshock.willie.command.misc.HelpCommandHandler;
 import com.drtshock.willie.command.misc.RulesCommandHandler;
-import com.drtshock.willie.command.admin.SaveCommandHandler;
-import com.drtshock.willie.command.fun.TWSSCommandHandler;
+import com.drtshock.willie.command.utility.CICommandHandler;
+import com.drtshock.willie.command.utility.DefineCommandHandler;
+import com.drtshock.willie.command.utility.IssuesCommandHandler;
+import com.drtshock.willie.command.utility.LatestCommandHandler;
+import com.drtshock.willie.command.utility.PluginCommandHandler;
+import com.drtshock.willie.command.utility.RepoCommandHandler;
+import com.drtshock.willie.jenkins.JenkinsServer;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 
@@ -84,7 +82,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("drink", "<name> - gives someone a drink!", new DrinkCommandHandler()));
         this.commandManager.registerCommand(new Command("fix", "[name] - Yell at someone to fix something", new FixCommandHandler()));
         this.commandManager.registerCommand(new Command("kick", "<name> - Kick a user", new KickCommandHandler()));
-
+        this.commandManager.registerCommand(new Command("define", "<dictionary id> <word (spaces as underscores)> - defines a word", new DefineCommandHandler()));
 
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
         this.commandManager.registerCommand(new Command("leave", "<channel> - Leaves a channel", new LeaveCommandHandler(), true));
