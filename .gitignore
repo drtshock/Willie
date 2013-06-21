@@ -173,5 +173,8 @@ pip-log.txt
 target
 dependency-reduced-pom.xml
 
-# Password file
-config.txt
+# Configuration
+config.yml
+
+# Channel logs
+logs/*

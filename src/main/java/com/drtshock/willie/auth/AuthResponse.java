@@ -1,9 +1,8 @@
 package com.drtshock.willie.auth;
 
+import com.drtshock.willie.Willie;
 import org.pircbotx.User;
 import org.pircbotx.hooks.events.NoticeEvent;
-
-import com.drtshock.willie.Willie;
 
 public class AuthResponse {
     public boolean isValid = false;

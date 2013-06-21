@@ -1,15 +1,14 @@
 package com.drtshock.willie.command.utility;
 
-import java.io.IOException;
-
-import org.pircbotx.Channel;
-import org.pircbotx.Colors;
-import org.pircbotx.User;
-
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
 import com.drtshock.willie.util.Dictionary;
 import com.drtshock.willie.util.Dictionary.Definition;
+import org.pircbotx.Channel;
+import org.pircbotx.Colors;
+import org.pircbotx.User;
+
+import java.io.IOException;
 
 public class DefineCommandHandler implements CommandHandler {
 

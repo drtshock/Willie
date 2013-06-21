@@ -1,9 +1,8 @@
 package com.drtshock.willie.command;
 
+import com.drtshock.willie.Willie;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
-
-import com.drtshock.willie.Willie;
 
 public interface CommandHandler {
 

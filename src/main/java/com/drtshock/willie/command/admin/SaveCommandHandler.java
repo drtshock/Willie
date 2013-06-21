@@ -1,11 +1,10 @@
 package com.drtshock.willie.command.admin;
 
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
-
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.command.CommandHandler;
 
 public class SaveCommandHandler implements CommandHandler {
     @Override

@@ -1,14 +1,13 @@
 package com.drtshock.willie.command.utility;
 
-import java.io.IOException;
-
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.command.CommandHandler;
+import com.drtshock.willie.jenkins.JenkinsJob;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
 
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.command.CommandHandler;
-import com.drtshock.willie.jenkins.JenkinsJob;
+import java.io.IOException;
 
 public class CICommandHandler implements CommandHandler {
 

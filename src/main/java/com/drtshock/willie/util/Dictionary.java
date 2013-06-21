@@ -1,13 +1,13 @@
 package com.drtshock.willie.util;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 public enum Dictionary {
     

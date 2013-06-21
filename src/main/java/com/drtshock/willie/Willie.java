@@ -1,46 +1,38 @@
 package com.drtshock.willie;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.pircbotx.Channel;
-import org.pircbotx.Colors;
-import org.pircbotx.PircBotX;
-import org.pircbotx.exception.IrcException;
-import org.pircbotx.exception.NickAlreadyInUseException;
-
 import com.drtshock.willie.command.Command;
 import com.drtshock.willie.command.CommandManager;
 import com.drtshock.willie.command.admin.AdminCommandHandler;
 import com.drtshock.willie.command.admin.ReloadCommandHandler;
 import com.drtshock.willie.command.admin.SaveCommandHandler;
-import com.drtshock.willie.command.fun.DrinkCommandHandler;
-import com.drtshock.willie.command.fun.FixCommandHandler;
-import com.drtshock.willie.command.fun.PopcornCommandHandler;
-import com.drtshock.willie.command.fun.TWSSCommandHandler;
-import com.drtshock.willie.command.fun.UrbanCommandHandler;
+import com.drtshock.willie.command.fun.*;
 import com.drtshock.willie.command.management.JoinCommandHandler;
 import com.drtshock.willie.command.management.KickCommandHandler;
 import com.drtshock.willie.command.management.LeaveCommandHandler;
 import com.drtshock.willie.command.misc.DonateCommandHandler;
 import com.drtshock.willie.command.misc.HelpCommandHandler;
 import com.drtshock.willie.command.misc.RulesCommandHandler;
-import com.drtshock.willie.command.utility.CICommandHandler;
-import com.drtshock.willie.command.utility.DefineCommandHandler;
-import com.drtshock.willie.command.utility.IssuesCommandHandler;
-import com.drtshock.willie.command.utility.LatestCommandHandler;
-import com.drtshock.willie.command.utility.PluginCommandHandler;
-import com.drtshock.willie.command.utility.RepoCommandHandler;
+import com.drtshock.willie.command.utility.*;
 import com.drtshock.willie.jenkins.JenkinsServer;
+import com.drtshock.willie.logging.BasicLogFormatter;
+import com.drtshock.willie.logging.LogManager;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
+import org.pircbotx.Channel;
+import org.pircbotx.Colors;
+import org.pircbotx.PircBotX;
+import org.pircbotx.exception.IrcException;
+import org.pircbotx.exception.NickAlreadyInUseException;
+import org.pircbotx.hooks.managers.BackgroundListenerManager;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Willie extends PircBotX {
     private static Willie instance;
-
     public static final Logger logger = Logger.getLogger(Willie.class.getName());
     public static final Gson gson = new Gson();
     public static final JsonParser parser = new JsonParser();
@@ -70,6 +62,10 @@ public class Willie extends PircBotX {
         this.jenkins = new JenkinsServer(willieConfig.getJenkinsServer());
         this.commandManager = new CommandManager(this);
 
+        //noinspection unchecked
+        this.setListenerManager(new BackgroundListenerManager());
+        this.getListenerManager().addListener(commandManager, false);
+
         this.commandManager.registerCommand(new Command("repo", "show Willie's repo", new RepoCommandHandler()));
         this.commandManager.registerCommand(new Command("latest", "<plugin_name> - Get latest file for plugin on BukkitDev", new LatestCommandHandler()));
         this.commandManager.registerCommand(new Command("plugin", "<name> - looks up a plugin on BukkitDev", new PluginCommandHandler()));
@@ -92,14 +88,19 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("save", "Saves configuration", new SaveCommandHandler(), true));
         this.commandManager.registerCommand(new Command("admin", "add <user> | del <user> | list - Modifies the bot admin list.", new AdminCommandHandler(), true));
 
+        // TODO Should probably add an admin command for enabling/disabling logging globally.
+        if(willieConfig.isLoggingEnabled()) {
+            this.commandManager.registerCommand(new Command("log", "enable | disable - Enables or disables logging for the current channel, usable only by channel operators.", new LogCommandHandler()));
+            this.getListenerManager().addListener(new LogManager(this, new BasicLogFormatter()), true);
+        }
+
         this.setName(willieConfig.getNick());
-        this.setVerbose(false);
-        this.getListenerManager().addListener(this.commandManager);
+        this.setVerbose(true);
     }
 
     public void connect() {
         try {
-            this.connect(willieConfig.getServer());
+            this.connect(willieConfig.getServer(), willieConfig.getServerPort(), willieConfig.getServerPass());
             this.setAutoReconnectChannels(true);
             logger.log(Level.INFO, "Connected to ''{0}''", willieConfig.getServer());
 
@@ -117,6 +118,12 @@ public class Willie extends PircBotX {
             logger.severe("That nickname is already in use!");
         } catch (IrcException | IOException e) {
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public BackgroundListenerManager getListenerManager() {
+        return (BackgroundListenerManager) listenerManager;
     }
 
     @Override

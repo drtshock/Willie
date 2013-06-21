@@ -1,11 +1,10 @@
 package com.drtshock.willie.command.misc;
 
-import org.pircbotx.Channel;
-import org.pircbotx.User;
-
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.Command;
 import com.drtshock.willie.command.CommandHandler;
+import org.pircbotx.Channel;
+import org.pircbotx.User;
 
 public class HelpCommandHandler implements CommandHandler {
 

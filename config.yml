@@ -10,3 +10,6 @@ account-pass: ''
 server: irc.esper.net
 channels: ['#drtshock-private']
 command-prefix: '!'
+log-enabled: false
+log-channel-blacklist: []
+log-directory: ./logs

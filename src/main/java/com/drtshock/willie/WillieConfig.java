@@ -1,5 +1,8 @@
 package com.drtshock.willie;
 
+import com.drtshock.willie.util.YamlHelper;
+import org.yaml.snakeyaml.Yaml;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,10 +14,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.yaml.snakeyaml.Yaml;
-
-import com.drtshock.willie.util.YamlHelper;
-
 @SuppressWarnings("unchecked")
 public class WillieConfig {
 
@@ -22,6 +21,7 @@ public class WillieConfig {
     private LinkedHashMap<String, Object> configMap = new LinkedHashMap<>();
     private ArrayList<String> botAdmins = new ArrayList<>();
     private ArrayList<String> botChannels = new ArrayList<>();
+    private ArrayList<String> logChannelBlacklist = new ArrayList<>();
     ArrayList<String> jenkinsAdmins = new ArrayList<>();
 
     public WillieConfig() {
@@ -41,8 +41,13 @@ public class WillieConfig {
         configMap.put("bot-nick", "Willie");
         configMap.put("account-pass", "");
         configMap.put("server", "irc.esper.net");
+        configMap.put("server-pass", "");
+        configMap.put("server-port", 6667);
         configMap.put("channels", botChannels);
         configMap.put("command-prefix", "!");
+        configMap.put("log-enabled", false);
+        configMap.put("log-channel-blacklist", logChannelBlacklist);
+        configMap.put("log-directory", "./logs");
     }
 
     public LinkedHashMap<String, Object> getConfigMap() {
@@ -53,6 +58,14 @@ public class WillieConfig {
         botChannels = (ArrayList<String>) configMap.get("channels");
         botAdmins = (ArrayList<String>) configMap.get("bot-admins");
         jenkinsAdmins = (ArrayList<String>) configMap.get("jenkins-admins");
+        logChannelBlacklist = (ArrayList<String>) configMap.get("log-channel-blacklist");
+
+        // Strip trailing slash from log-directory
+        String logDirectory = (String) configMap.get("log-directory");
+        if(logDirectory.endsWith("/")) {
+            logDirectory = logDirectory.substring(1, logDirectory.length()-1);
+            configMap.put("log-directory", logDirectory);
+        }
         return this;
     }
 
@@ -104,6 +117,22 @@ public class WillieConfig {
         return (String) configMap.get("jenkins-server");
     }
 
+    public boolean isLoggingEnabled() {
+        return (Boolean) configMap.get("log-enabled");
+    }
+
+    public boolean isChannelLogged(String channel) {
+        return isLoggingEnabled() && logChannelBlacklist.contains(channel);
+    }
+
+    public ArrayList<String> getLogBlacklist() {
+        return logChannelBlacklist;
+    }
+
+    public String getLoggingDirectory() {
+        return (String) configMap.get("log-directory");
+    }
+
     public WillieConfig setJenkinsServer(String server) {
         configMap.put("jenkins-server", server);
         return this;
@@ -147,8 +176,16 @@ public class WillieConfig {
         return this;
     }
 
+    public String getServerPass() {
+        return (String) configMap.get("server-pass");
+    }
+
     public String getServer() {
         return (String) configMap.get("server");
+    }
+
+    public int getServerPort() {
+        return (int) configMap.get("server-port");
     }
 
     public WillieConfig setServer(String server) {
