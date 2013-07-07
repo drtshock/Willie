@@ -34,6 +34,7 @@ import com.drtshock.willie.command.utility.IssuesCommandHandler;
 import com.drtshock.willie.command.utility.LatestCommandHandler;
 import com.drtshock.willie.command.utility.PluginCommandHandler;
 import com.drtshock.willie.command.utility.RepoCommandHandler;
+import com.drtshock.willie.command.utility.UTimeCommandHandler;
 import com.drtshock.willie.jenkins.JenkinsServer;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
@@ -85,6 +86,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("kick", "<name> - Kick a user", new KickCommandHandler()));
         this.commandManager.registerCommand(new Command("define", "<word|phrase> - defines a word", new DefineCommandHandler()));
         this.commandManager.registerCommand(new Command("urban", "<word|phrase> - defines a word using the urban dictionary", new UrbanCommandHandler()));
+        this.commandManager.registerCommand(new Command("utime", "converts a unix timestamp to human time", new UTimeCommandHandler()));
 
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
         this.commandManager.registerCommand(new Command("leave", "<channel> - Leaves a channel", new LeaveCommandHandler(), true));
