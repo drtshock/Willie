@@ -34,6 +34,7 @@ public class UTimeCommandHandler implements CommandHandler{
 			if(!time.equalsIgnoreCase("now")){
 				try{
 					realTime = Long.parseLong(time);
+					multiplier = 1;
 				}catch(NumberFormatException e){
 					channel.sendMessage("(" + sender.getNick() + ") [Invalid time format] Usage: !utime <time>[s|ms] [timezone]");
 					return;
