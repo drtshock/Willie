@@ -78,7 +78,7 @@ public class PluginCommandHandler implements CommandHandler {
                 authors.append(", ");
                 String author = containers.get(i).text().trim();
                 // Insert blank character so people aren't pinged
-                author = author.substring(0, 2) + blank + author.substring(2, x.length());
+                author = author.substring(0, 2) + blank + author.substring(2, author.length());
                 authors.append(author);
             }
 
