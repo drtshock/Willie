@@ -70,10 +70,16 @@ public class PluginCommandHandler implements CommandHandler {
             if (!containers.isEmpty()) {
                 authors.append(containers.get(0).text().trim());
             }
+            
+            char blankc = 0x200b;
+            String blank = String.valueOf(blankc);
 
             for (int i = 1; i < containers.size(); ++i) {
                 authors.append(", ");
-                authors.append(containers.get(i).text().trim());
+                String author = containers.get(i).text().trim();
+                // Insert blank character so people aren't pinged
+                author = author.substring(0, 2) + blank + author.substring(2, x.length());
+                authors.append(author);
             }
 
             channel.sendMessage(name + " (" + connection.getURL().toExternalForm() + ")");
