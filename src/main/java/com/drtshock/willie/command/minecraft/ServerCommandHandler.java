@@ -1,16 +1,15 @@
 package com.drtshock.willie.command.minecraft;
 
-import ch.jamiete.mcping.MinecraftPing;
-import ch.jamiete.mcping.MinecraftPingReply;
-
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.command.CommandHandler;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
+
+import ch.jamiete.mcping.MinecraftPing;
+
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.command.CommandHandler;
 
 /**
  * 
