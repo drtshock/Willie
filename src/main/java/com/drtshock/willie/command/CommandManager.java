@@ -40,15 +40,6 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
 	public void onMessage(MessageEvent<Willie> event){
 		String message = event.getMessage().trim();
 
-		if(message.equalsIgnoreCase("\\o/")){
-			event.getChannel().sendMessage("\\o/ Woo!");
-			return;
-		}
-		if(message.toLowerCase().endsWith("o/")){
-			event.getChannel().sendMessage("\\o");
-			return;
-		}
-
 		if(!message.startsWith(cmdPrefix)){
 			return;
 		}

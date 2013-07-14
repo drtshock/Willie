@@ -94,7 +94,6 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("utime", "converts a unix timestamp to human time", new UTimeCommandHandler()));
         this.commandManager.registerCommand(new Command("shorten", "<url> shorten a url", new ShortenCommandHandler()));
         this.commandManager.registerCommand(new Command("server", "<IP> get a server's status", new ServerCommandHandler()));
-        this.commandManager.registerCommand(new Command("w", "<person> <reason> whips people", new WhipCommandHandler()));
         this.commandManager.registerCommand(new Command("poke", "<person> pokes people", new PokeCommandHandler()));
 
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
