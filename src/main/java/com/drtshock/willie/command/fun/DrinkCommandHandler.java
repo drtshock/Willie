@@ -14,25 +14,25 @@ import com.drtshock.willie.command.CommandHandler;
  * 
  * @author drtshock
  */
-public class DrinkCommandHandler implements CommandHandler {
+public class DrinkCommandHandler implements CommandHandler{
 
-    private Random rand;
-    private ArrayList<String> messages;
+	private Random rand;
+	private ArrayList<String> messages;
 
-    public DrinkCommandHandler() {
-        this.rand = new Random();
-        this.messages = new ArrayList<>();
+	public DrinkCommandHandler(){
+		this.rand = new Random();
+		this.messages = new ArrayList<>();
 
-        this.messages.add(Colors.NORMAL + "mixes %s a drink!");
-        this.messages.add(Colors.NORMAL + "gives %s a wine cooler.");
-        this.messages.add(Colors.NORMAL + "pours %s a shot of rum!");
-        this.messages.add(Colors.NORMAL + "pours %s a jaeger bomb!");
-    }
+		this.messages.add(Colors.NORMAL + "mixes %s a drink!");
+		this.messages.add(Colors.NORMAL + "gives %s a wine cooler.");
+		this.messages.add(Colors.NORMAL + "pours %s a shot of rum!");
+		this.messages.add(Colors.NORMAL + "pours %s a jaeger bomb!");
+	}
 
-    @Override
-    public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        String message;
-        message = String.format(this.messages.get(this.rand.nextInt(this.messages.size())), (args.length > 0) ? args[0] : "");
-        bot.sendAction(channel, message);
-    }
+	@Override
+	public void handle(Willie bot, Channel channel, User sender, String[] args){
+		String message;
+		message = String.format(this.messages.get(this.rand.nextInt(this.messages.size())), (args.length > 0) ? args[0] : "");
+		bot.sendAction(channel, message);
+	}
 }
