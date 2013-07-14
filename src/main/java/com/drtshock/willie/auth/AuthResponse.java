@@ -11,7 +11,7 @@ public class AuthResponse{
 	public boolean isAdmin = false;
 	public String accountName = "";
 
-	protected AuthResponse(Willie willie, NoticeEvent event, User user){
+	protected AuthResponse(Willie willie, NoticeEvent<?> event, User user){
 		if(!event.getUser().getNick().equals("NickServ"))
 			return;
 		String[] args = event.getNotice().split(" ");

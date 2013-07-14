@@ -13,7 +13,7 @@ public class Auth{
 		willie.getUser("NickServ").sendMessage(String.format("ACC %s *", user.getNick()));
 		WaitForQueue queue = new WaitForQueue(willie);
 		try{
-			NoticeEvent event = queue.waitFor(NoticeEvent.class);
+			NoticeEvent<?> event = queue.waitFor(NoticeEvent.class);
 			return new AuthResponse(willie, event, user);
 		}catch(Exception ignored){}
 		return new AuthResponse();

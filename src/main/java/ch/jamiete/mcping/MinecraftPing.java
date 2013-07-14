@@ -36,7 +36,6 @@ public class MinecraftPing{
 	 * port (25565). Will revert to pre-12w42b ping message if required.
 	 * 
 	 * @param hostname - the IP of the server to request ping from
-	 * @param port - the port of the server to request ping from
 	 * @return {@link MinecraftPingReply} - list of basic server information
 	 * @throws IOException thrown when failed to receive packet or when
 	 *             incorrect packet is received
@@ -56,8 +55,8 @@ public class MinecraftPing{
 	 *             incorrect packet is received
 	 */
 	public MinecraftPingReply getPing(final String hostname, final int port) throws IOException{
-		this.validate(hostname, "Hostname cannot be null.");
-		this.validate(port, "Port cannot be null.");
+		validate(hostname, "Hostname cannot be null.");
+		validate(port, "Port cannot be null.");
 
 		final Socket socket = new Socket();
 		socket.connect(new InetSocketAddress(hostname, port), 3000);
@@ -114,9 +113,9 @@ public class MinecraftPing{
 	 */
 	@Deprecated
 	public MinecraftPingReply getPing(final String response, final String hostname, final int port) throws IOException{
-		this.validate(response, "Response cannot be null. Try calling MinecraftPing.getPing().");
-		this.validate(hostname, "Hostname cannot be null.");
-		this.validate(port, "Port cannot be null.");
+		validate(response, "Response cannot be null. Try calling MinecraftPing.getPing().");
+		validate(hostname, "Hostname cannot be null.");
+		validate(port, "Port cannot be null.");
 
 		final String[] bits = response.split("\u00a7");
 
