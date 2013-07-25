@@ -14,7 +14,11 @@ public class KickCommandHandler implements CommandHandler {
             if (channel.getVoices().contains(sender) || channel.getOps().contains(sender)) {
                 if (channel.getUsers().contains(bot.getUser(args[0]))) {
                     if (args.length == 1) {
-                        bot.kick(channel, bot.getUser(args[0]));
+                        if (!channel.getVoices().contains(bot.getUser(args[0])) || !channel.getOps().contains(bot.getUser(args[0]))) {
+                            bot.kick(channel, bot.getUser(args[0]));
+                        } else {
+                            bot.sendNotice(sender, "I'm not allowed to kick that person!");
+                        }
                     } else {
                         StringBuilder sb = new StringBuilder();
                         for (String arg : args) {
@@ -23,7 +27,11 @@ public class KickCommandHandler implements CommandHandler {
                             }
                         }
                         String reason = sb.toString().trim();
-                        bot.kick(channel, bot.getUser(args[0]), reason);
+                        if (!channel.getVoices().contains(bot.getUser(args[0])) || !channel.getOps().contains(bot.getUser(args[0]))) {
+                            bot.kick(channel, bot.getUser(args[0]), reason);
+                        } else {
+                            bot.sendNotice(sender, "I'm not allowed to kick that person!");
+                        }
                     }
                 } else {
                     bot.sendNotice(sender, "That user is not in the channel!");
