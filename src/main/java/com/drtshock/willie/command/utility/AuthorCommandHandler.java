@@ -56,7 +56,8 @@ public class AuthorCommandHandler implements CommandHandler {
             SortedSet<Plugin> plugins = new TreeSet<>();
             boolean hasNextPage;
             Document document;
-            String profilePageLink = "http://dev.bukkit.org/profiles/" + args[0];
+            String devBukkitLink = "http://dev.bukkit.org/";
+            String profilePageLink = devBukkitLink + "profiles/" + args[0];
             String nextPageLink = profilePageLink + "/bukkit-plugins/";
             do {
                 // Get the page
@@ -67,7 +68,7 @@ public class AuthorCommandHandler implements CommandHandler {
                 Element lastLink = pages.get(pages.size() - 1).child(0);
                 if (lastLink.ownText().trim().startsWith("Next")) {
                     hasNextPage = true;
-                    nextPageLink = lastLink.attr("href");
+                    nextPageLink = devBukkitLink + lastLink.attr("href");
                 } else {
                     hasNextPage = false;
                     nextPageLink = null;
