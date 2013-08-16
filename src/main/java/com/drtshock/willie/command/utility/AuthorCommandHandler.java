@@ -109,12 +109,16 @@ public class AuthorCommandHandler implements CommandHandler {
                 while (it.hasNext() && i < amount) {
                     Plugin plugin = it.next();
                     channel.sendMessage("- " + plugin.name + " (" + formatDate(plugin.lastUpdate) + ")");
+                    i++;
                 }
             }
         } catch (MalformedURLException e) {
             channel.sendMessage(Colors.RED + "Unable to find that user!");
         } catch (IOException e) {
             channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            channel.sendMessage(Colors.RED + "Malformed page received, update Willie?");
             e.printStackTrace();
         }
     }
@@ -157,7 +161,7 @@ public class AuthorCommandHandler implements CommandHandler {
     }
 
     private void nope(Channel channel) {
-        channel.sendMessage(Colors.RED + "Look up an author with !author <name> [amount}");
+        channel.sendMessage(Colors.RED + "Look up an author with !author <name> [amount]");
     }
 
     private String formatDate(long date) {
