@@ -1,39 +1,28 @@
 package com.drtshock.willie;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.pircbotx.Channel;
-import org.pircbotx.Colors;
-import org.pircbotx.PircBotX;
-import org.pircbotx.exception.IrcException;
-import org.pircbotx.exception.NickAlreadyInUseException;
-
 import com.drtshock.willie.command.Command;
 import com.drtshock.willie.command.CommandManager;
 import com.drtshock.willie.command.admin.AdminCommandHandler;
+import com.drtshock.willie.command.admin.JoinCommandHandler;
+import com.drtshock.willie.command.admin.LeaveCommandHandler;
 import com.drtshock.willie.command.admin.PrefixCommandHandler;
 import com.drtshock.willie.command.admin.ReloadCommandHandler;
 import com.drtshock.willie.command.admin.SaveCommandHandler;
+import com.drtshock.willie.command.admin.ShutdownCommandHandler;
+import com.drtshock.willie.command.fun.AgreeDisagreeCommandHandler;
 import com.drtshock.willie.command.fun.DrinkCommandHandler;
 import com.drtshock.willie.command.fun.FixCommandHandler;
 import com.drtshock.willie.command.fun.PopcornCommandHandler;
 import com.drtshock.willie.command.fun.TWSSCommandHandler;
 import com.drtshock.willie.command.fun.UrbanCommandHandler;
 import com.drtshock.willie.command.fun.WhipCommandHandler;
-import com.drtshock.willie.command.fun.AgreeDisagreeCommandHandler;
-import com.drtshock.willie.command.admin.JoinCommandHandler;
 import com.drtshock.willie.command.management.KickCommandHandler;
-import com.drtshock.willie.command.admin.LeaveCommandHandler;
-import com.drtshock.willie.command.admin.ShutdownCommandHandler;
 import com.drtshock.willie.command.minecraft.ServerCommandHandler;
 import com.drtshock.willie.command.misc.DonateCommandHandler;
 import com.drtshock.willie.command.misc.HelpCommandHandler;
-import com.drtshock.willie.command.misc.RulesCommandHandler;
 import com.drtshock.willie.command.misc.PokeCommandHandler;
+import com.drtshock.willie.command.misc.RulesCommandHandler;
+import com.drtshock.willie.command.utility.AuthorCommandHandler;
 import com.drtshock.willie.command.utility.CICommandHandler;
 import com.drtshock.willie.command.utility.DefineCommandHandler;
 import com.drtshock.willie.command.utility.IssuesCommandHandler;
@@ -45,6 +34,17 @@ import com.drtshock.willie.command.utility.UTimeCommandHandler;
 import com.drtshock.willie.jenkins.JenkinsServer;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
+import org.pircbotx.Channel;
+import org.pircbotx.Colors;
+import org.pircbotx.PircBotX;
+import org.pircbotx.exception.IrcException;
+import org.pircbotx.exception.NickAlreadyInUseException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Willie extends PircBotX {
 
@@ -80,6 +80,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("repo", "show Willie's repo", new RepoCommandHandler()));
         this.commandManager.registerCommand(new Command("latest", "<plugin_name> - Get latest file for plugin on BukkitDev", new LatestCommandHandler()));
         this.commandManager.registerCommand(new Command("plugin", "<name> - looks up a plugin on BukkitDev", new PluginCommandHandler()));
+        this.commandManager.registerCommand(new Command("author", "<name> [amount] - looks up an author on BukkitDev", new AuthorCommandHandler()));
         this.commandManager.registerCommand(new Command("issues", "<job_name> [page] - check github issues for jobs on " + willieConfig.getJenkinsServer(), new IssuesCommandHandler()));
         this.commandManager.registerCommand(new Command("ci", "shows Jenkins info", new CICommandHandler()));
         this.commandManager.registerCommand(new Command("rules", "show channel rules", new RulesCommandHandler()));
