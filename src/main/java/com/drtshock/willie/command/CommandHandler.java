@@ -7,6 +7,6 @@ import com.drtshock.willie.Willie;
 
 public interface CommandHandler {
 
-    public void handle(Willie bot, Channel channel, User sender, String[] args);
+    public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception;
 
 }

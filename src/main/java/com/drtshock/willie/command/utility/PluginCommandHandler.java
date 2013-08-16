@@ -1,5 +1,14 @@
 package com.drtshock.willie.command.utility;
 
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.command.CommandHandler;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import org.pircbotx.Channel;
+import org.pircbotx.Colors;
+import org.pircbotx.User;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,16 +19,6 @@ import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-import org.pircbotx.Channel;
-import org.pircbotx.Colors;
-import org.pircbotx.User;
-
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.command.CommandHandler;
-
 public class PluginCommandHandler implements CommandHandler {
 
     private SimpleDateFormat dateFormat;
@@ -29,7 +28,7 @@ public class PluginCommandHandler implements CommandHandler {
     }
 
     @Override
-    public void handle(Willie bot, Channel channel, User sender, String[] args) {
+    public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
         if (args.length != 1) {
             channel.sendMessage(Colors.RED + "Look up a plugin with !plugin <name>");
             return;
@@ -70,7 +69,7 @@ public class PluginCommandHandler implements CommandHandler {
             if (!containers.isEmpty()) {
                 authors.append(containers.get(0).text().trim());
             }
-            
+
             char blankc = 0x200b;
             String blank = String.valueOf(blankc);
 
@@ -92,7 +91,7 @@ public class PluginCommandHandler implements CommandHandler {
             channel.sendMessage(Colors.RED + "Unable to find that plugin!");
         } catch (IOException e) {
             channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
-            e.printStackTrace();
+            throw e; // Gist
         }
     }
 

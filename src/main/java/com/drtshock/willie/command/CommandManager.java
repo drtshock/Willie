@@ -1,72 +1,92 @@
 package com.drtshock.willie.command;
 
-import java.util.Collection;
-import java.util.HashMap;
-
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.auth.Auth;
+import com.drtshock.willie.github.GistHelper;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.hooks.Listener;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.auth.Auth;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.logging.Logger;
 
-public class CommandManager extends ListenerAdapter<Willie> implements Listener<Willie>{
+public class CommandManager extends ListenerAdapter<Willie> implements Listener<Willie> {
 
-	private Willie bot;
-	private HashMap<String, Command> commands;
-	private String cmdPrefix;
+    private static final Logger logger = Logger.getLogger(CommandManager.class.getName());
 
-	public CommandManager(Willie bot){
-		this.bot = bot;
-		this.cmdPrefix = bot.getConfig().getCommandPrefix();
-		this.commands = new HashMap<>();
-	}
+    private Willie                   bot;
+    private HashMap<String, Command> commands;
+    private String                   cmdPrefix;
 
-	public void registerCommand(Command command){
-		this.commands.put(command.getName(), command);
-	}
+    public CommandManager(Willie bot) {
+        this.bot = bot;
+        this.cmdPrefix = bot.getConfig().getCommandPrefix();
+        this.commands = new HashMap<>();
+    }
 
-	public Collection<Command> getCommands(){
-		return this.commands.values();
-	}
+    public void registerCommand(Command command) {
+        this.commands.put(command.getName(), command);
+    }
 
-	public void setCommandPrefix(String prefix){
-		this.cmdPrefix = prefix;
-	}
+    public Collection<Command> getCommands() {
+        return this.commands.values();
+    }
 
-	@Override
-	public void onMessage(MessageEvent<Willie> event){
-		String message = event.getMessage().trim();
+    public void setCommandPrefix(String prefix) {
+        this.cmdPrefix = prefix;
+    }
 
-		if(message.toLowerCase().endsWith("o/") && (!message.contains("\\o/"))){
-			event.getChannel().sendMessage("\\o");
-			return;
-		}
-		if(message.toLowerCase().endsWith("\\o") && (!message.contains("\\o/"))){
-			event.getChannel().sendMessage("o/");
-			return;
-		}
+    @Override
+    public void onMessage(MessageEvent<Willie> event) {
+        String message = event.getMessage().trim();
 
-		if(!message.startsWith(cmdPrefix)){
-			return;
-		}
+        if (message.toLowerCase().endsWith("o/") && (!message.contains("\\o/"))) {
+            event.getChannel().sendMessage("\\o");
+            return;
+        }
+        if (message.toLowerCase().endsWith("\\o") && (!message.contains("\\o/"))) {
+            event.getChannel().sendMessage("o/");
+            return;
+        }
 
-		String[] parts = message.substring(1).split(" ");
-		Channel channel = event.getChannel();
+        if (!message.startsWith(cmdPrefix)) {
+            return;
+        }
 
-		String commandName = parts[0].toLowerCase();
-		String[] args = new String[parts.length - 1];
-		System.arraycopy(parts, 1, args, 0, args.length);
+        String[] parts = message.substring(1).split(" ");
+        Channel channel = event.getChannel();
 
-		Command command = this.commands.get(commandName);
-		if(command.isAdminOnly() && !Auth.checkAuth(event.getUser()).isAdmin){
-			channel.sendMessage(Colors.RED + String.format(
-					"%s, you aren't an admin. Maybe you forgot to identify yourself?", event.getUser().getNick()));
-			return;
-		}
-		command.getHandler().handle(this.bot, channel, event.getUser(), args);
-	}
+        String commandName = parts[0].toLowerCase();
+        String[] args = new String[parts.length - 1];
+        System.arraycopy(parts, 1, args, 0, args.length);
+
+        Command command = this.commands.get(commandName);
+        if (command.isAdminOnly() && !Auth.checkAuth(event.getUser()).isAdmin) {
+            channel.sendMessage(Colors.RED +
+                                String.format("%s, you aren't an admin. Maybe you forgot to identify yourself?",
+                                              event.getUser().getNick()));
+            return;
+        }
+        try {
+            command.getHandler().handle(this.bot, channel, event.getUser(), args);
+        } catch (Exception e) {
+            Writer writer = new StringWriter();
+            PrintWriter printWriter = new PrintWriter(writer);
+            e.printStackTrace(printWriter);
+            String stackTrace = writer.toString();
+            String msg = "Exception catched when " + event.getUser().getNick() + " used the command " + commandName +
+                         ". I pasted the exception their: " + GistHelper.gist(stackTrace);
+            channel.sendMessage(Colors.RED + msg);
+            e.printStackTrace();
+            logger.severe(msg);
+
+        }
+    }
 
 }

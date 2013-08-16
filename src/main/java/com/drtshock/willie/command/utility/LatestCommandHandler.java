@@ -1,14 +1,7 @@
 package com.drtshock.willie.command.utility;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
+import com.drtshock.willie.Willie;
+import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
@@ -16,13 +9,17 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.drtshock.willie.Willie;
-import com.drtshock.willie.command.CommandHandler;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class LatestCommandHandler implements CommandHandler {
 
     @Override
-    public void handle(Willie bot, Channel channel, User sender, String[] args) {
+    public void handle(Willie bot, Channel channel, User sender, String[] args)throws Exception {
         if (args.length != 1) {
             channel.sendMessage(Colors.RED + "Check latest BukkitDev version of a plugin by doing .latest <slug>");
             return;
@@ -56,9 +53,7 @@ public class LatestCommandHandler implements CommandHandler {
             channel.sendMessage(Colors.RED + "Unable to find that plugin!");
         } catch (IOException e) {
             channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
+            throw e;
         }
     }
 

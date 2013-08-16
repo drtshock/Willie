@@ -1,21 +1,20 @@
 package com.drtshock.willie.command.utility;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import org.pircbotx.Channel;
-import org.pircbotx.Colors;
-import org.pircbotx.User;
-
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
 import com.drtshock.willie.github.GitHubIssue;
 import com.drtshock.willie.jenkins.JenkinsJob;
+import org.pircbotx.Channel;
+import org.pircbotx.Colors;
+import org.pircbotx.User;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class IssuesCommandHandler implements CommandHandler {
 
     @Override
-    public void handle(Willie bot, Channel channel, User sender, String[] args) {
+    public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception{
         if (args.length == 0) {
             channel.sendMessage(Colors.RED + "Usage: .issues <job_name> [page]");
             return;
@@ -66,6 +65,7 @@ public class IssuesCommandHandler implements CommandHandler {
             channel.sendMessage(Colors.RED + "No such job");
         } catch (IOException e) {
             channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
+            throw e;
         }
     }
 

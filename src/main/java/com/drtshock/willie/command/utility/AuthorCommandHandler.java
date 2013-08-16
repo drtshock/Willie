@@ -31,7 +31,7 @@ public class AuthorCommandHandler implements CommandHandler {
     }
 
     @Override
-    public void handle(Willie bot, Channel channel, User sender, String[] args) {
+    public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
         if (args.length != 1 && args.length != 2) {
             nope(channel);
             return;
@@ -116,10 +116,7 @@ public class AuthorCommandHandler implements CommandHandler {
             channel.sendMessage(Colors.RED + "Unable to find that user!");
         } catch (IOException e) {
             channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
-            e.printStackTrace();
-        } catch (NullPointerException e) {
-            channel.sendMessage(Colors.RED + "Malformed page received, update Willie?");
-            e.printStackTrace();
+            throw e;
         }
     }
 
