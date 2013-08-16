@@ -81,7 +81,7 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
             e.printStackTrace(printWriter);
             String stackTrace = writer.toString();
             String msg = "Exception catched when " + event.getUser().getNick() + " used the command " + commandName +
-                         ". I pasted the exception their: " + GistHelper.gist(stackTrace);
+                         ". I pasted the exception there: " + GistHelper.gist(stackTrace);
             channel.sendMessage(Colors.RED + msg);
             e.printStackTrace();
             logger.severe(msg);
