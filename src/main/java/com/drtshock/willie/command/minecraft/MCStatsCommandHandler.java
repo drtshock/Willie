@@ -41,7 +41,7 @@ public class MCStatsCommandHandler implements CommandHandler {
                                 ") | Players: " + Colors.BOLD + stats.players + Colors.NORMAL + " (" + colorizeDiff(stats.playersDiff));
             channel.sendMessage("For more informations: " + WebHelper.shortenURL(pluginStatsURL));
         } catch (FileNotFoundException | MalformedURLException | IndexOutOfBoundsException e) {
-            channel.sendMessage(Colors.RED + "Plugin unknown by MCStats");
+            channel.sendMessage(Colors.RED + "Plugin could not be found.");
         } catch (IOException e) {
             channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
             throw e; // Gist
