@@ -26,6 +26,9 @@ public class PopcornCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
+          if (channel.getName().equalsIgnoreCase("#hawkfalcon")) {
+            return;
+        }
         bot.sendAction(channel, this.messages.get(this.rand.nextInt(this.messages.size())));
     }
 
