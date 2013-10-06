@@ -51,6 +51,7 @@ import com.drtshock.willie.command.utility.IssuesCommandHandler;
 import com.drtshock.willie.command.utility.LatestCommandHandler;
 import com.drtshock.willie.command.utility.PluginCommandHandler;
 import com.drtshock.willie.command.utility.RepoCommandHandler;
+import com.drtshock.willie.command.utility.RandomNumberCommandHandler;
 import com.drtshock.willie.command.utility.ShortenCommandHandler;
 import com.drtshock.willie.command.utility.UTimeCommandHandler;
 import com.drtshock.willie.jenkins.JenkinsServer;
@@ -175,7 +176,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("gstats", "[auth] - Global MCStats stats", new GlobalMCStatsCommandHandler()));
         this.commandManager.registerCommand(new Command("xkcd", "<nb> - Get an xkcd", new XKCDCommandHandler()));
         this.commandManager.registerCommand(new Command("botsnack", "feed the bot!", new BotSnacksCommandHandler()));
-
+        this.commandManager.registerCommand(new Command("Random", "Get a ranom bumber between 1 and 100!", new RandomNumberCommandHandler()));
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
         this.commandManager.registerCommand(new Command("shutdown", "shuts the bot down", new ShutdownCommandHandler(), true));
         this.commandManager.registerCommand(new Command("leave", "<channel> - Leaves a channel", new LeaveCommandHandler(), true));
