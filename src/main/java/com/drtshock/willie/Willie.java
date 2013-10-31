@@ -17,26 +17,21 @@
  */
 package com.drtshock.willie;
 
-import com.drtshock.willie.command.Command;
-import com.drtshock.willie.command.CommandManager;
+import com.drtshock.willie.command.*;
 import com.drtshock.willie.command.admin.*;
 import com.drtshock.willie.command.fun.*;
-import com.drtshock.willie.command.management.JoinMessageCommandHandler;
-import com.drtshock.willie.command.management.KickCommandHandler;
-import com.drtshock.willie.command.minecraft.GlobalMCStatsCommandHandler;
-import com.drtshock.willie.command.minecraft.MCStatsCommandHandler;
-import com.drtshock.willie.command.minecraft.ServerCommandHandler;
+import com.drtshock.willie.command.management.*;
+import com.drtshock.willie.command.minecraft.*;
 import com.drtshock.willie.command.misc.*;
 import com.drtshock.willie.command.utility.*;
-import com.drtshock.willie.jenkins.JenkinsServer;
-import com.drtshock.willie.listener.JoinListener;
+import com.drtshock.willie.jenkins.*;
+import com.drtshock.willie.listener.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.PircBotX;
-import org.pircbotx.exception.IrcException;
-import org.pircbotx.exception.NickAlreadyInUseException;
+import org.pircbotx.exception.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -160,6 +155,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("urban", "<word|phrase> - defines a word using the urban dictionary", new UrbanCommandHandler()));
         this.commandManager.registerCommand(new Command("utime", "converts a unix timestamp to human time", new UTimeCommandHandler()));
         this.commandManager.registerCommand(new Command("w", "<person> <reason> whips people", new WhipCommandHandler()));
+        this.commandManager.registerCommand(new Command("wtweet", "<message> tweet a message from @WillieIRC", new WTweetCommandHandler(), true));
         this.commandManager.registerCommand(new Command("xkcd", "<nb> - Get an xkcd", new XKCDCommandHandler()));
 
         this.setName(willieConfig.getNick());
