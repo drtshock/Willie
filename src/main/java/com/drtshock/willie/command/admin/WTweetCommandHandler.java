@@ -29,7 +29,7 @@ public class WTweetCommandHandler implements CommandHandler {
     		Twitter twitter = tf.getInstance();
     		
             try {
-            	StringBuilder status;
+            	StringBuilder status = new StringBuilder();
             	for (String arg : args) {
             		status.append(arg + " ");
             	}
