@@ -13,7 +13,7 @@ public class HelpCommandHandler implements CommandHandler {
         String cmdPrefix = bot.getConfig().getCommandPrefix();
         for (Command command : bot.commandManager.getCommands()) {
             if (command.isAdminOnly()) {
-                if (channel.getOps().contains(sender)) {
+                if (bot.getConfig().getAdmins().contains(sender)) {
                     sender.sendMessage(cmdPrefix + command.getName() + " - " + command.getHelp());
                 }
             } else {
