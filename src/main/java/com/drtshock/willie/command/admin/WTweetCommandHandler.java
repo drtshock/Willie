@@ -7,10 +7,7 @@ import org.pircbotx.User;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import twitter4j.conf.ConfigurationContext;
-import twitter4j.http.AccessToken;
-import twitter4j.http.OAuthAuthorization;
-
+import twitter4j.conf.ConfigurationBuilder;
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
 
@@ -22,17 +19,22 @@ public class WTweetCommandHandler implements CommandHandler {
         if (args.length == 0) {
         	channel.sendMessage(Colors.RED + "Please provide a message " + sender.getNick() + "! !wtweet <message>");
         } else {
-        	String ACCESS_TOKEN = bot.getConfig().getTwitterAccessToken();
-            String ACCESS_TOKEN_SECRET = bot.getConfig().getTwitterAccessTokenSecret();
-            String CONSUMER_KEY = bot.getConfig().getTwitterConsumerKey();
-            String CONSUMER_SECRET = bot.getConfig().getTwitterConsumerKeySecret();
-            String tweet = args[0];
-            
-            AccessToken accessToken = new AccessToken(ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
-            OAuthAuthorization authorization = new OAuthAuthorization(ConfigurationContext.getInstance(), CONSUMER_KEY, CONSUMER_SECRET, accessToken);
-            Twitter twitter = new TwitterFactory().getInstance(authorization);
+        	ConfigurationBuilder cb = new ConfigurationBuilder();
+    		cb.setDebugEnabled(true)
+    		  .setOAuthConsumerKey(bot.getConfig().getTwitterConsumerKey())
+    		  .setOAuthConsumerSecret(bot.getConfig().getTwitterConsumerKeySecret())
+    		  .setOAuthAccessToken(bot.getConfig().getTwitterAccessToken())
+    		  .setOAuthAccessTokenSecret(bot.getConfig().getTwitterAccessTokenSecret());
+    		TwitterFactory tf = new TwitterFactory(cb.build());
+    		Twitter twitter = tf.getInstance();
+    		
             try {
-                twitter.updateStatus(tweet);
+            	StringBuilder status;
+            	for (String arg : args) {
+            		status.append(arg + " ");
+            	}
+            	
+            	twitter.updateStatus(status.toString());
                 channel.sendMessage(Colors.GREEN + sender.getNick() + " your message was tweeted!");
             } catch (TwitterException e) {
                 e.printStackTrace();
