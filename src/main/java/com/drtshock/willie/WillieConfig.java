@@ -45,6 +45,10 @@ public class WillieConfig {
         configMap.put("port", "5555");
         configMap.put("channels", botChannels);
         configMap.put("command-prefix", "!");
+        configMap.put("twitter-consumer-key", "change-me");
+        configMap.put("twitter-consumer-key-secret", "change-me");
+        configMap.put("twitter-access-token", "change-me");
+        configMap.put("twitter-access-token-secret", "change-me");
     }
 
     public LinkedHashMap<String, Object> getConfigMap() {
@@ -239,5 +243,21 @@ public class WillieConfig {
 
     public ArrayList<String> getJenkinsAdmins() {
         return jenkinsAdmins;
+    }
+    
+    public String getTwitterConsumerKey() {
+    	return (String) configMap.get("twitter-consumer-key");
+    }
+    
+    public String getTwitterConsumerKeySecret() {
+    	return (String) configMap.get("twitter-consumer-key-secret");
+    }
+    
+    public String getTwitterAccessToken() {
+    	return (String) configMap.get("twitter-access-token");
+    }
+    
+    public String getTwitterAccessTokenSecret() {
+    	return (String) configMap.get("twitter-access-token-secret");
     }
 }

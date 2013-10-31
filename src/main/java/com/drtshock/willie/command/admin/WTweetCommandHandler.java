@@ -22,10 +22,10 @@ public class WTweetCommandHandler implements CommandHandler {
         if (args.length == 0) {
         	channel.sendMessage(Colors.RED + "Please provide a message " + sender.getNick() + "! !wtweet <message>");
         } else {
-        	String ACCESS_TOKEN = "2166071346-IW8eiiYn8ihnJq8nxSkQ2t6Q1IZwfxXM76t5Q4V";
-            String ACCESS_TOKEN_SECRET = "TycBrtKSoZDXdWSvrYwJTmdS6GKcpQj1y2X34crO5roS7";
-            String CONSUMER_KEY = "FtuTrGYkLEO9GEP6lQ8ipA";
-            String CONSUMER_SECRET = "fk8TxLnllu2QSuW4eIoOyq2P7OKjRdM1ovjDiqoKwA";
+        	String ACCESS_TOKEN = bot.getConfig().getTwitterAccessToken();
+            String ACCESS_TOKEN_SECRET = bot.getConfig().getTwitterAccessTokenSecret();
+            String CONSUMER_KEY = bot.getConfig().getTwitterConsumerKey();
+            String CONSUMER_SECRET = bot.getConfig().getTwitterConsumerKeySecret();
             String tweet = args[0];
             
             AccessToken accessToken = new AccessToken(ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
