@@ -13,6 +13,6 @@ public class PokeCommandHandler implements CommandHandler {
         if (args.length >= 1) {
             poke = args[0];
         }
-        bot.sendAction(channel, "pokes " + poke);
+        channel.send().message("pokes " + poke);
     }
 }

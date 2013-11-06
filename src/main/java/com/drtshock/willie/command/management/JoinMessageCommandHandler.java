@@ -30,7 +30,7 @@ public class JoinMessageCommandHandler implements CommandHandler {
                 }
                 String jm = sb.toString().trim();
                 bot.getConfig().setJoinMessage(channel, jm);
-                bot.sendAction(channel, "sets join message to \"" + jm + "\"");
+                channel.send().message("sets join message to \"" + jm + "\"");
                 bot.save();
             } else {
                 sender.send().message("Usage: /joinmsg <delete | ...>");

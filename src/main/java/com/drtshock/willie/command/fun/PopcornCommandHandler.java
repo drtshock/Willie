@@ -28,6 +28,6 @@ public class PopcornCommandHandler implements CommandHandler {
         if (channel.getName().equalsIgnoreCase("#hawkfalcon")) {
             return; // TODO: Add better way to disable commands per channel.
         }
-        bot.sendAction(channel, this.messages.get(this.rand.nextInt(this.messages.size())));
+        channel.send().message(this.messages.get(this.rand.nextInt(this.messages.size())));
     }
 }

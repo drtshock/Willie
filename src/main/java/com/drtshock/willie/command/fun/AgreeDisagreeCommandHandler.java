@@ -22,13 +22,13 @@ public class AgreeDisagreeCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         if (args.length == 0) {
-            bot.sendAction(channel, (!yes ? "dis" : "") + "agrees");
+            channel.send().message((!yes ? "dis" : "") + "agrees");
         } else {
             StringBuilder sb = new StringBuilder();
             for (String arg : args) {
                 sb.append(arg).append(" ");
             }
-            bot.sendAction(channel, (!yes ? "dis" : "") + "agrees to " + sb.toString());
+            channel.send().message(!yes ? "dis" : "agrees to " + sb.toString());
         }
     }
 }

@@ -31,6 +31,6 @@ public class DrinkCommandHandler implements CommandHandler {
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         String message;
         message = String.format(this.messages.get(this.rand.nextInt(this.messages.size())), (args.length > 0) ? args[0] : "");
-        bot.sendAction(channel, message);
+        channel.send().message(message);
     }
 }

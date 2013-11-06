@@ -9,6 +9,6 @@ public class BotSnacksCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        bot.sendAction(channel, "NOM NOM NOM");
+    	channel.send().message("NOM NOM NOM");
     }
 }
