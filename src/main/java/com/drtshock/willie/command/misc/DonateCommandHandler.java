@@ -27,6 +27,6 @@ public class DonateCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         String message = String.format(this.messages.get(this.rand.nextInt(this.messages.size())), bot.getConfig().getDonateUrl());
-        channel.sendMessage(message);
+        channel.send().message(message);
     }
 }

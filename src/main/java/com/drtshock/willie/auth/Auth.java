@@ -10,7 +10,7 @@ public class Auth {
     public static AuthResponse checkAuth(User user) {
         Willie willie = Willie.getInstance();
 
-        willie.getUser("NickServ").sendMessage(String.format("ACC %s *", user.getNick()));
+        willie.getUser("NickServ").send().message(String.format("ACC %s *", user.getNick()));
         WaitForQueue queue = new WaitForQueue(willie);
         try {
             NoticeEvent<?> event = queue.waitFor(NoticeEvent.class);

@@ -18,7 +18,7 @@ public class WTweetCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         if (args.length == 0) {
-            channel.sendMessage(Colors.RED + "Please provide a message " + sender.getNick() + "! Syntax: !wtweet <message>");
+            channel.send().message(Colors.RED + "Please provide a message " + sender.getNick() + "! Syntax: !wtweet <message>");
         } else {
             ConfigurationBuilder cb = new ConfigurationBuilder();
             cb.setDebugEnabled(true)
@@ -36,11 +36,11 @@ public class WTweetCommandHandler implements CommandHandler {
                 }
 
                 twitter.updateStatus("(" + sender.getNick() + ") " + status.toString());
-                channel.sendMessage(Colors.TEAL + sender.getNick() + " your message was tweeted!");
-                channel.sendMessage(Colors.CYAN + "Check out Willie on Twitter! https://twitter.com/WillieIRC");
+                channel.send().message(Colors.TEAL + sender.getNick() + " your message was tweeted!");
+                channel.send().message(Colors.CYAN + "Check out Willie on Twitter! https://twitter.com/WillieIRC");
             } catch (TwitterException e) {
                 e.printStackTrace();
-                channel.sendMessage(Colors.RED + "Error occurred while tweeting! Is it configured correctly?");
+                channel.send().message(Colors.RED + "Error occurred while tweeting! Is it configured correctly?");
             }
         }
     }

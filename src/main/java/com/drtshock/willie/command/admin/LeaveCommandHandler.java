@@ -12,7 +12,7 @@ public class LeaveCommandHandler implements CommandHandler {
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         Channel leaveChannel = channel;
         if (bot.getUserBot().getChannels().size() == 1) {
-            channel.sendMessage(Colors.RED + "Please don't make me leave!");
+            channel.send().message(Colors.RED + "Please don't make me leave!");
             return;
         }
         if (args.length >= 1) {
@@ -22,14 +22,14 @@ public class LeaveCommandHandler implements CommandHandler {
             leaveChannel = bot.getChannel(args[0]);
 
             if (!bot.isOnChannel(args[0])) {
-                channel.sendMessage(Colors.RED + "Was I supposed to be in there?");
+                channel.send().message(Colors.RED + "Was I supposed to be in there?");
                 return;
             } else if (channel != leaveChannel) {
-                channel.sendMessage(Colors.RED + String.format("Leaving channel %s", leaveChannel.getName()));
+                channel.send().message(Colors.RED + String.format("Leaving channel %s", leaveChannel.getName()));
             }
         }
         if (!(args.length == 2 && args[1].equalsIgnoreCase("silent"))) {
-            leaveChannel.sendMessage(Colors.RED + String.format("%s says I don't belong here...", sender.getNick()));
+            leaveChannel.send().message(Colors.RED + String.format("%s says I don't belong here...", sender.getNick()));
         }
         bot.partChannel(leaveChannel);
     }

@@ -25,7 +25,7 @@ public class JoinListener extends ListenerAdapter<Willie> implements Listener<Wi
         User sender = event.getUser();
         if (!(channel.getVoices().contains(sender) || channel.getOps().contains(sender)) && bot.getConfig().hasJoinMessage(channel)) {
             String message = event.getBot().getConfig().getJoinMessage(channel).replace("{name}", sender.getNick());
-            event.getChannel().sendMessage(Colors.RED + "[AutoMsg] " + Colors.NORMAL + message);
+            event.getChannel().send().message(Colors.RED + "[AutoMsg] " + Colors.NORMAL + message);
         }
     }
 }

@@ -48,7 +48,7 @@ public class MCStatsCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
         if (args.length != 1) {
-            channel.sendMessage(Colors.RED + "Outputs MCStats informations with !stats <name>");
+            channel.send().message(Colors.RED + "Outputs MCStats informations with !stats <name>");
             return;
         }
 
@@ -110,13 +110,13 @@ public class MCStatsCommandHandler implements CommandHandler {
             }
 
             for (String msg : messages) {
-                channel.sendMessage(msg);
+                channel.send().message(msg);
             }
         } catch (FileNotFoundException | MalformedURLException | IndexOutOfBoundsException | NumberFormatException e) {
             LOG.log(Level.INFO, "No stats found for plugin " + args[0], e);
-            channel.sendMessage(Colors.RED + "No stats found for plugin " + args[0]);
+            channel.send().message(Colors.RED + "No stats found for plugin " + args[0]);
         } catch (IOException e) {
-            channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
+            channel.send().message(Colors.RED + "Failed: " + e.getMessage());
             throw e; // Gist
         }
     }

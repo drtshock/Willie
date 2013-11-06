@@ -28,6 +28,6 @@ public class CakeCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        channel.sendMessage(this.messages.get(this.rand.nextInt(this.messages.size())));
+        channel.send().message(this.messages.get(this.rand.nextInt(this.messages.size())));
     }
 }

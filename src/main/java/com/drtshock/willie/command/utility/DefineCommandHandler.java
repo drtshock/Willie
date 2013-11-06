@@ -15,7 +15,7 @@ public class DefineCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         if (args.length == 0) {
-            channel.sendMessage(Colors.RED + "Usage: !define <word|phrase>");
+            channel.send().message(Colors.RED + "Usage: !define <word|phrase>");
         } else {
             StringBuilder sb = new StringBuilder();
             for (String arg : args) {
@@ -31,13 +31,13 @@ public class DefineCommandHandler implements CommandHandler {
             }
 
             if (def == null) {
-                channel.sendMessage(Colors.RED + "I couldn't lookup that definition. D:");
+                channel.send().message(Colors.RED + "I couldn't lookup that definition. D:");
                 return;
             }
 
-            channel.sendMessage("Word: " + Colors.BLUE + query.replace('+', ' '));
-            channel.sendMessage("Definition: " + def.getDefinition());
-            channel.sendMessage("For a full definition visit: " + def.getUrl());
+            channel.send().message("Word: " + Colors.BLUE + query.replace('+', ' '));
+            channel.send().message("Definition: " + def.getDefinition());
+            channel.send().message("For a full definition visit: " + def.getUrl());
         }
     }
 }

@@ -14,10 +14,10 @@ public class HelpCommandHandler implements CommandHandler {
         for (Command command : bot.commandManager.getCommands()) {
             if (command.isAdminOnly()) {
                 if (bot.getConfig().getAdmins().contains(sender)) {
-                    sender.sendMessage(cmdPrefix + command.getName() + " - " + command.getHelp());
+                    sender.send().message(cmdPrefix + command.getName() + " - " + command.getHelp());
                 }
             } else {
-                sender.sendMessage(cmdPrefix + command.getName() + " - " + command.getHelp());
+                sender.send().message(cmdPrefix + command.getName() + " - " + command.getHelp());
             }
         }
     }

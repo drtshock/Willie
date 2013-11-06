@@ -12,7 +12,7 @@ public class ShutdownCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        channel.sendMessage("Away with me!");
+        channel.send().message("Away with me!");
         while (bot.getOutgoingQueueSize() > 0) {
             // Wait for all pending messages to be sent
         }

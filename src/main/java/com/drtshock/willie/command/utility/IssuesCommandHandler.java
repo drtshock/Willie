@@ -16,7 +16,7 @@ public class IssuesCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
         if (args.length == 0) {
-            channel.sendMessage(Colors.RED + "Usage: .issues <job_name> [page]");
+            channel.send().message(Colors.RED + "Usage: .issues <job_name> [page]");
             return;
         }
 
@@ -26,12 +26,12 @@ public class IssuesCommandHandler implements CommandHandler {
             try {
                 page = Integer.parseInt(args[1]);
             } catch (NumberFormatException e) {
-                channel.sendMessage(Colors.RED + "Invalid page number");
+                channel.send().message(Colors.RED + "Invalid page number");
                 return;
             }
 
             if (page < 1) {
-                channel.sendMessage(Colors.RED + "Invalid page number");
+                channel.send().message(Colors.RED + "Invalid page number");
                 return;
             }
         }
@@ -42,7 +42,7 @@ public class IssuesCommandHandler implements CommandHandler {
             GitHubIssue[] issues = job.getIssues();
 
             if (issues.length == 0) {
-                channel.sendMessage(Colors.GREEN + job.getDisplayName() + " has no open issues \\o/");
+                channel.send().message(Colors.GREEN + job.getDisplayName() + " has no open issues \\o/");
                 return;
             }
 
@@ -52,19 +52,19 @@ public class IssuesCommandHandler implements CommandHandler {
             int end = Math.min(issues.length, start + perPage);
 
             if (start >= end) {
-                channel.sendMessage(Colors.RED + "Invalid page number");
+                channel.send().message(Colors.RED + "Invalid page number");
                 return;
             }
 
-            channel.sendMessage(Colors.BLUE + job.getDisplayName() + Colors.NORMAL + " has " + Colors.RED + issues.length + Colors.NORMAL + " open issue(s) page " + page + " of " + pages);
+            channel.send().message(Colors.BLUE + job.getDisplayName() + Colors.NORMAL + " has " + Colors.RED + issues.length + Colors.NORMAL + " open issue(s) page " + page + " of " + pages);
 
             for (int i = start; i < end; ++i) {
-                channel.sendMessage(" #" + issues[i].getNumber() + " - " + issues[i].getTitle());
+                channel.send().message(" #" + issues[i].getNumber() + " - " + issues[i].getTitle());
             }
         } catch (FileNotFoundException e) {
-            channel.sendMessage(Colors.RED + "No such job");
+            channel.send().message(Colors.RED + "No such job");
         } catch (IOException e) {
-            channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
+            channel.send().message(Colors.RED + "Failed: " + e.getMessage());
             throw e;
         }
     }

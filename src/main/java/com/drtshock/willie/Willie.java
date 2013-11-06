@@ -228,7 +228,7 @@ public class Willie extends PircBotX {
         // Server
         if (!willieConfig.getServer().equals(getServer())) {
             for (Channel channel : getChannels()) {
-                channel.sendMessage("Uh oh...looks like I'm on the wrong server.");
+                channel.send().message("Uh oh...looks like I'm on the wrong server.");
             }
             LOG.info("Bot seems to be on the wrong server! Reconnecting...");
             disconnect();
@@ -242,12 +242,12 @@ public class Willie extends PircBotX {
             if (!oldChannels.contains(channel)) {
                 joinChannel(channel);
                 LOG.log(Level.INFO, "Joined new channel {0}", channel);
-                getChannel(channel).sendMessage(Colors.GREEN + "Someone told me I belong here.");
+                getChannel(channel).send().message(Colors.GREEN + "Someone told me I belong here.");
             }
         }
         for (String channel : oldChannels) {
             if (!newChannels.contains(channel)) {
-                getChannel(channel).sendMessage(Colors.RED + "Looks like I don't belong here...");
+                getChannel(channel).send().message(Colors.RED + "Looks like I don't belong here...");
                 LOG.log(Level.INFO, "Leaving channel {0}", channel);
                 partChannel(getChannel(channel));
             }

@@ -9,6 +9,6 @@ public class TWSSCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        channel.sendMessage("That's what she said!");
+        channel.send().message("That's what she said!");
     }
 }

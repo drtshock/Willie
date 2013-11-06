@@ -10,9 +10,9 @@ public class FixCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         if (args.length != 1) {
-            channel.sendMessage("Fix it!");
+            channel.send().message("Fix it!");
         } else {
-            channel.sendMessage(String.format("Fix it %s!", args[0]));
+            channel.send().message(String.format("Fix it %s!", args[0]));
         }
     }
 }

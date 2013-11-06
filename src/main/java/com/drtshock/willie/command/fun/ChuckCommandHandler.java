@@ -21,9 +21,9 @@ public class ChuckCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         try {
-            channel.sendMessage(getQuote("http://api.icndb.com/jokes/random?limitTo=[nerdy]"));
+            channel.send().message(getQuote("http://api.icndb.com/jokes/random?limitTo=[nerdy]"));
         } catch (IOException e) {
-            channel.sendMessage("Error occured! Chuck Norris is too awesome for me to handle.");
+            channel.send().message("Error occured! Chuck Norris is too awesome for me to handle.");
             e.printStackTrace();
         }
     }

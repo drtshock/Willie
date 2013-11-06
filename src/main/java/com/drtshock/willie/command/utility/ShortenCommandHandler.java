@@ -17,12 +17,12 @@ public class ShortenCommandHandler implements CommandHandler {
         if (args.length == 1) {
             String url = WebHelper.shortenURL(args[0]);
             if ("".equals(url)) {
-                channel.sendMessage(Colors.RED + "Sorry but I couldn't shorten that for you.");
+                channel.send().message(Colors.RED + "Sorry but I couldn't shorten that for you.");
             } else {
-                channel.sendMessage("Here ya go: " + url);
+                channel.send().message("Here ya go: " + url);
             }
         } else {
-            channel.sendMessage("!shorten <url>");
+            channel.send().message("!shorten <url>");
         }
     }
 }

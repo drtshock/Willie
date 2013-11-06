@@ -22,18 +22,18 @@ public class AdminCommandHandler implements CommandHandler {
                 }
                 User user = bot.getUser(args[1]);
                 if (sender.getNick().toLowerCase().equals(args[1].toLowerCase())) {
-                    channel.sendMessage("Huh?");
+                    channel.send().message("Huh?");
                     return;
                 } else if (bot.getConfig().getAdmins().contains(args[1])) {
-                    channel.sendMessage(Colors.GREEN + String.format("%s is already an admin.", args[1]));
+                    channel.send().message(Colors.GREEN + String.format("%s is already an admin.", args[1]));
                 } else {
                     AuthResponse auth = Auth.checkAuth(user);
                     if (auth.isLoggedIn) {
                         bot.getConfig().addAdmin(auth.accountName);
-                        channel.sendMessage(Colors.GREEN + String.format("Added %s as an admin!", args[1]));
-                        bot.sendMessage(args[1], Colors.GREEN + "You've been added as an admin!");
+                        channel.send().message(Colors.GREEN + String.format("Added %s as an admin!", args[1]));
+                        bot.send().message(args[1], Colors.GREEN + "You've been added as an admin!");
                     } else {
-                        channel.sendMessage(Colors.RED + String.format("%s is not identified with NickServ", user.getNick()));
+                        channel.send().message(Colors.RED + String.format("%s is not identified with NickServ", user.getNick()));
                     }
                 }
                 break;
@@ -43,18 +43,18 @@ public class AdminCommandHandler implements CommandHandler {
                 if (args.length != 2) {
                     return;
                 } else if (sender.getNick().toLowerCase().equals(args[1].toLowerCase())) {
-                    channel.sendMessage(Colors.CYAN + "Huh?");
+                    channel.send().message(Colors.CYAN + "Huh?");
                     return;
                 } else if (!bot.getConfig().getAdmins().contains(args[1])) {
-                    channel.sendMessage(Colors.RED + String.format("%s is not an admin.", args[1]));
+                    channel.send().message(Colors.RED + String.format("%s is not an admin.", args[1]));
                 } else {
                     bot.getConfig().removeAdmin(args[1]);
-                    channel.sendMessage(Colors.RED + String.format("Removed %s from the admin list.", args[1]));
-                    bot.sendMessage(args[1], Colors.RED + "Sorry, you're no longer an admin.");
+                    channel.send().message(Colors.RED + String.format("Removed %s from the admin list.", args[1]));
+                    bot.send().message(args[1], Colors.RED + "Sorry, you're no longer an admin.");
                 }
                 break;
             case "list":
-                channel.sendMessage("The admins are: " + bot.getConfig().getAdmins());
+                channel.send().message("The admins are: " + bot.getConfig().getAdmins());
                 break;
         }
     }

@@ -78,10 +78,10 @@ public class AuthorCommandHandler implements CommandHandler {
 
                 // Check if there is at least one plugin
                 if (document.getElementsByClass("listing-none-found").size() > 0) {
-                    channel.sendMessage(Tools.silence(user.name) + " - " + user.state + " (" + WebHelper.shortenURL(profilePageLink) + ") | Reputation: " + user.reputation + " | No Project");
-                    channel.sendMessage("Join date: " + user.joined + " | Status: " + user.lastLogin);
+                    channel.send().message(Tools.silence(user.name) + " - " + user.state + " (" + WebHelper.shortenURL(profilePageLink) + ") | Reputation: " + user.reputation + " | No Project");
+                    channel.send().message("Join date: " + user.joined + " | Status: " + user.lastLogin);
                     if (user.state.contains("Banned")) {
-                        channel.sendMessage("Ban reason: " + user.banReason);
+                        channel.send().message("Ban reason: " + user.banReason);
                     }
                     return;
                 }
@@ -114,7 +114,7 @@ public class AuthorCommandHandler implements CommandHandler {
                         try {
                             plugin.lastUpdate = Long.parseLong(date);
                         } catch (NumberFormatException ex) {
-                            channel.sendMessage(Colors.RED + "An error occured: Cannot parse \"" + date + "\" as a long.");
+                            channel.send().message(Colors.RED + "An error occured: Cannot parse \"" + date + "\" as a long.");
                             return;
                         }
                         LOG.log(Level.INFO, "Adding plugin {0}", plugin.name);
@@ -125,31 +125,31 @@ public class AuthorCommandHandler implements CommandHandler {
 
             Iterator<Plugin> it = plugins.iterator();
 
-            channel.sendMessage(Tools.silence(user.name) + " - " + user.state + " (" + WebHelper.shortenURL(profilePageLink) + ") | Reputation: " + user.reputation + " | Projects: " + plugins.size());
-            channel.sendMessage("Join date: " + user.joined + " | Status: " + user.lastLogin);
+            channel.send().message(Tools.silence(user.name) + " - " + user.state + " (" + WebHelper.shortenURL(profilePageLink) + ") | Reputation: " + user.reputation + " | Projects: " + plugins.size());
+            channel.send().message("Join date: " + user.joined + " | Status: " + user.lastLogin);
             if (user.state.contains("Banned")) {
-                channel.sendMessage("Ban reason: " + user.banReason);
+                channel.send().message("Ban reason: " + user.banReason);
             }
             if (plugins.isEmpty()) { // Should not happen
-                channel.sendMessage(Colors.RED + "Unknown user or user without plugins");
+                channel.send().message(Colors.RED + "Unknown user or user without plugins");
             } else if (amount == 1) {
                 Plugin plugin = it.next();
-                channel.sendMessage("Last updated plugin: " + Tools.silence(plugin.name) + " (" + formatDate(plugin.lastUpdate) + ")");
+                channel.send().message("Last updated plugin: " + Tools.silence(plugin.name) + " (" + formatDate(plugin.lastUpdate) + ")");
             } else {
-                channel.sendMessage((amount < plugins.size() ? amount : plugins.size()) + " last updated plugins:");
+                channel.send().message((amount < plugins.size() ? amount : plugins.size()) + " last updated plugins:");
                 int i = 0;
                 while (it.hasNext() && i < amount) {
                     Plugin plugin = it.next();
-                    channel.sendMessage("- " + Tools.silence(plugin.name) + " (" + formatDate(plugin.lastUpdate) + ")");
+                    channel.send().message("- " + Tools.silence(plugin.name) + " (" + formatDate(plugin.lastUpdate) + ")");
                     i++;
                 }
             }
 
             LOG.info("Command execution successful!");
         } catch (FileNotFoundException | MalformedURLException e) {
-            channel.sendMessage(Colors.RED + "Unable to find that user!");
+            channel.send().message(Colors.RED + "Unable to find that user!");
         } catch (IOException e) {
-            channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
+            channel.send().message(Colors.RED + "Failed: " + e.getMessage());
             throw e;
         }
     }
@@ -246,7 +246,7 @@ public class AuthorCommandHandler implements CommandHandler {
     }
 
     private void nope(Channel channel) {
-        channel.sendMessage(Colors.RED + "Look up an author with !author <name> [amount]");
+        channel.send().message(Colors.RED + "Look up an author with !author <name> [amount]");
     }
 
     private String formatDate(long date) {

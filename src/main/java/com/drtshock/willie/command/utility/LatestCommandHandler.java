@@ -21,7 +21,7 @@ public class LatestCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
         if (args.length != 1) {
-            channel.sendMessage(Colors.RED + "Check latest BukkitDev version of a plugin by doing " + Willie.getInstance().getConfig().getCommandPrefix() + "latest <slug>");
+            channel.send().message(Colors.RED + "Check latest BukkitDev version of a plugin by doing " + Willie.getInstance().getConfig().getCommandPrefix() + "latest <slug>");
             return;
         }
 
@@ -40,19 +40,19 @@ public class LatestCommandHandler implements CommandHandler {
             NodeList links = feed.getElementsByTagName("link");
 
             if (titles.getLength() <= 1 || links.getLength() <= 1) {
-                channel.sendMessage(args[0] + " has no files");
+                channel.send().message(args[0] + " has no files");
                 return;
             }
 
-            channel.sendMessage(Colors.PURPLE + "Latest release: " + titles.item(1).getTextContent() + " | Link: " + links.item(1).getTextContent());
+            channel.send().message(Colors.PURPLE + "Latest release: " + titles.item(1).getTextContent() + " | Link: " + links.item(1).getTextContent());
         } catch (FileNotFoundException e) {
-            channel.sendMessage(Colors.RED + "Project not found");
+            channel.send().message(Colors.RED + "Project not found");
         } catch (SAXException e) {
-            channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
+            channel.send().message(Colors.RED + "Failed: " + e.getMessage());
         } catch (MalformedURLException e) {
-            channel.sendMessage(Colors.RED + "Unable to find that plugin!");
+            channel.send().message(Colors.RED + "Unable to find that plugin!");
         } catch (IOException e) {
-            channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
+            channel.send().message(Colors.RED + "Failed: " + e.getMessage());
             throw e;
         }
     }

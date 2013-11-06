@@ -58,7 +58,7 @@ public class IssueNotifierTask extends TimerTask {
 
                     if (lastIssue.getNumber() > lastIssueNumber) {
                         for (Channel channel : this.bot.getChannels()) {
-                            this.bot.sendMessage(channel, "New issue for " + job.getName() + " #" + lastIssue.getNumber() + " " + lastIssue.getTitle() + " (" + lastIssue.getHtmlUrl() + ")");
+                            this.bot.send().message(channel, "New issue for " + job.getName() + " #" + lastIssue.getNumber() + " " + lastIssue.getTitle() + " (" + lastIssue.getHtmlUrl() + ")");
                         }
 
                         this.lastIssues.put(job.getName(), lastIssue.getNumber());

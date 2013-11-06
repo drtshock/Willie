@@ -14,7 +14,7 @@ public class UTimeCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         if (args.length <= 0) {
-            channel.sendMessage("(" + sender.getNick() + ") Usage: !utime <time>[s|ms] [timezone]");
+            channel.send().message("(" + sender.getNick() + ") Usage: !utime <time>[s|ms] [timezone]");
         } else {
             String time = args[0];
             String timezone = "GMT";
@@ -35,7 +35,7 @@ public class UTimeCommandHandler implements CommandHandler {
                     realTime = Long.parseLong(time);
                     multiplier = 1;
                 } catch (NumberFormatException e) {
-                    channel.sendMessage("(" + sender.getNick() + ") [Invalid time format] Usage: !utime <time>[s|ms] [timezone]");
+                    channel.send().message("(" + sender.getNick() + ") [Invalid time format] Usage: !utime <time>[s|ms] [timezone]");
                     return;
                 }
             }
@@ -46,7 +46,7 @@ public class UTimeCommandHandler implements CommandHandler {
             TimeZone tz = TimeZone.getTimeZone(timezone);
             dateFormat.setTimeZone(tz);
             formatted = dateFormat.format(d) + " " + tz.getDisplayName();
-            channel.sendMessage("(" + sender.getNick() + ") " + formatted);
+            channel.send().message("(" + sender.getNick() + ") " + formatted);
         }
     }
 }

@@ -13,10 +13,10 @@ public class PrefixCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         if (args.length == 0) {
-            channel.sendMessage("Use that to define a new command prefix.");
+            channel.send().message("Use that to define a new command prefix.");
         } else if (args.length == 1) {
             bot.getConfig().setCommandPrefix(args[0]);
-            channel.sendMessage(String.format("Set command prefix to \"%s\"", args[0]));
+            channel.send().message(String.format("Set command prefix to \"%s\"", args[0]));
         }
     }
 }

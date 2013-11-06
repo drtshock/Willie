@@ -31,7 +31,7 @@ public class PluginCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
         if (args.length != 1) {
-            channel.sendMessage(Colors.RED + "Look up a plugin with !plugin <name>");
+            channel.send().message(Colors.RED + "Look up a plugin with !plugin <name>");
             return;
         }
 
@@ -77,16 +77,16 @@ public class PluginCommandHandler implements CommandHandler {
                 authors.append(Tools.silence(author));
             }
 
-            channel.sendMessage(name + " (" + connection.getURL().toExternalForm() + ")");
-            channel.sendMessage("Authors: " + authors.toString());
-            channel.sendMessage("Downloads: " + downloads);
-            channel.sendMessage("Last Update: " + this.dateFormat.format(new Date(lastUpdate * 1000)));
+            channel.send().message(name + " (" + connection.getURL().toExternalForm() + ")");
+            channel.send().message("Authors: " + authors.toString());
+            channel.send().message("Downloads: " + downloads);
+            channel.send().message("Last Update: " + this.dateFormat.format(new Date(lastUpdate * 1000)));
         } catch (FileNotFoundException e) {
-            channel.sendMessage(Colors.RED + "Project not found");
+            channel.send().message(Colors.RED + "Project not found");
         } catch (MalformedURLException e) {
-            channel.sendMessage(Colors.RED + "Unable to find that plugin!");
+            channel.send().message(Colors.RED + "Unable to find that plugin!");
         } catch (IOException e) {
-            channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
+            channel.send().message(Colors.RED + "Failed: " + e.getMessage());
             throw e; // Gist
         }
     }

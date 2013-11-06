@@ -19,9 +19,9 @@ public class QuoteCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         try {
-            channel.sendMessage(getPage("http://www.iheartquotes.com/api/v1/random?show_permalink=false"));
+            channel.send().message(getPage("http://www.iheartquotes.com/api/v1/random?show_permalink=false"));
         } catch (IOException e) {
-            channel.sendMessage("Error fetching quote");
+            channel.send().message("Error fetching quote");
             e.printStackTrace();
         }
     }

@@ -45,13 +45,13 @@ public class XKCDCommandHandler implements CommandHandler {
                 prefix = "Random xkcd: ";
             }
             final String shortImgUrl = WebHelper.shortenURL(url);
-            channel.sendMessage(prefix + shortImgUrl);
+            channel.send().message(prefix + shortImgUrl);
         } catch (FileNotFoundException | MalformedURLException | IndexOutOfBoundsException |
                 SocketTimeoutException e) {
             LOG.log(Level.INFO, "Can't get that xkcd comic. Does it exist?", e);
-            channel.sendMessage(Colors.RED + "Can't get that xkcd comic. Does it exist?");
+            channel.send().message(Colors.RED + "Can't get that xkcd comic. Does it exist?");
         } catch (IOException e) {
-            channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
+            channel.send().message(Colors.RED + "Failed: " + e.getMessage());
             throw e; // Gist
         }
     }
@@ -83,6 +83,6 @@ public class XKCDCommandHandler implements CommandHandler {
     }
 
     public void nope(Channel channel) {
-        channel.sendMessage(Colors.RED + "Get an xkcd comic with !xkcd <nb>");
+        channel.send().message(Colors.RED + "Get an xkcd comic with !xkcd <nb>");
     }
 }

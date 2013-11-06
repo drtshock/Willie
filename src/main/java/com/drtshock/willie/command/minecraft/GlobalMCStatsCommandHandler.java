@@ -52,23 +52,23 @@ public class GlobalMCStatsCommandHandler implements CommandHandler {
         try {
             if (args.length == 0) {
                 for (String msg : new GlobalStats().getMessages()) {
-                    channel.sendMessage(msg);
+                    channel.send().message(msg);
                 }
             } else {
                 switch (args[0].toLowerCase()) {
                     case "auth":
-                        channel.sendMessage(new AuthStats().getMessage());
+                        channel.send().message(new AuthStats().getMessage());
                     default:
-                        channel.sendMessage(Colors.RED + "Invalid argument.");
+                        channel.send().message(Colors.RED + "Invalid argument.");
                         break;
                 }
             }
         } catch (FileNotFoundException | MalformedURLException | IndexOutOfBoundsException | NumberFormatException |
                 SocketTimeoutException e) {
             LOG.log(Level.INFO, "Could not contact MCStats API / or invalid response received", e);
-            channel.sendMessage(Colors.RED + "Could not contact MCStats API / or invalid response received");
+            channel.send().message(Colors.RED + "Could not contact MCStats API / or invalid response received");
         } catch (IOException e) {
-            channel.sendMessage(Colors.RED + "Failed: " + e.getMessage());
+            channel.send().message(Colors.RED + "Failed: " + e.getMessage());
             throw e; // Gist
         }
     }
@@ -279,6 +279,6 @@ public class GlobalMCStatsCommandHandler implements CommandHandler {
 
      */
     public void nope(Channel channel) {
-        channel.sendMessage(Colors.RED + "Global MCStats stats with !gstats [auth]");
+        channel.send().message(Colors.RED + "Global MCStats stats with !gstats [auth]");
     }
 }

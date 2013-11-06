@@ -18,7 +18,7 @@ public class WDTBSCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
         if (args.length < 1) {
-            channel.sendMessage(Colors.RED + "Please supply a message " + sender.getNick() + "!");
+            channel.send().message(Colors.RED + "Please supply a message " + sender.getNick() + "!");
             return;
         }
 
@@ -38,8 +38,8 @@ public class WDTBSCommandHandler implements CommandHandler {
         String cBotResponce = cBotSession.think(question.toString());
         String pBotResponce = pBotSession.think(question.toString());
 
-        channel.sendMessage(Colors.BROWN + "What does the bot say?");
-        channel.sendMessage(Colors.CYAN + "Cleverbot: " + Colors.DARK_GREEN + cBotResponce);
-        channel.sendMessage(Colors.CYAN + "Pandorabot: " + Colors.DARK_GREEN + pBotResponce);
+        channel.send().message(Colors.BROWN + "What does the bot say?");
+        channel.send().message(Colors.CYAN + "Cleverbot: " + Colors.DARK_GREEN + cBotResponce);
+        channel.send().message(Colors.CYAN + "Pandorabot: " + Colors.DARK_GREEN + pBotResponce);
     }
 }
