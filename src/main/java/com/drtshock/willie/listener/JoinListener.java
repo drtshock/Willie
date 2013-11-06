@@ -1,12 +1,13 @@
 package com.drtshock.willie.listener;
 
-import com.drtshock.willie.Willie;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
 import org.pircbotx.hooks.Listener;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.JoinEvent;
+
+import com.drtshock.willie.Willie;
 
 /**
  * @author drtshock

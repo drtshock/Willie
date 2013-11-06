@@ -16,7 +16,7 @@ public class KickCommandHandler implements CommandHandler {
                         if (!channel.getVoices().contains(bot.getUser(args[0])) || !channel.getOps().contains(bot.getUser(args[0]))) {
                             bot.kick(channel, bot.getUser(args[0]));
                         } else {
-                            bot.sendNotice(sender, "I'm not allowed to kick that person!");
+                        	channel.send().message(sender, "I'm not allowed to kick that person!");
                         }
                     } else {
                         StringBuilder sb = new StringBuilder();
@@ -29,17 +29,17 @@ public class KickCommandHandler implements CommandHandler {
                         if (!channel.getVoices().contains(bot.getUser(args[0])) || !channel.getOps().contains(bot.getUser(args[0]))) {
                             bot.kick(channel, bot.getUser(args[0]), reason);
                         } else {
-                            bot.sendNotice(sender, "I'm not allowed to kick that person!");
+                            channel.send().message(sender, "I'm not allowed to kick that person!");
                         }
                     }
                 } else {
-                    bot.sendNotice(sender, "That user is not in the channel!");
+                	channel.send().message(sender, "That user is not in the channel!");
                 }
             } else {
-                bot.sendNotice(sender, "You do not have permission to do that!");
+            	channel.send().message(sender, "You do not have permission to do that!");
             }
         } else {
-            bot.sendNotice(sender, "Usage: !kick <user>");
+        	channel.send().message(sender, "Usage: !kick <user>");
         }
     }
 }

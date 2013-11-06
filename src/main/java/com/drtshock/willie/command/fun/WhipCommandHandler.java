@@ -17,9 +17,9 @@ public class WhipCommandHandler implements CommandHandler {
         }
 
         if (args.length == 0) {
-            bot.sendAction(channel, "whips everyone.");
+        	channel.send().message("whips everyone.");
         } else if (args.length == 1) {
-            bot.sendAction(channel, String.format("whips %s!", args[0]));
+        	channel.send().message(String.format("whips %s!", args[0]));
         } else {
             StringBuilder sb = new StringBuilder();
             for (String arg : args) {
@@ -27,7 +27,7 @@ public class WhipCommandHandler implements CommandHandler {
                     sb.append(arg).append(" ");
                 }
             }
-            bot.sendAction(channel, String.format("whips " + args[0] + " for " + sb.toString()));
+            channel.send().message(String.format("whips " + args[0] + " for " + sb.toString()));
         }
     }
 }
