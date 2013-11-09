@@ -20,6 +20,7 @@ import com.drtshock.willie.command.admin.*;
 import com.drtshock.willie.command.fun.*;
 import com.drtshock.willie.command.management.JoinMessageCommandHandler;
 import com.drtshock.willie.command.management.KickCommandHandler;
+import com.drtshock.willie.command.management.TopicCommandHandler;
 import com.drtshock.willie.command.minecraft.GlobalMCStatsCommandHandler;
 import com.drtshock.willie.command.minecraft.MCStatsCommandHandler;
 import com.drtshock.willie.command.minecraft.ServerCommandHandler;
@@ -154,6 +155,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("shorten", "<url> shorten a url", new ShortenCommandHandler()));
         this.commandManager.registerCommand(new Command("shutdown", "shuts the bot down", new ShutdownCommandHandler(), true));
         this.commandManager.registerCommand(new Command("stats", "<name> - Outputs MCStats stats for plugin", new MCStatsCommandHandler()));
+        this.commandManager.registerCommand(new Command("topic", "<topic> sets the topic", new TopicCommandHandler()));
         this.commandManager.registerCommand(new Command("trends", "see whats trending on Twitter!", new TrendsCommandHandler()));
         this.commandManager.registerCommand(new Command("twss", "that's what she said!", new TWSSCommandHandler()));
         this.commandManager.registerCommand(new Command("urban", "<word|phrase> - defines a word using the urban dictionary", new UrbanCommandHandler()));
