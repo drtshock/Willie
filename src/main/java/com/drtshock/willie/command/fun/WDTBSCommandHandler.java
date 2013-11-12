@@ -33,7 +33,7 @@ public class WDTBSCommandHandler implements CommandHandler {
 	            question.append(arg + " ");
 	        }
 	
-	        String cBotResponce = cBotSession.think(question.toString());
+	        String cBotResponce = cBotSession.think(question.toString().trim()).trim();
 	
 	        channel.sendMessage(Colors.CYAN + "Cleverbot's responce: " + Colors.DARK_GREEN + cBotResponce);
         
