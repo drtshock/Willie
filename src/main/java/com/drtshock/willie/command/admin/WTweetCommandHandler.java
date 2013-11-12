@@ -36,8 +36,8 @@ public class WTweetCommandHandler implements CommandHandler {
                 }
 
                 twitter.updateStatus("(" + sender.getNick() + ") " + status.toString());
-                channel.sendMessage(Colors.TEAL + sender.getNick() + " your message was tweeted!");
-                channel.sendMessage(Colors.CYAN + "Check out Willie on Twitter! https://twitter.com/WillieIRC");
+                channel.sendMessage(Colors.GREEN + sender.getNick() + " your message was tweeted!");
+                channel.sendMessage(Colors.NORMAL + "Check out Willie on Twitter! https://twitter.com/WillieIRC");
             } catch (TwitterException e) {
                 e.printStackTrace();
                 channel.sendMessage(Colors.RED + "Error occurred while tweeting! Is it configured correctly?");

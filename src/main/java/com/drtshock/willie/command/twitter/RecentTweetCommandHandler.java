@@ -15,13 +15,18 @@ public class RecentTweetCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         Twitter twitter = new TwitterFactory().getInstance();
+        String handle = args[0];
+
+        if (!handle.startsWith("@")) {
+            handle = "@" + handle;
+        }
+
         try {
-            Status status = twitter.showUser(args[0]).getStatus();
+            Status status = twitter.showUser(handle).getStatus();
             channel.sendMessage("(" + sender.getNick() + ") " + Colors.BOLD + "@" + status.getUser().getScreenName() + ": "
                     + Colors.NORMAL + status.getText());
         } catch (TwitterException e) {
             channel.sendMessage("(" + sender.getNick() + ") " + Colors.RED + "Failed to retrieve status for " + Colors.BOLD + args[0]);
         }
-
     }
 }

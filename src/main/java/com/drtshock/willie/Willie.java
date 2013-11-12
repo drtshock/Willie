@@ -32,6 +32,7 @@ import com.drtshock.willie.jenkins.JenkinsServer;
 import com.drtshock.willie.listener.JoinListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
+
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.PircBotX;
