@@ -1,4 +1,4 @@
-package com.drtshock.willie.command.admin;
+package com.drtshock.willie.command.twitter;
 
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;

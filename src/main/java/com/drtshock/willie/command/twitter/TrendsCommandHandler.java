@@ -23,19 +23,22 @@ public class TrendsCommandHandler implements CommandHandler {
 
         try {
             Trends trend = twitter.getPlaceTrends(1);
-            int trendsToShow = 5;
-
             StringBuilder sb = new StringBuilder();
+            int trendsToShow = 5;
 
             for (Trend t : trend.getTrends()) {
                 if (trendsToShow > 0) {
-                    sb.append(t.getName()).append(" ");
                     trendsToShow--;
+                    
+                    if (trendsToShow == 0) {
+                    	sb.append(t.getName());
+                    } else {
+                    	sb.append(t.getName() + ", ");
+                    }
                 }
             }
 
-            channel.sendMessage(Colors.NORMAL + "Top " + trendsToShow + " trends on Twitter right now: " + sb.toString().trim());
-
+            channel.sendMessage(Colors.NORMAL + "Top " + trendsToShow + " trend(s) on Twitter right now: " + sb.toString().trim());
         } catch (TwitterException e) {
             e.printStackTrace();
         }

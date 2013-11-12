@@ -27,11 +27,13 @@ import com.drtshock.willie.command.minecraft.ServerCommandHandler;
 import com.drtshock.willie.command.misc.*;
 import com.drtshock.willie.command.twitter.RecentTweetCommandHandler;
 import com.drtshock.willie.command.twitter.TrendsCommandHandler;
+import com.drtshock.willie.command.twitter.WTweetCommandHandler;
 import com.drtshock.willie.command.utility.*;
 import com.drtshock.willie.jenkins.JenkinsServer;
 import com.drtshock.willie.listener.JoinListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
+
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.PircBotX;
