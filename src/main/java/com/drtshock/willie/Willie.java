@@ -25,6 +25,8 @@ import com.drtshock.willie.command.minecraft.GlobalMCStatsCommandHandler;
 import com.drtshock.willie.command.minecraft.MCStatsCommandHandler;
 import com.drtshock.willie.command.minecraft.ServerCommandHandler;
 import com.drtshock.willie.command.misc.*;
+import com.drtshock.willie.command.twitter.RecentTweetCommandHandler;
+import com.drtshock.willie.command.twitter.TrendsCommandHandler;
 import com.drtshock.willie.command.utility.*;
 import com.drtshock.willie.jenkins.JenkinsServer;
 import com.drtshock.willie.listener.JoinListener;
@@ -164,6 +166,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("wdtbs", "<question/prase> what does the bot say?", new WDTBSCommandHandler()));
         this.commandManager.registerCommand(new Command("wtweet", "<message> tweet a message through @WillieIRC", new WTweetCommandHandler(), true));
         this.commandManager.registerCommand(new Command("xkcd", "<nb> - Get an xkcd", new XKCDCommandHandler()));
+        this.commandManager.registerCommand(new Command("tw", "tw <handle> - get the most recent tweet", new RecentTweetCommandHandler()));
 
         this.setName(willieConfig.getNick());
         this.setVerbose(false);

@@ -18,7 +18,7 @@ public class WTweetCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         if (args.length == 0) {
-            channel.sendMessage(Colors.RED + "Please provide a message " + sender.getNick() + "! Syntax: !wtweet <message>");
+            channel.sendMessage(Colors.NORMAL + "Please provide a message " + sender.getNick() + "! Syntax: !wtweet <message>");
         } else {
             ConfigurationBuilder cb = new ConfigurationBuilder();
             cb.setDebugEnabled(true)

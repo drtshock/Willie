@@ -77,18 +77,18 @@ public class PluginCommandHandler implements CommandHandler {
                 authors.append(Tools.silence(author));
             }
 
-	        String files;
-	        Elements filesList = document.getElementsByClass("file-type");
-	        if (filesList.size() > 0) {
-		        Element latest = filesList.get(0);
-		        String version = latest.nextElementSibling().ownText();
-		        String bukkitVersion = latest.parent().ownText().split("for")[1].trim();
-		        long fileDate = Long.parseLong(latest.nextElementSibling().nextElementSibling().attr("data-epoch"));
-		        String date = this.dateFormat.format(new Date(fileDate * 1000));
-		        files = "Latest File: " + version + " for " + bukkitVersion + " (" + date + ")";
-	        } else {
-		        files = "No files (yet!)";
-	        }
+            String files;
+            Elements filesList = document.getElementsByClass("file-type");
+            if (filesList.size() > 0) {
+                Element latest = filesList.get(0);
+                String version = latest.nextElementSibling().ownText();
+                String bukkitVersion = latest.parent().ownText().split("for")[1].trim();
+                long fileDate = Long.parseLong(latest.nextElementSibling().nextElementSibling().attr("data-epoch"));
+                String date = this.dateFormat.format(new Date(fileDate * 1000));
+                files = "Latest File: " + version + " for " + bukkitVersion + " (" + date + ")";
+            } else {
+                files = "No files (yet!)";
+            }
 
             channel.sendMessage(name + " (" + connection.getURL().toExternalForm() + ")");
             channel.sendMessage("Authors: " + authors.toString());
