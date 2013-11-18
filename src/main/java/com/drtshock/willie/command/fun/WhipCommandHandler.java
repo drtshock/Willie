@@ -15,6 +15,9 @@ public class WhipCommandHandler implements CommandHandler {
         if (channel.getName().equalsIgnoreCase("#hawkfalcon")) {
             return;
         }
+        if(channel.getUsers().toString().contains("FlareBot")){
+             return;
+        } else {
 
         if (args.length == 0) {
             bot.sendAction(channel, "whips everyone.");
@@ -31,3 +34,4 @@ public class WhipCommandHandler implements CommandHandler {
         }
     }
 }
+    }
