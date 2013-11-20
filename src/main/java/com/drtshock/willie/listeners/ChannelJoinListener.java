@@ -15,10 +15,18 @@ public class ChannelJoinListener extends ListenerAdapter {
     public void onEvent(JoinEvent event) {
         // True if we are the user joining the channel.
         if (event.getUser().getNick().equalsIgnoreCase(bot.getPircBotX().getNick())) {
-
+            onBotJoin(event);
         } else {
-
+            onUserJoin(event);
         }
+
+    }
+
+    private void onBotJoin(JoinEvent event) {
+
+    }
+
+    private void onUserJoin(JoinEvent event) {
 
     }
 }

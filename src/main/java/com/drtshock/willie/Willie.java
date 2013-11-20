@@ -10,6 +10,7 @@ import com.drtshock.willie.commands.mcstats.MCStatsCommand;
 import com.drtshock.willie.commands.misc.ShortenCommand;
 import com.drtshock.willie.commands.plugins.LatestFileCommand;
 import com.drtshock.willie.commands.plugins.PluginCommand;
+import com.drtshock.willie.configuration.WillieConfiguration;
 import com.drtshock.willie.listeners.ChannelJoinListener;
 import org.pircbotx.Channel;
 import org.pircbotx.Configuration;
@@ -22,6 +23,7 @@ public class Willie {
     private PircBotX bot;
     private ArbitraryCommands arbitraryCommands;
     private CommandManager commandManager;
+    private WillieConfiguration mainConfig;
 
     public Willie() {
         this.willie = this;
@@ -29,6 +31,25 @@ public class Willie {
         this.commandManager = new CommandManager(this);
         connect();
         registerCommands();
+        mainConfig = new WillieConfiguration("willie.yml"); // create the main config.
+    }
+
+    /**
+     * Gets the main config of the bot.
+     *
+     * @return the main config of the bot.
+     */
+    public WillieConfiguration getMainConfig() {
+        return mainConfig;
+    }
+
+    /**
+     * Creates a new configuration for a channel.
+     *
+     * @param channel - the channel's instead of the config.
+     */
+    public void createConfig(Channel channel) {
+        new WillieConfiguration(channel);
     }
 
     // new Command("command name", "help message", handler class, admin only)
