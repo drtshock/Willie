@@ -5,6 +5,7 @@ import com.drtshock.willie.command.Command;
 import com.drtshock.willie.command.CommandManager;
 import com.drtshock.willie.command.CommandType;
 import com.drtshock.willie.commands.HelpCommand;
+import com.drtshock.willie.commands.mcstats.GlobalMCStatsCommand;
 import com.drtshock.willie.listeners.ChannelJoinListener;
 import org.pircbotx.Channel;
 import org.pircbotx.Configuration;
@@ -29,6 +30,7 @@ public class Willie {
     // new Command("command name", "help message", handler class, admin only)
     private void registerCommands() {
         this.commandManager.registerCommand(new Command("help", "help is on the way!", new HelpCommand(), false));
+        this.commandManager.registerCommand(new Command("gstats", "View global stats from mcstats.org", new GlobalMCStatsCommand(), false));
     }
 
     private void connect() {
