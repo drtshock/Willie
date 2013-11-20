@@ -1,4 +1,4 @@
-package com.drtshock.willie.util;
+package com.drtshock.willie.configuration;
 
 import org.yaml.snakeyaml.Yaml;
 

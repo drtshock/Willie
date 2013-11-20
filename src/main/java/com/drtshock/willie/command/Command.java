@@ -4,22 +4,14 @@ public class Command {
 
     private String name;
     private String help;
-    private CommandHandler handler;
-    private boolean adminOnly = false;
+    private ICommand handler;
+    private boolean adminOnly;
 
-    public Command(String name, String help, CommandHandler handler) {
+    public Command(String name, String help, ICommand handler, boolean adminOnly) {
         this.name = name;
         this.help = help;
         this.handler = handler;
-    }
-
-    public Command(String name, String help, CommandHandler handler, boolean adminOnly) {
-        this(name, help, handler);
         this.adminOnly = adminOnly;
-    }
-
-    public boolean isAdminOnly() {
-        return adminOnly;
     }
 
     public String getName() {
@@ -30,7 +22,12 @@ public class Command {
         return this.help;
     }
 
-    public CommandHandler getHandler() {
+    public ICommand getHandler() {
         return this.handler;
     }
+
+    public boolean isAdminOnly() {
+        return this.isAdminOnly();
+    }
+
 }
