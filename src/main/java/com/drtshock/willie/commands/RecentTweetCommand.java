@@ -38,9 +38,9 @@ public class RecentTweetCommand implements ICommand {
         try {
             Status status = twitter.showUser(handle).getStatus();
             bot.send("(" + sender.getNick() + ")" + Colors.BOLD + "@" + status.getUser().getScreenName() + ": "
-                    + Colors.NORMAL + status.getText(), channel, sender, CommandType.SEND_CHANNEL);
+                    + Colors.NORMAL + status.getText(), channel, sender, type);
         } catch (TwitterException e) {
-            bot.send("(" + sender.getNick() + ") " + Colors.RED + "Failed to retrieve status for " + Colors.BOLD + args[0], channel, sender, CommandType.SEND_CHANNEL);
+            bot.send("(" + sender.getNick() + ") " + Colors.RED + "Failed to retrieve status for " + Colors.BOLD + args[0], channel, sender, type);
             e.printStackTrace();
         }
     }

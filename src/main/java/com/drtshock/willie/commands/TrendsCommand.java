@@ -47,17 +47,17 @@ public class TrendsCommand implements ICommand {
 	                    sb.append(t.getName() + ", ");
 	                }
 	            } else {
-	            	bot.send("This command has been configured incorrectly! No trends have been set to be displayed.", channel, sender, CommandType.NOTICE_SENDER);
+	            	bot.send("This command has been configured incorrectly! No trends have been set to be displayed.", channel, sender, type);
 	            }
 	        }
 	        
 	        if (trendsToShow > 1) {
-	        	bot.send("Top " + trendsToShow + " Trends on Twitter right now: " + sb.toString(), channel, sender, CommandType.SEND_CHANNEL);
+	        	bot.send("Top " + trendsToShow + " Trends on Twitter right now: " + sb.toString(), channel, sender, type);
 	        } else {
-	        	bot.send("The top Trend on Twitter right now is " + sb.toString(), channel, sender, CommandType.SEND_CHANNEL);
+	        	bot.send("The top Trend on Twitter right now is " + sb.toString(), channel, sender, type);
 	        }
 	    } catch (TwitterException e) {
-	    	bot.send("TwitterException occured while executing this command!", channel, sender, CommandType.SEND_CHANNEL);
+	    	bot.send("TwitterException occured while executing this command!", channel, sender, type);
 	    	e.printStackTrace();
 		}
     }
