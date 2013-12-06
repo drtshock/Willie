@@ -4,6 +4,7 @@ import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.Command;
 import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
+import org.pircbotx.Colors;
 import org.pircbotx.User;
 
 public class HelpCommandHandler implements CommandHandler {
@@ -13,9 +14,7 @@ public class HelpCommandHandler implements CommandHandler {
         String cmdPrefix = bot.getConfig().getCommandPrefix();
         for (Command command : bot.commandManager.getCommands()) {
             if (command.isAdminOnly()) {
-                if (bot.getConfig().getAdmins().contains(sender)) {
-                    sender.sendMessage(cmdPrefix + command.getName() + " - " + command.getHelp());
-                }
+                sender.sendMessage(Colors.RED + "(ADMIN) " + Colors.NORMAL + cmdPrefix + command.getName() + " - " + command.getHelp());
             } else {
                 sender.sendMessage(cmdPrefix + command.getName() + " - " + command.getHelp());
             }
