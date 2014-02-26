@@ -31,6 +31,7 @@ public class JoinListener extends ListenerAdapter<Willie> implements Listener<Wi
         Channel channel = event.getChannel();
         User sender = event.getUser();
         users.put(sender.getRealName(), channel.getName());
+        
         if (!(channel.getVoices().contains(sender) || channel.getOps().contains(sender)) && bot.getConfig().hasJoinMessage(channel)) {
             String message = event.getBot().getConfig().getJoinMessage(channel).replace("{name}", sender.getNick());
             event.getChannel().sendMessage(Colors.RED + "[AutoMsg] " + Colors.NORMAL + message);
@@ -41,7 +42,8 @@ public class JoinListener extends ListenerAdapter<Willie> implements Listener<Wi
     public void onMessage(MessageEvent<Willie> event) {
         Channel channel = event.getChannel();
         User sender = event.getUser();
-        if (users.containsKey(sender.getRealName()) && users.get(sender.getRealName()).equalsIgnoreCase(channel.getName())) {
+
+        if (users.containsKey(sender.getRealName()) && users.get(sender.getRealName()).equalsIgnoreCase(channel.getName()) && !sender.isIrcop() && !channel.getVoices().contains(sender)) {
             if (pattern.matcher(event.getMessage()).find()) {
                 Willie.getInstance().ban(channel, sender.getHostmask());
                 Willie.getInstance().kick(channel, sender, "Joining and posting links is not permitted.");
