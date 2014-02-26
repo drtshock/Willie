@@ -45,6 +45,9 @@ public class JoinListener extends ListenerAdapter<Willie> implements Listener<Wi
             if (pattern.matcher(event.getMessage()).find()) {
                 Willie.getInstance().ban(channel, sender.getHostmask());
                 Willie.getInstance().kick(channel, sender, "Joining and posting links is not permitted.");
+            } else if (sender.getRealName().equalsIgnoreCase("JoPhEsTuS")) {
+                Willie.getInstance().ban(channel, sender.getHostmask());
+                Willie.getInstance().kick(channel, sender, "Joining and posting links is not permitted.");
             } else {
                 users.remove(sender.getRealName());
             }
