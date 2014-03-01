@@ -21,9 +21,7 @@ import com.drtshock.willie.command.fun.*;
 import com.drtshock.willie.command.management.JoinMessageCommandHandler;
 import com.drtshock.willie.command.management.KickCommandHandler;
 import com.drtshock.willie.command.management.TopicCommandHandler;
-import com.drtshock.willie.command.minecraft.GlobalMCStatsCommandHandler;
-import com.drtshock.willie.command.minecraft.MCStatsCommandHandler;
-import com.drtshock.willie.command.minecraft.ServerCommandHandler;
+import com.drtshock.willie.command.minecraft.*;
 import com.drtshock.willie.command.misc.*;
 import com.drtshock.willie.command.twitter.RecentTweetCommandHandler;
 import com.drtshock.willie.command.twitter.TrendsCommandHandler;
@@ -126,6 +124,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("author", "<name> [amount] - looks up an author on BukkitDev", new AuthorCommandHandler()));
         this.commandManager.registerCommand(new Command("botsnack", "feed the bot!", new BotSnacksCommandHandler()));
         this.commandManager.registerCommand(new Command("cake", "is the cake a lie?", new CakeCommandHandler()));
+        this.commandManager.registerCommand(new Command("checkname", "<username> - check if a Minecraft username is available", new CheckNameCommandHandler()));
         this.commandManager.registerCommand(new Command("ci", "shows Jenkins info", new CICommandHandler()));
         this.commandManager.registerCommand(new Command("chuck", "Chuck Norris.", new ChuckCommandHandler()));
         this.commandManager.registerCommand(new Command("define", "<word|phrase> - defines a word", new DefineCommandHandler()));
@@ -135,6 +134,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("ex", "throws an exception", new ExceptionCommandHandler()));
         this.commandManager.registerCommand(new Command("fix", "[name] - Yell at someone to fix something", new FixCommandHandler()));
         this.commandManager.registerCommand(new Command("gstats", "[auth] - Global MCStats stats", new GlobalMCStatsCommandHandler()));
+        this.commandManager.registerCommand(new Command("haspaid", "<username> - Check if a Minecraft user has a valid paid account", new HasPaidCommandHandler()));
         this.commandManager.registerCommand(new Command("help", "show this help info", new HelpCommandHandler()));
         this.commandManager.registerCommand(new Command("issues", "<job_name> [page] - check github issues for jobs on " + willieConfig.getJenkinsServer(), new IssuesCommandHandler()));
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
