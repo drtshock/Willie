@@ -43,9 +43,9 @@ public class MCStatusCommandHandler implements CommandHandler {
 
         for (Map.Entry<String, String> service : services.entrySet()) {
             if (service.getValue().equalsIgnoreCase("green")) {
-                status.append(Colors.DARK_GREEN + service.getKey() + " (Online) ");
+                status.append(Colors.DARK_GREEN + service.getKey() + " (Online)");
             } else {
-                status.append(Colors.RED + service.getKey() + " (Offline) ");
+                status.append(Colors.RED + service.getKey() + " (Offline)");
             }
 
             status.append(Colors.NORMAL + " | ");
