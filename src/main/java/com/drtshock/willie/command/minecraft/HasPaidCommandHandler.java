@@ -26,6 +26,11 @@ public class HasPaidCommandHandler implements CommandHandler {
 
         String user = args[0];
 
+        if (user.length() < 3) {
+            channel.sendMessage(Colors.RED + "Username must be longer than 2 characters.");
+            return;
+        }
+
         if (user.length() > 16) {
             user = user.substring(0, 16);
         }
