@@ -12,13 +12,10 @@ import java.util.Random;
  * @author stuntguy3000
  */
 public class PongCommandHandler implements CommandHandler {
-
-    private Random rand;
     private ArrayList<String> messages;
 
     public PongCommandHandler() {
-        this.rand = new Random();
-        this.messages = new ArrayList<>();
+        this.messages = new ArrayList<String>();
 
         this.messages.add("Come at me {u}! I will smash you at ping-pong");
         this.messages.add("{u} can't play ping-pong");
@@ -31,6 +28,6 @@ public class PongCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        channel.sendMessage(this.messages.get(this.rand.nextInt(this.messages.size())).replace("{u}", sender.getNick()));
+        channel.sendMessage(this.messages.get(rand.nextInt(this.messages.size())).replace("{u}", sender.getNick()));
     }
 }

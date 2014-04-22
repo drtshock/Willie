@@ -6,19 +6,17 @@ import org.pircbotx.Channel;
 import org.pircbotx.User;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
  * @author stuntguy3000
  */
 public class CakeCommandHandler implements CommandHandler {
-
-    private Random rand;
     private ArrayList<String> messages;
 
     public CakeCommandHandler() {
-        this.rand = new Random();
-        this.messages = new ArrayList<>();
+        this.messages = new ArrayList<String>();
 
         this.messages.add("The cake is a lie!");
         this.messages.add("The cake isn't a lie!");
@@ -28,6 +26,6 @@ public class CakeCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        channel.sendMessage(this.messages.get(this.rand.nextInt(this.messages.size())));
+        channel.sendMessage(this.messages.get(rand.nextInt(this.messages.size())));
     }
 }
