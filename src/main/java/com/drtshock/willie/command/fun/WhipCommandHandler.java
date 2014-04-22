@@ -10,10 +10,6 @@ import org.pircbotx.User;
  */
 public class WhipCommandHandler implements CommandHandler {
 
-    public WhipCommandHandler() {
-        this.ignoredChannels.add("#hawkfalcon");
-    }
-
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         if (args.length == 0) {

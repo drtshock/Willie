@@ -8,10 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +20,7 @@ public class WillieConfig {
     private ArrayList<String> botChannels = new ArrayList<>();
     private ArrayList<String> jenkinsAdmins = new ArrayList<>();
     private ArrayList<String> blacklistedWords = new ArrayList<>();
+    private Map<String, List<String>> ignoredChannels = new HashMap<String, List<String>>();
 
     public WillieConfig() {
         // Default configuration
@@ -30,6 +28,8 @@ public class WillieConfig {
 
         jenkinsAdmins.add("drtshock");
         jenkinsAdmins.add("blha303");
+
+        ignoredChannels.put("#hawkfalcon", Arrays.asList("p", "w"));
 
         configMap.put("github-api-key", "change-me");
         configMap.put("jenkins-server", "http://ci.drtshock.net/");
@@ -48,6 +48,7 @@ public class WillieConfig {
         configMap.put("twitter-access-token", "change-me");
         configMap.put("twitter-access-token-secret", "change-me");
         configMap.put("blacklisted-words", blacklistedWords);
+        configMap.put("ignored-channels", ignoredChannels);
     }
 
     public LinkedHashMap<String, Object> getConfigMap() {
@@ -58,6 +59,7 @@ public class WillieConfig {
         botChannels = (ArrayList<String>) configMap.get("channels");
         jenkinsAdmins = (ArrayList<String>) configMap.get("jenkins-admins");
         blacklistedWords = (ArrayList<String>) configMap.get("blacklisted-words");
+        ignoredChannels = (Map<String, List<String>>) configMap.get("ignored-channels");
         return this;
     }
 
@@ -242,6 +244,38 @@ public class WillieConfig {
         } else {
             blacklistedWords.add(s);
             return true;
+        }
+    }
+
+    public boolean addIgnoredChannel(String command, String channel) {
+        List<String> currentChannels = this.getIgnoredChannels(command);
+        if (!currentChannels.contains(channel.toLowerCase())) {
+            currentChannels.add(channel.toLowerCase());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isIgnoredChannel(String channel, String command) {
+        return this.getIgnoredChannels(command).contains(channel.toLowerCase());
+    }
+
+    public Map<String, List<String>> getIgnoredChannels() {
+        return this.ignoredChannels;
+    }
+
+    public List<String> getIgnoredChannels(String command) {
+        return this.ignoredChannels.containsKey(command.toLowerCase()) ? this.ignoredChannels.get(command.toLowerCase()) : new ArrayList<String>();
+    }
+
+    public boolean removeIgnoredChannel(String channel, String command) {
+        List<String> currentChannels = this.getIgnoredChannels(command);
+        if (currentChannels.contains(channel.toLowerCase())) {
+            currentChannels.remove(channel.toLowerCase());
+            return true;
+        } else {
+            return false;
         }
     }
 

@@ -6,7 +6,6 @@ import org.pircbotx.Channel;
 import org.pircbotx.User;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class PopcornCommandHandler implements CommandHandler {
     private ArrayList<String> messages;
@@ -18,8 +17,6 @@ public class PopcornCommandHandler implements CommandHandler {
         this.messages.add("pops some popcorn with butter.");
         this.messages.add("pops some popcorn with salt and butter!");
         this.messages.add("pops some kettle corn.");
-
-        this.ignoredChannels.add("#hawkfalcon");
     }
 
     @Override

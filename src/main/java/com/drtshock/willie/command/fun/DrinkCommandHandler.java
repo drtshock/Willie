@@ -7,7 +7,6 @@ import org.pircbotx.Colors;
 import org.pircbotx.User;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * @author drtshock
@@ -16,7 +15,7 @@ public class DrinkCommandHandler implements CommandHandler {
     private ArrayList<String> messages;
 
     public DrinkCommandHandler() {
-        this.messages = new ArrayList<>();
+        this.messages = new ArrayList<String>();
 
         this.messages.add(Colors.NORMAL + "mixes %s a drink!");
         this.messages.add(Colors.NORMAL + "gives %s a wine cooler.");
