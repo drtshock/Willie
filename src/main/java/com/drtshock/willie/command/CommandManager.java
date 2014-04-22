@@ -75,7 +75,8 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
             return;
         }
         try {
-            command.getHandler().handle(this.bot, channel, sender, args);
+            if (!this.bot.getConfig().isIgnoredChannel(channel.getName(), command.getName()))
+                command.getHandler().handle(this.bot, channel, sender, args);
         } catch (Exception e) {
             final Writer writer = new StringWriter();
             final PrintWriter printWriter = new PrintWriter(writer);

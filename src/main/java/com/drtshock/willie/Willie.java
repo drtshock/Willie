@@ -122,6 +122,7 @@ public class Willie extends PircBotX {
         // Thank god for http://www.alphabetize.org/ - stuntguy3000
         this.commandManager.registerCommand(new Command("agree", "agree!", new AgreeDisagreeCommandHandler(true)));
         this.commandManager.registerCommand(new Command("author", "<name> [amount] - looks up an author on BukkitDev", new AuthorCommandHandler()));
+        this.commandManager.registerCommand(new Command("blacklist", "blacklist <words...> - add or remove blacklisted words.", new BlacklistCommandHandler(), true));
         this.commandManager.registerCommand(new Command("botsnack", "feed the bot!", new BotSnacksCommandHandler()));
         this.commandManager.registerCommand(new Command("cake", "is the cake a lie?", new CakeCommandHandler()));
         this.commandManager.registerCommand(new Command("checkname", "<username> - check if a Minecraft username is available", new CheckNameCommandHandler()));
@@ -136,6 +137,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("gstats", "[auth] - Global MCStats stats", new GlobalMCStatsCommandHandler()));
         this.commandManager.registerCommand(new Command("haspaid", "<username> - Check if a Minecraft user has a valid paid account", new HasPaidCommandHandler()));
         this.commandManager.registerCommand(new Command("help", "show this help info", new HelpCommandHandler()));
+        this.commandManager.registerCommand(new Command("ignorechannel", "ignorechannel [<channel>|<channel> <command>] - View all ignored commands per channel or add/remove ignored commands.", new IgnoreChannelCommandHandler(), true));
         this.commandManager.registerCommand(new Command("issues", "<job_name> [page] - check github issues for jobs on " + willieConfig.getJenkinsServer(), new IssuesCommandHandler()));
         this.commandManager.registerCommand(new Command("join", "<channel> - Joins a channel", new JoinCommandHandler(), true));
         this.commandManager.registerCommand(new Command("joinmsg", "<delete | ...> - sets a channels join message.", new JoinMessageCommandHandler()));
@@ -160,6 +162,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("stats", "<name> - Outputs MCStats stats for plugin", new MCStatsCommandHandler()));
         this.commandManager.registerCommand(new Command("topic", "<topic> sets the topic", new TopicCommandHandler()));
         this.commandManager.registerCommand(new Command("trends", "see whats trending on Twitter!", new TrendsCommandHandler()));
+        this.commandManager.registerCommand(new Command("tw", "tw <handle> - get the most recent tweet", new RecentTweetCommandHandler()));
         this.commandManager.registerCommand(new Command("twss", "that's what she said!", new TWSSCommandHandler()));
         this.commandManager.registerCommand(new Command("urban", "<word|phrase> - defines a word using the urban dictionary", new UrbanCommandHandler()));
         this.commandManager.registerCommand(new Command("utime", "converts a unix timestamp to human time", new UTimeCommandHandler()));
@@ -167,8 +170,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("wdtbs", "<question/prase> what does the bot say?", new WDTBSCommandHandler()));
         this.commandManager.registerCommand(new Command("wtweet", "<message> tweet a message through @WillieIRC", new WTweetCommandHandler(), true));
         this.commandManager.registerCommand(new Command("xkcd", "<nb> - Get an xkcd", new XKCDCommandHandler()));
-        this.commandManager.registerCommand(new Command("tw", "tw <handle> - get the most recent tweet", new RecentTweetCommandHandler()));
-        this.commandManager.registerCommand(new Command("blacklist", "blacklist <words...> - add or remove blacklisted words.", new BlacklistCommandHandler(), true));
+        this.commandManager.registerCommand(new Command("yolo", "yolo - Random YOLO messages!", new YoloCommandHandler()));
 
         this.setName(willieConfig.getNick());
         this.setVerbose(false);

@@ -7,19 +7,15 @@ import org.pircbotx.Colors;
 import org.pircbotx.User;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * @author drtshock
  */
 public class DrinkCommandHandler implements CommandHandler {
-
-    private Random rand;
     private ArrayList<String> messages;
 
     public DrinkCommandHandler() {
-        this.rand = new Random();
-        this.messages = new ArrayList<>();
+        this.messages = new ArrayList<String>();
 
         this.messages.add(Colors.NORMAL + "mixes %s a drink!");
         this.messages.add(Colors.NORMAL + "gives %s a wine cooler.");
@@ -30,7 +26,7 @@ public class DrinkCommandHandler implements CommandHandler {
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         String message;
-        message = String.format(this.messages.get(this.rand.nextInt(this.messages.size())), (args.length > 0) ? args[0] : "");
+        message = String.format(this.messages.get(rand.nextInt(this.messages.size())), (args.length > 0) ? args[0] : sender.getNick());
         bot.sendAction(channel, message);
     }
 }
