@@ -3,7 +3,6 @@ package com.drtshock.willie.command.admin;
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
-import org.pircbotx.Colors;
 import org.pircbotx.User;
 
 public class LeaveCommandHandler implements CommandHandler {
@@ -28,7 +27,7 @@ public class LeaveCommandHandler implements CommandHandler {
                 channel.sendMessage(String.format("Leaving channel %s", leaveChannel.getName()));
             }
         }
-        if (!(args.length == 2 && args[1].equalsIgnoreCase("silent"))) {
+        if ((args.length >= 2 && args[1].equalsIgnoreCase("silent"))) {
             leaveChannel.sendMessage(String.format("%s says I don't belong here...", sender.getNick()));
         }
         bot.partChannel(leaveChannel);
