@@ -38,7 +38,7 @@ public class LeaveCommandHandler implements CommandHandler {
                 for (Channel c : leaveChannels) {
                     if (bot.isOnChannel(c.getName())) {
                         if (!(args.length >= 2 && args[1].equalsIgnoreCase("silent"))) {
-                            c.sendMessage(sender.getNick() + "%s says I don't belong here...");
+                            c.sendMessage(sender.getNick() + " says I don't belong here...");
                         }
 
                         bot.partChannel(c);
