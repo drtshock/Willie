@@ -13,20 +13,20 @@ public class BlacklistCommandHandler implements CommandHandler {
         if (args.length > 0) {
             for (String s : args) {
                 if (Willie.getInstance().getConfig().blacklistWord(s)) {
-                    sb.append("+" + s + " ");
+                    sb.append("+").append(s).append(" ");
                 } else {
-                    sb.append("-" + s + " ");
+                    sb.append("-").append(s).append(" ");
                 }
             }
             String message = sb.toString().trim();
             Willie.getInstance().save();
             channel.sendMessage("Updated word blacklist: " + message);
         } else {
+            sb.append("Blacklisted words: ");
             for (String s : Willie.getInstance().getConfig().getBlacklistedWords()) {
-                sb.append(s + " ");
+                sb.append(s).append(" ");
             }
-            String list = sb.toString().trim();
-            channel.sendMessage("Blacklisted words: " + list);
+            channel.sendMessage(sb.toString().trim());
         }
     }
 }

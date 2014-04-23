@@ -3,29 +3,94 @@ package com.drtshock.willie.command.admin;
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
-import org.pircbotx.Colors;
 import org.pircbotx.User;
+
+import java.util.ArrayList;
 
 public class JoinCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        if (args.length > 2) {
-            return;
-        }
-        if (!args[0].startsWith("#")) {
-            args[0] = ("#" + args[0]).toLowerCase();
-        }
+        if (args.length <= 2) {
+            ArrayList<String> channels = new ArrayList<>();
 
-        if (bot.isOnChannel(args[0])) {
-            channel.sendMessage(String.format("Already there!"));
-        } else {
-            channel.sendMessage(String.format("See you in %s!", args[0]));
-            bot.joinChannel(args[0]);
-            if (args.length == 2 && args[1].equalsIgnoreCase("silent")) {
-                return;
+            for (String s : args[0].split(",")) {
+                if (!s.startsWith("#")) {
+                    s = "#" + s;
+                    if (!channels.contains(s)) {
+                        channels.add(s);
+                    }
+                }
             }
-            bot.getChannel(args[0]).sendMessage(String.format("%s told me I belong here.", sender.getNick()));
+
+            ArrayList<Channel> joinChannels = new ArrayList<>();
+
+            for (String s : channels) {
+                joinChannels.add(bot.getChannel(s));
+            }
+
+            ArrayList<Channel> inChannel = new ArrayList<>();
+            ArrayList<Channel> notInChannel = new ArrayList<>();
+
+            for (Channel c : joinChannels) {
+                if (bot.isOnChannel(c.getName())) {
+                    inChannel.add(c);
+                } else {
+                    notInChannel.add(c);
+                    if (!(args.length == 2 && args[1].equalsIgnoreCase("silent"))) {
+                        bot.getChannel(args[0]).sendMessage(sender.getNick() + "told me I belong here.");
+                    }
+                }
+            }
+
+            StringBuilder sb = new StringBuilder();
+            if (notInChannel.size() >= 1) {
+                sb.append("See you in ");
+
+                for (int i = 0; i < notInChannel.size(); i++) {
+                    sb.append(notInChannel.get(i).getName());
+
+                    if (i < notInChannel.size() - 1) {
+                        if (notInChannel.size() > 2) {
+                            sb.append(",");
+                        }
+                        sb.append(" ");
+                    }
+
+                    if (i == notInChannel.size() - 2) {
+                        sb.append("and ");
+                    }
+                }
+
+                sb.append("!");
+
+                if (inChannel.size() >= 1) {
+                    sb.append(" ");
+                }
+            }
+
+            if (inChannel.size() >= 1) {
+                sb.append("I was already in ");
+
+                for (int i = 0; i < inChannel.size(); i++) {
+                    sb.append(inChannel.get(i).getName());
+
+                    if (i < inChannel.size() - 1) {
+                        if (inChannel.size() > 2) {
+                            sb.append(",");
+                        }
+                        sb.append(" ");
+                    }
+
+                    if (i == inChannel.size() - 2) {
+                        sb.append("and ");
+                    }
+                }
+
+                sb.append("though...");
+            }
+
+            channel.sendMessage(sb.toString());
         }
     }
 }

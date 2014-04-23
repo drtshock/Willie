@@ -30,7 +30,7 @@ public class WDTBSCommandHandler implements CommandHandler {
 
             StringBuilder question = new StringBuilder();
             for (String arg : args) {
-                question.append(arg + " ");
+                question.append(arg).append(" ");
             }
 
             String cBotResponce = cBotSession.think(question.toString().trim()).trim();
