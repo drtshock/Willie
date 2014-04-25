@@ -30,6 +30,7 @@ import com.drtshock.willie.jenkins.JenkinsServer;
 import com.drtshock.willie.listener.JoinListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
+
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.PircBotX;
@@ -150,12 +151,14 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("poke", "<person> pokes people", new PokeCommandHandler()));
         this.commandManager.registerCommand(new Command("pong", "want to play some ping-pong?", new PongCommandHandler()));
         this.commandManager.registerCommand(new Command("prefix", "<prefix> changes command prefix for bot.", new PrefixCommandHandler(), true));
+        this.commandManager.registerCommand(new Command("pun", "willie tells one of many puns.", new WilliePunCommandHandler()));
         this.commandManager.registerCommand(new Command("quote", "display a random quote", new QuoteCommandHandler()));
         this.commandManager.registerCommand(new Command("r", "<name> shortcut to a Reddit subreddit", new SubRedditCommandHandler()));
         this.commandManager.registerCommand(new Command("reload", "Reloads willie", new ReloadCommandHandler(), true));
         this.commandManager.registerCommand(new Command("repo", "show Willie's repo", new RepoCommandHandler()));
         this.commandManager.registerCommand(new Command("rules", "show channel rules", new RulesCommandHandler()));
         this.commandManager.registerCommand(new Command("save", "Saves configuration", new SaveCommandHandler(), true));
+        this.commandManager.registerCommand(new Command("scores", "Shows today's football scores.", new FootballScoresCommandHandler()));
         this.commandManager.registerCommand(new Command("server", "<IP> get a server's status", new ServerCommandHandler()));
         this.commandManager.registerCommand(new Command("shorten", "<url> shorten a url", new ShortenCommandHandler()));
         this.commandManager.registerCommand(new Command("shutdown", "shuts the bot down", new ShutdownCommandHandler(), true));
