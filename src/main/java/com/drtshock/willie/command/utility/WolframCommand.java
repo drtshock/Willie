@@ -24,8 +24,7 @@ public class WolframCommand implements CommandHandler {
     public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
         if(args.length == 0) {
             channel.sendMessage(Color.RED + "Usage: wa <query>");
-        }
-        else {
+        } else {
             String key = bot.getConfig().getWolframApiKey();
 
             StringBuilder argsBuilder = new StringBuilder();
