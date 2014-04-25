@@ -24,21 +24,15 @@ import com.drtshock.willie.command.CommandHandler;
 
 public class FootballScoresCommandHandler implements CommandHandler {
 
-	private List<String> todaysScores;
-
-	public static void main(String[] args) {
-		new FootballScoresCommandHandler();
-	}
-
-	public FootballScoresCommandHandler() {
-		todaysScores = new ArrayList<String>();
+	private List<String> loadScores() {
+		List<String> todaysScores = new ArrayList<String>();
 
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		try {
 			dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse("http://www.scorespro.com/rss2/live-soccer.xml");
-			
+
 			doc.normalize();
 
 			NodeList results = doc.getElementsByTagName("item");
@@ -60,12 +54,14 @@ public class FootballScoresCommandHandler implements CommandHandler {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return todaysScores;
 	}
 
 	@Override
 	public void handle(Willie bot, Channel channel, User sender, String[] args) throws Exception {
 		sender.sendMessage("Today's scores:");
-		for (String s : todaysScores) {
+		for (String s : loadScores()) {
 			sender.sendMessage(s);
 		}
 	}
