@@ -1,4 +1,5 @@
 github-api-key: change
+wolfram-apy-key: change-me
 jenkins-server: http://ci.drtshock.net/
 jenkins-admins: [drtshock, blha303]
 bot-source-url: https://github.com/drtshock/willie

@@ -32,6 +32,7 @@ public class WillieConfig {
         ignoredChannels.put("#hawkfalcon", Arrays.asList("p", "w"));
 
         configMap.put("github-api-key", "change-me");
+        configMap.put("wolfram-api-key", "change-me");
         configMap.put("jenkins-server", "http://ci.drtshock.net/");
         configMap.put("jenkins-admins", jenkinsAdmins);
         configMap.put("bot-source-url", "https://github.com/drtshock/willie");
@@ -104,6 +105,10 @@ public class WillieConfig {
 
     public String getGitHubApiKey() {
         return (String) configMap.get("github-api-key");
+    }
+
+    public String getWolframApiKey() {
+        return (String) configMap.get("wolfram-api-key");
     }
 
     public String getJoinMessage(Channel c) {
