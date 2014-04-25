@@ -13,7 +13,7 @@ import org.pircbotx.User;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class WolframCommand implements CommandHandler {
+public class WolframCommandHandler implements CommandHandler {
 
     private static final String API_URL = "http://api.wolframalpha.com/v2/query?format=plaintext&appid=%s&input=%s",
     QUERY_URL = "http://www.wolframalpha.com/input/?i=%s";
