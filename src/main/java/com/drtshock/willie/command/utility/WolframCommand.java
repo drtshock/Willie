@@ -28,31 +28,31 @@ public class WolframCommand implements CommandHandler {
         else {
             String key = bot.getConfig().getWolframApiKey();
 
-            if (key.equals("change-me")) {
-                throw new IllegalStateException("Missing API key");
-            } else {
-                StringBuilder argsBuilder = new StringBuilder();
+            StringBuilder argsBuilder = new StringBuilder();
 
-                for(String arg : args) {
-                    argsBuilder.append(arg);
+            for(String arg : args) {
+                argsBuilder.append(arg);
 
-                    if(arg != args[args.length - 1]) {
-                        argsBuilder.append(" ");
-                    }
+                if(arg != args[args.length - 1]) {
+                    argsBuilder.append(" ");
                 }
+            }
 
-                String input = URLEncoder.encode(argsBuilder.toString(), "UTF-8");
+            String input = URLEncoder.encode(argsBuilder.toString(), "UTF-8");
 
-                Document document = builder.build(new URL(String.format(API_URL, key, input)));
+            Document document = builder.build(new URL(String.format(API_URL, key, input)));
 
-                StringBuilder answer = new StringBuilder();
+            StringBuilder answer = new StringBuilder();
 
-                for(Element pod : document.getRootElement().getChildren("pod")) {
-                    if(pod.getAttribute("primary") != null && pod.getAttribute("primary").getBooleanValue()) {
-                        for(Element subPod : pod.getChildren("subpod")) {
+            Element root = document.getRootElement();
+
+            if(root.getAttribute("success").getBooleanValue()) {
+                for (Element pod : root.getChildren("pod")) {
+                    if (pod.getAttribute("primary") != null && pod.getAttribute("primary").getBooleanValue()) {
+                        for (Element subPod : pod.getChildren("subpod")) {
                             String content = subPod.getChild("plaintext").getText().replaceAll("\\n", "; ").replaceAll("\\s+", " ");
 
-                            if(!content.isEmpty()) {
+                            if (!content.isEmpty()) {
                                 answer.append(content);
                             }
                         }
@@ -60,6 +60,8 @@ public class WolframCommand implements CommandHandler {
                 }
 
                 channel.sendMessage(String.format("%s - %s", answer, WebHelper.shortenURL(String.format(QUERY_URL, input))));
+            } else {
+                throw new IllegalStateException("Query failed - " + root.getChild("error").getChild("msg").getText());
             }
         }
     }

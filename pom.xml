@@ -136,6 +136,7 @@
                             <include>org.yaml:snakeyaml</include>
                             <include>org.jsoup:jsoup</include>
                             <include>org.twitter4j:twitter4j-core</include>
+                            <include>org.jdom:jdom2</include>
                         </includes>
                     </artifactSet>
                 </configuration>
