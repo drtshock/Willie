@@ -1,5 +1,8 @@
 github-api-key: change
 wolfram-api-key: change-me
+pastebin-api-key: change-me
+pastebin-username: change-me
+pastebin-password: change-me
 jenkins-server: http://ci.drtshock.net/
 jenkins-admins: [drtshock, blha303]
 bot-source-url: https://github.com/drtshock/willie
@@ -17,4 +20,4 @@ github-password: change
 twitter-consumer-key: change
 twitter-consumer-key-secret: change
 twitter-access-token: change
-twitter-access-token-secret: change 
+twitter-access-token-secret: change

@@ -179,7 +179,7 @@ public class AuthorCommandHandler implements CommandHandler {
             String line;
             while ((line = input.readLine()) != null) {
                 buffer.append(line);
-                buffer.append('\n');
+                buffer.append("\n\n");
             }
             page = buffer.toString();
         }

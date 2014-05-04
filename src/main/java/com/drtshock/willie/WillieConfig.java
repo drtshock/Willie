@@ -33,6 +33,9 @@ public class WillieConfig {
 
         configMap.put("github-api-key", "change-me");
         configMap.put("wolfram-api-key", "change-me");
+        configMap.put("pastebin-api-key", "change-me");
+        configMap.put("pastebin-username", "change-me");
+        configMap.put("pastebin-password", "change-me");
         configMap.put("jenkins-server", "http://ci.drtshock.net/");
         configMap.put("jenkins-admins", jenkinsAdmins);
         configMap.put("bot-source-url", "https://github.com/drtshock/willie");
@@ -41,7 +44,7 @@ public class WillieConfig {
         configMap.put("account-pass", "");
         configMap.put("server-pass", "");
         configMap.put("server", "drtshock.com");
-        configMap.put("port", "5555");
+        configMap.put("port", 5555);
         configMap.put("channels", botChannels);
         configMap.put("command-prefix", "!");
         configMap.put("twitter-consumer-key", "change-me");
@@ -110,6 +113,18 @@ public class WillieConfig {
     public String getWolframApiKey() {
         return (String) configMap.get("wolfram-api-key");
     }
+
+	public String getPastebinApiKey() {
+		return (String) configMap.get("pastebin-api-key");
+	}
+
+	public String getPastebinUsername() {
+		return (String) configMap.get("pastebin-username");
+	}
+
+	public String getPastebinPassword() {
+		return (String) configMap.get("pastebin-password");
+	}
 
     public String getJoinMessage(Channel c) {
         return (String) configMap.get(c.toString());
