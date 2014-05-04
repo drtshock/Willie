@@ -14,8 +14,8 @@ import java.net.URLEncoder;
 
 public class WolframCommandHandler implements CommandHandler {
 
-    private static final String API_URL = "http://api.wolframalpha.com/v2/query?format=plaintext&appid=%s&input=%s",
-            QUERY_URL = "http://www.wolframalpha.com/input/?i=%s";
+    private static final String API_URL = "http://api.wolframalpha.com/v2/query?format=plaintext&appid={KEY}&input={QUERY}",
+            QUERY_URL = "http://www.wolframalpha.com/input/?i=";
 
     private SAXBuilder builder = new SAXBuilder();
 
@@ -39,7 +39,7 @@ public class WolframCommandHandler implements CommandHandler {
 
             String input = URLEncoder.encode(argsBuilder.toString(), "UTF-8");
 
-            Document document = builder.build(new URL(String.format(API_URL, key, input)));
+            Document document = builder.build(new URL(API_URL.replace("{KEY}", key).replace("{QUERY}", input)));
 
             StringBuilder answer = new StringBuilder();
 
@@ -58,7 +58,7 @@ public class WolframCommandHandler implements CommandHandler {
                     }
                 }
 
-                channel.sendMessage(String.format("%s - %s", answer, WebHelper.shortenURL(String.format(QUERY_URL, input))));
+                channel.sendMessage(answer + " - " + WebHelper.shortenURL(QUERY_URL + input));
             } else {
                 channel.sendMessage("Query failed - " + root.getChild("error").getChild("msg").getText());
             }
