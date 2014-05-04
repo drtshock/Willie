@@ -71,7 +71,7 @@ public class Pastebin {
 		final String check = checkResponse(response);
 
 		if (!check.isEmpty()) {
-			return "";
+			return check;
 		}
 
 		return response;
