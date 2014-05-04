@@ -28,6 +28,7 @@ import com.drtshock.willie.command.twitter.TrendsCommandHandler;
 import com.drtshock.willie.command.utility.*;
 import com.drtshock.willie.jenkins.JenkinsServer;
 import com.drtshock.willie.listener.JoinListener;
+import com.drtshock.willie.pastebin.Pastebin;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 import org.pircbotx.Channel;
@@ -160,6 +161,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("server", "<IP> get a server's status", new ServerCommandHandler()));
         this.commandManager.registerCommand(new Command("shorten", "<url> shorten a url", new ShortenCommandHandler()));
         this.commandManager.registerCommand(new Command("shutdown", "shuts the bot down", new ShutdownCommandHandler(), true));
+        this.commandManager.registerCommand(new Command("source", "<url> see a website's source", new SourceCommandHandler()));
         this.commandManager.registerCommand(new Command("stats", "<name> - Outputs MCStats stats for plugin", new MCStatsCommandHandler()));
         this.commandManager.registerCommand(new Command("topic", "<topic> sets the topic", new TopicCommandHandler()));
         this.commandManager.registerCommand(new Command("trends", "see whats trending on Twitter!", new TrendsCommandHandler()));
@@ -178,6 +180,11 @@ public class Willie extends PircBotX {
         this.setVerbose(false);
         this.getListenerManager().addListener(this.commandManager);
         this.getListenerManager().addListener(this.joinListener);
+
+		LOG.info("Logging in to Pastebin...");
+		Pastebin.login(config.getPastebinUsername(), config.getPastebinPassword());
+		Pastebin.setDevkey(config.getPastebinApiKey());
+		LOG.info("Logged into Pastebin");
     }
 
     public void connect() {
