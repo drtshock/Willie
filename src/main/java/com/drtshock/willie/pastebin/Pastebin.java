@@ -10,7 +10,7 @@ public class Pastebin {
 	private static String token;
 	private static String devkey;
 
-	public static String checkResponse(String response) {
+	private static String checkResponse(String response) {
 		if (response.substring(0, 15).equals("Bad API request")) {
 			return response.substring(17);
 		}
@@ -18,6 +18,15 @@ public class Pastebin {
 		return "";
 	}
 
+	/**
+	 * Logs in to Pastebin. This is automatically run once on startup and
+	 * should not be run again unless a future paste should be pasted for a
+	 * different user.
+	 *
+	 * @param username username
+	 * @param password password
+	 * @return result of login
+	 */
 	public static String login(String username, String password) {
 		final String api_user_name;
 		final String api_user_password;
@@ -43,6 +52,16 @@ public class Pastebin {
 		return response;
 	}
 
+	/**
+	 * Creates a paste.
+	 *
+	 * @param code code to paste
+	 * @param name title of the paste
+	 * @param format language of the code (available languages:
+	 * pastebin.com/api#5")
+	 * @return URL of paste or error message if there is one
+	 * @throws UnsupportedEncodingException
+	 */
 	public static String makePaste(String code, String name, String format) throws UnsupportedEncodingException {
 		final String content = URLEncoder.encode(code, "UTF-8");
 		final String title = URLEncoder.encode(name, "UTF-8");
@@ -52,13 +71,13 @@ public class Pastebin {
 		final String check = checkResponse(response);
 
 		if (!check.isEmpty()) {
-			return check;
+			return "";
 		}
 
 		return response;
 	}
 
-	public static String page(String uri, String urlParameters) {
+	private static String page(String uri, String urlParameters) {
 		URL url;
 		HttpURLConnection connection = null;
 
@@ -103,6 +122,12 @@ public class Pastebin {
 		}
 	}
 
+	/**
+	 * Sets the API key to use. This is run automatically on startup and does
+	 * not need to be run again unless needed.
+	 *
+	 * @param devkey API key to use
+	 */
 	public static void setDevkey(String devkey) {
 		Pastebin.devkey = devkey;
 	}
