@@ -9,6 +9,6 @@ public class RepoCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        channel.sendMessage("Find me at " + bot.getConfig().getBotSourceUrl());
+        channel.sendMessage("Find me at " + bot.getConfig().getBotSourceUrl() + ".");
     }
 }
