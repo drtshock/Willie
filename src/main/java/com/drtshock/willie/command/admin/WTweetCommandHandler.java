@@ -32,10 +32,10 @@ public class WTweetCommandHandler implements CommandHandler {
             try {
                 StringBuilder status = new StringBuilder();
                 for (String arg : args) {
-                    status.append(arg + " ");
+                    status.append(arg).append(" ");
                 }
 
-                twitter.updateStatus("(" + sender.getNick() + ") " + status.toString());
+                twitter.updateStatus("(" + sender.getNick() + ") " + status.substring(0, status.length() - 1));
                 channel.sendMessage(Colors.GREEN + sender.getNick() + " your message was tweeted!");
                 channel.sendMessage(Colors.NORMAL + "Check out Willie on Twitter! https://twitter.com/WillieIRC");
             } catch (TwitterException e) {

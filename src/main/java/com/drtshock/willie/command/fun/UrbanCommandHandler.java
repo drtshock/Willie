@@ -20,8 +20,7 @@ public class UrbanCommandHandler implements CommandHandler {
             for (String arg : args) {
                 sb.append(arg).append("+");
             }
-            String query = sb.toString();
-            query = query.substring(0, query.length() - 1);
+            String query = sb.substring(0, sb.length() - 1);
             Dictionary.Definition def;
             try {
                 def = Dictionary.URBAN_DICTIONARY.getDefinition(query);
