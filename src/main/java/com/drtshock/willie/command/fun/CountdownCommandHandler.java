@@ -5,9 +5,7 @@ import com.drtshock.willie.command.CommandHandler;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 public class CountdownCommandHandler implements CommandHandler {
 
@@ -158,10 +156,18 @@ public class CountdownCommandHandler implements CommandHandler {
 		}
 
 		public String getTime() {
-			final HashSet<String> timeMessages = new HashSet<>();
+			final LinkedHashSet<String> timeMessages = new LinkedHashSet<>();
 			long timeLeft = time;
 
-			for (TimeUnit timeUnit : TimeUnit.values()) {
+			final ArrayList<TimeUnit> timeUnits = new ArrayList<>();
+
+			Collections.addAll(timeUnits, TimeUnit.values());
+
+			final ListIterator<TimeUnit> li = timeUnits.listIterator(timeUnits.size());
+
+			while (li.hasPrevious()) {
+				final TimeUnit timeUnit = li.previous();
+
 				int units = (int) (timeLeft / timeUnit.seconds);
 				timeLeft -= (units * timeUnit.seconds);
 
