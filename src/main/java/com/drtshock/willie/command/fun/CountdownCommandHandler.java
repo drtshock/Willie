@@ -62,12 +62,25 @@ public class CountdownCommandHandler implements CommandHandler {
 					}
 				}
 
-				times.put(TimeUnit.byFirstLetter(unit), Integer.valueOf(num.toString()));
+				final String numString = num.toString();
+				if (numString.isEmpty()) {
+					msgUser(channel, sender, "Invalid time");
+					return;
+				}
+
+				times.put(TimeUnit.byFirstLetter(unit), Integer.valueOf(numString));
 			}
 
 			long time = 0;
 			for (HashMap.Entry<TimeUnit, Integer> entry : times.entrySet()) {
-				time += (entry.getKey().seconds * entry.getValue());
+				TimeUnit key = entry.getKey();
+
+				if (key == null) {
+					msgUser(channel, sender, "Invalid time");
+					return;
+				}
+
+				time += (key.seconds * entry.getValue());
 			}
 
 			final Timer timer = new Timer(time, channel, sender);
