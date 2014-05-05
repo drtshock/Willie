@@ -16,7 +16,7 @@ public class CountdownCommandHandler implements CommandHandler {
 	@Override
 	public void handle(Willie bot, Channel channel, User sender, String[] args) {
 		if (args.length == 0) {
-			msgUser(channel, sender, "Usage: !countdown <time|stop|left>");
+			msgUser(channel, sender, "Usage: !countdown <time[d, h, m, s>]|stop|left>");
 		} else if (args[0].equalsIgnoreCase("stop")) {
 			final Iterator<Timer> itr = timers.iterator();
 			while (itr.hasNext()) {
