@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Scanner;
 
 public class WebHelper {
@@ -26,7 +27,7 @@ public class WebHelper {
 
     public static String shortenURL(String url) {
         try {
-            String str = readURLToString(new URL("http://is.gd/create.php?format=simple&url=" + url));
+            String str = readURLToString(new URL("http://is.gd/create.php?format=simple&url=" + URLEncoder.encode(url, "UTF-8")));
             return str;
         } catch (IOException e) {
             return "";
