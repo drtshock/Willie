@@ -148,6 +148,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("leave", "<channel> - Leaves a channel", new LeaveCommandHandler(), true));
         this.commandManager.registerCommand(new Command("mcstatus", "Check the status of Minecraft's Servers", new MCStatusCommandHandler()));
         this.commandManager.registerCommand(new Command("p", "pop some popcorn!", new PopcornCommandHandler()));
+        this.commandManager.registerCommand(new Command("pet", "<person> pet someone!", new PetCommandHandler()));
         this.commandManager.registerCommand(new Command("plugin", "<name> - looks up a plugin on BukkitDev", new PluginCommandHandler()));
         this.commandManager.registerCommand(new Command("poke", "<person> pokes people", new PokeCommandHandler()));
         this.commandManager.registerCommand(new Command("pong", "want to play some ping-pong?", new PongCommandHandler()));
