@@ -13,8 +13,7 @@ public class PetSnacksCommandHandler implements CommandHandler {
           bot.sendAction(channel, "Please use '!pet <person>'!");
           return;
         }
-          String person = args[0];
-          bot.sendAction(channel, "pets " + person);
-          
+        String person = args[0];
+        bot.sendAction(channel, "pets " + person);
     }
 }
