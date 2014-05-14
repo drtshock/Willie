@@ -1,4 +1,4 @@
-package com.drtshock.willie;
+package com.drtshock.willie.configuration;
 
 import com.drtshock.willie.util.YamlHelper;
 import org.pircbotx.Channel;
@@ -114,17 +114,17 @@ public class WillieConfig {
         return (String) configMap.get("wolfram-api-key");
     }
 
-	public String getPastebinApiKey() {
-		return (String) configMap.get("pastebin-api-key");
-	}
+    public String getPastebinApiKey() {
+        return (String) configMap.get("pastebin-api-key");
+    }
 
-	public String getPastebinUsername() {
-		return (String) configMap.get("pastebin-username");
-	}
+    public String getPastebinUsername() {
+        return (String) configMap.get("pastebin-username");
+    }
 
-	public String getPastebinPassword() {
-		return (String) configMap.get("pastebin-password");
-	}
+    public String getPastebinPassword() {
+        return (String) configMap.get("pastebin-password");
+    }
 
     public String getJoinMessage(Channel c) {
         return (String) configMap.get(c.toString());

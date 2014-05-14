@@ -2,9 +2,10 @@ package com.drtshock.willie.command.misc;
 
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
-import java.util.Random;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
+
+import java.util.Random;
 
 public class RollCommandHandler implements CommandHandler {
 

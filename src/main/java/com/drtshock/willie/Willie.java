@@ -26,6 +26,8 @@ import com.drtshock.willie.command.misc.*;
 import com.drtshock.willie.command.twitter.RecentTweetCommandHandler;
 import com.drtshock.willie.command.twitter.TrendsCommandHandler;
 import com.drtshock.willie.command.utility.*;
+import com.drtshock.willie.configuration.ChannelConfiguration;
+import com.drtshock.willie.configuration.WillieConfig;
 import com.drtshock.willie.jenkins.JenkinsServer;
 import com.drtshock.willie.listener.JoinListener;
 import com.drtshock.willie.pastebin.Pastebin;
@@ -39,6 +41,7 @@ import org.pircbotx.exception.NickAlreadyInUseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.*;
 
@@ -55,6 +58,7 @@ public class Willie extends PircBotX {
     public CommandManager commandManager;
     public JoinListener joinListener;
     private WillieConfig willieConfig;
+    private HashMap<String, ChannelConfiguration> channelConfigurations = new HashMap<>();
 
     public static Willie getInstance() {
         return instance;
@@ -183,10 +187,10 @@ public class Willie extends PircBotX {
         this.getListenerManager().addListener(this.commandManager);
         this.getListenerManager().addListener(this.joinListener);
 
-		LOG.info("Logging in to Pastebin...");
-		Pastebin.login(config.getPastebinUsername(), config.getPastebinPassword());
-		Pastebin.setDevkey(config.getPastebinApiKey());
-		LOG.info("Logged into Pastebin");
+        LOG.info("Logging in to Pastebin...");
+        Pastebin.login(config.getPastebinUsername(), config.getPastebinPassword());
+        Pastebin.setDevkey(config.getPastebinApiKey());
+        LOG.info("Logged into Pastebin");
     }
 
     public void connect() {
@@ -287,6 +291,14 @@ public class Willie extends PircBotX {
         willieConfig.update();
         willieConfig.save(CONFIG_FILE);
         LOG.info("Saved!");
+    }
+
+    public ChannelConfiguration getChannelConfiguration(Channel channel) {
+        return channelConfigurations.containsKey(channel.toString()) ? channelConfigurations.get(channel.toString()) : new ChannelConfiguration(channel);
+    }
+
+    public HashMap<String, ChannelConfiguration> getChannelConfigurationMap() {
+        return this.channelConfigurations;
     }
 
     public WillieConfig getConfig() {
