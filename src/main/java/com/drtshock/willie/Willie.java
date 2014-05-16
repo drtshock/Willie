@@ -118,13 +118,16 @@ public class Willie extends PircBotX {
 							}
 						});
 					}
-					String actualMessage = message.toString().substring(0, message.length() - 1);
+					String actualMessage = message.toString().substring(0, message.length() - 1).replace("refs/heads", requestBody.get("repository").getAsJsonObject().get("name").getAsString());
 
 					if(!actualMessage.isEmpty()) {
-						config.getGitlabChannels().stream().map(this::getChannel).forEach((channel) -> {
-							System.out.println("Sending " + actualMessage + " to " + channel.getName());
-							channel.sendMessage(actualMessage);
-						});
+						for(String channel : config.getGitlabChannels())
+						{
+							message.append(" (Sent to ");
+							message.append(channel);
+							message.append(")");
+							getChannel(channel).sendMessage(actualMessage);
+						}
 					}
 				} else {
 					throw new IllegalArgumentException("Recieved non-object JSON for gitlab hook: " + request.body());

@@ -32,6 +32,8 @@ public class WillieConfig {
 
         ignoredChannels.put("#hawkfalcon", Arrays.asList("p", "w"));
 
+		gitlabChannels.add("#puzldevs");
+
         configMap.put("github-api-key", "change-me");
         configMap.put("wolfram-api-key", "change-me");
         configMap.put("pastebin-api-key", "change-me");
