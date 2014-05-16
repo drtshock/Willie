@@ -90,7 +90,7 @@ public class Willie extends PircBotX {
 
 					if(requestBody.has("object-kind")) {
 						//TODO: Parse issues & merge requests
-					} else {
+					} else if(requestBody.has("commits")) {
 						message.append(requestBody.get("user_name").getAsString());
 						message.append(" pushed ");
 
@@ -120,8 +120,13 @@ public class Willie extends PircBotX {
 					String actualMessage = message.toString().substring(0, message.length() - 1);
 
 					if(!actualMessage.isEmpty()) {
-						config.getGitlabChannels().stream().map(this::getChannel).forEach((channel) -> channel.sendMessage(actualMessage));
+						config.getGitlabChannels().stream().map(this::getChannel).forEach((channel) -> {
+							System.out.println("Sending " + actualMessage + " to " + channel.getName());
+							channel.sendMessage(actualMessage);
+						});
 					}
+				} else {
+					throw new IllegalArgumentException("Recieved non-object JSON for gitlab hook: " + request.body());
 				}
 			} catch(Exception e) {
 				e.printStackTrace(); //TODO: Disable once we've got the kinks worked out
