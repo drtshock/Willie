@@ -130,6 +130,9 @@ public class Willie extends PircBotX {
 						}
 					}
 
+					//TODO: Stop using a hack
+					getChannel("#puzldevs").sendMessage(actualMessage);
+
 					message.append( "Meant to be sent to: ");
 					message.append(config.getGitlabChannels());
 				} else {
