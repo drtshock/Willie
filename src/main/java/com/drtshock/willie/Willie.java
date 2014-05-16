@@ -80,15 +80,16 @@ public class Willie extends PircBotX {
 
 		//Start route mapping
 		post("/gitlab-hook/", (request, response) -> {
+			StringBuilder message = new StringBuilder();
+
 			try {
 				JsonElement requestElement = parser.parse(request.body());
 
 				if(requestElement.isJsonObject()) {
 					JsonObject requestBody = requestElement.getAsJsonObject();
 
-					StringBuilder message = new StringBuilder();
-
 					if(requestBody.has("object-kind")) {
+						throw new IllegalArgumentException("Unsupported object-kind \"" + requestBody.get("object-kind") + "\"");
 						//TODO: Parse issues & merge requests
 					} else if(requestBody.has("commits")) {
 						message.append(requestBody.get("user_name").getAsString());
@@ -132,7 +133,7 @@ public class Willie extends PircBotX {
 				e.printStackTrace(); //TODO: Disable once we've got the kinks worked out
 			}
 
-			return 0;
+			return message.toString();
 		});
 		//End route mapping
 
