@@ -31,10 +31,7 @@ import com.drtshock.willie.configuration.WillieConfig;
 import com.drtshock.willie.jenkins.JenkinsServer;
 import com.drtshock.willie.listener.JoinListener;
 import com.drtshock.willie.pastebin.Pastebin;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.PircBotX;
@@ -80,69 +77,76 @@ public class Willie extends PircBotX {
 
 		//Start route mapping
 		post("/gitlab-hook/", (request, response) -> {
-			StringBuilder message = new StringBuilder();
-
 			try {
 				JsonElement requestElement = parser.parse(request.body());
 
 				if(requestElement.isJsonObject()) {
 					JsonObject requestBody = requestElement.getAsJsonObject();
 
+					StringBuilder message = new StringBuilder();
+
 					if(requestBody.has("object-kind")) {
 						throw new IllegalArgumentException("Unsupported object-kind \"" + requestBody.get("object-kind") + "\"");
 						//TODO: Parse issues & merge requests
-					} else if(requestBody.has("commits")) {
+					} else {
 						message.append(requestBody.get("user_name").getAsString());
-						message.append(" pushed ");
+						if(requestBody.has("commits")) {
+							message.append(" pushed ");
 
-						int count = requestBody.get("total_commits_count").getAsInt();
+							int count = requestBody.get("total_commits_count").getAsInt();
 
-						message.append(count);
+							message.append(count);
 
-						if(count == 1) {
-							message.append(" commit to ");
-						}
-						else {
-							message.append(" commits to ");
-						}
-						message.append(requestBody.get("ref").getAsString());
-						message.append(": ");
+							if(count == 1) {
+								message.append(" commit to ");
+							}
+							else {
+								message.append(" commits to ");
+							}
+							message.append(requestBody.get("ref").getAsString().replace("refs/heads", requestBody.get("repository").getAsJsonObject().get("name").getAsString()));
+							message.append(": ");
 
-						requestBody.get("commits").getAsJsonArray().iterator().forEachRemaining((element) -> {
-							if(element.isJsonObject()) {
-								JsonObject commit = element.getAsJsonObject();
+							JsonArray commits = requestBody.get("commits").getAsJsonArray();
+
+
+							for(int i = 0; i < commits.size(); i++) {
+								JsonObject commit = commits.get(i).getAsJsonObject();
 
 								message.append('"');
 								message.append(commit.get("message").getAsString());
-								message.append("\", ");
+
+								if(i == commits.size() - 1) {
+									message.append("\", ");
+								}
+								else {
+									message.append("\"");
+								}
 							}
-						});
+						} else {
+							message.append(", hook test successful for ");
+							requestBody.get("repository").getAsJsonObject().get("name").getAsString();
+						}
 					}
-					String actualMessage = message.toString().substring(0, message.length() - 1).replace("refs/heads", requestBody.get("repository").getAsJsonObject().get("name").getAsString());
+
+					String actualMessage = message.toString();
 
 					if(!actualMessage.isEmpty()) {
 						for(String channel : config.getGitlabChannels())
 						{
-							message.append(" (Sent to ");
-							message.append(channel);
-							message.append(")");
 							getChannel(channel).sendMessage(actualMessage);
 						}
 					}
 
 					//TODO: Stop using a hack
 					getChannel("#puzldevs").sendMessage(actualMessage);
-
-					message.append( "Meant to be sent to: ");
-					message.append(config.getGitlabChannels());
 				} else {
 					throw new IllegalArgumentException("Recieved non-object JSON for gitlab hook: " + request.body());
 				}
 			} catch(Exception e) {
-				e.printStackTrace(); //TODO: Disable once we've got the kinks worked out
+				e.printStackTrace();
 			}
 
-			return message.toString();
+			return 0;
 		});
 		//End route mapping
 
