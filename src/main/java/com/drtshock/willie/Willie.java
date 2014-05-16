@@ -129,6 +129,9 @@ public class Willie extends PircBotX {
 							getChannel(channel).sendMessage(actualMessage);
 						}
 					}
+
+					message.append( "Meant to be sent to: ");
+					message.append(config.getGitlabChannels());
 				} else {
 					throw new IllegalArgumentException("Recieved non-object JSON for gitlab hook: " + request.body());
 				}
