@@ -42,7 +42,6 @@
             <groupId>org.pircbotx</groupId>
             <artifactId>pircbotx</artifactId>
             <version>1.9</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -79,7 +78,6 @@
             <groupId>com.turt2live.lib</groupId>
             <artifactId>chatterbot</artifactId>
             <version>1.3</version>
-			<scope>provided</scope>
         </dependency>
 
 		<dependency>
