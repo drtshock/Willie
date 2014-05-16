@@ -32,6 +32,8 @@ import com.drtshock.willie.jenkins.JenkinsServer;
 import com.drtshock.willie.listener.JoinListener;
 import com.drtshock.willie.pastebin.Pastebin;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
@@ -44,6 +46,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.*;
+
+import static spark.Spark.post;
+import static spark.Spark.setPort;
 
 public class Willie extends PircBotX {
 
@@ -70,6 +75,61 @@ public class Willie extends PircBotX {
 
     private Willie(WillieConfig config) {
         super();
+
+		setPort(config.getHttpPort());
+
+		//Start route mapping
+		post("/gitlab-hook/", (request, response) -> {
+			try {
+				JsonElement requestElement = parser.parse(request.body());
+
+				if(requestElement.isJsonObject()) {
+					JsonObject requestBody = requestElement.getAsJsonObject();
+
+					StringBuilder message = new StringBuilder();
+
+					if(requestBody.has("object-kind")) {
+						//TODO: Parse issues & merge requests
+					} else {
+						message.append(requestBody.get("user_name").getAsString());
+						message.append(" pushed ");
+
+						int count = requestBody.get("total_commits_count").getAsInt();
+
+						message.append(count);
+
+						if(count == 1) {
+							message.append(" commit to ");
+						}
+						else {
+							message.append(" commits to ");
+						}
+						message.append(requestBody.get("ref").getAsString());
+						message.append(": ");
+
+						requestBody.get("commits").getAsJsonArray().iterator().forEachRemaining((element) -> {
+							if(element.isJsonObject()) {
+								JsonObject commit = element.getAsJsonObject();
+
+								message.append('"');
+								message.append(commit.get("message").getAsString());
+								message.append("\", ");
+							}
+						});
+					}
+					String actualMessage = message.toString().substring(0, message.length() - 1);
+
+					if(!actualMessage.isEmpty()) {
+						config.getGitlabChannels().stream().map(this::getChannel).forEach((channel) -> channel.sendMessage(actualMessage));
+					}
+				}
+			} catch(Exception e) {
+				e.printStackTrace(); //TODO: Disable once we've got the kinks worked out
+			}
+
+			return 0;
+		});
+		//End route mapping
 
         try {
             // Get Root Logger

@@ -17,6 +17,7 @@ public class WillieConfig {
 
     private static final Logger logger = Logger.getLogger(WillieConfig.class.getName());
     private LinkedHashMap<String, Object> configMap = new LinkedHashMap<>();
+	private List<String> gitlabChannels = new ArrayList<>();
     private ArrayList<String> botChannels = new ArrayList<>();
     private ArrayList<String> jenkinsAdmins = new ArrayList<>();
     private ArrayList<String> blacklistedWords = new ArrayList<>();
@@ -45,7 +46,9 @@ public class WillieConfig {
         configMap.put("server-pass", "");
         configMap.put("server", "drtshock.com");
         configMap.put("port", 5555);
+		configMap.put("http-port", 8080);
         configMap.put("channels", botChannels);
+		configMap.put("gitlab-channels", gitlabChannels);
         configMap.put("command-prefix", "!");
         configMap.put("twitter-consumer-key", "change-me");
         configMap.put("twitter-consumer-key-secret", "change-me");
@@ -64,6 +67,7 @@ public class WillieConfig {
         jenkinsAdmins = (ArrayList<String>) configMap.get("jenkins-admins");
         blacklistedWords = (ArrayList<String>) configMap.get("blacklisted-words");
         ignoredChannels = (Map<String, List<String>>) configMap.get("ignored-channels");
+		gitlabChannels = (List<String>) configMap.get("gitlab-channels");
         return this;
     }
 
@@ -181,6 +185,15 @@ public class WillieConfig {
         return this;
     }
 
+	public int getHttpPort() {
+		return (int) configMap.get("http-port");
+	}
+
+	public WillieConfig setHttpPort(int port) {
+		configMap.put("http-port", port);
+		return this;
+	}
+
     public String getPassword() {
         return (String) configMap.get("server-pass");
     }
@@ -288,6 +301,10 @@ public class WillieConfig {
     public List<String> getIgnoredChannels(String command) {
         return this.ignoredChannels.containsKey(command.toLowerCase()) ? this.ignoredChannels.get(command.toLowerCase()) : new ArrayList<String>();
     }
+
+	public List<String> getGitlabChannels() {
+		return gitlabChannels;
+	}
 
     public boolean removeIgnoredChannel(String channel, String command) {
         List<String> currentChannels = this.getIgnoredChannels(command);
