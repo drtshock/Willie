@@ -90,41 +90,35 @@ public class Willie extends PircBotX {
 						//TODO: Parse issues & merge requests
 					} else {
 						message.append(requestBody.get("user_name").getAsString());
-						if(requestBody.has("commits")) {
-							message.append(" pushed ");
+						message.append(" pushed ");
 
-							int count = requestBody.get("total_commits_count").getAsInt();
+						int count = requestBody.get("total_commits_count").getAsInt();
 
-							message.append(count);
+						message.append(count);
 
-							if(count == 1) {
-								message.append(" commit to ");
+						if(count == 1) {
+							message.append(" commit to ");
+						}
+						else {
+							message.append(" commits to ");
+						}
+						message.append(requestBody.get("ref").getAsString().replace("refs/heads", requestBody.get("repository").getAsJsonObject().get("name").getAsString()));
+						message.append(": ");
+
+						JsonArray commits = requestBody.get("commits").getAsJsonArray();
+
+
+						for(int i = 0; i < commits.size(); i++) {
+							JsonObject commit = commits.get(i).getAsJsonObject();
+
+							message.append('"');
+							message.append(commit.get("message").getAsString());
+
+							if(i != commits.size() - 1) {
+								message.append("\", ");
+							} else {
+								message.append("\"");
 							}
-							else {
-								message.append(" commits to ");
-							}
-							message.append(requestBody.get("ref").getAsString().replace("refs/heads", requestBody.get("repository").getAsJsonObject().get("name").getAsString()));
-							message.append(": ");
-
-							JsonArray commits = requestBody.get("commits").getAsJsonArray();
-
-
-							for(int i = 0; i < commits.size(); i++) {
-								JsonObject commit = commits.get(i).getAsJsonObject();
-
-								message.append('"');
-								message.append(commit.get("message").getAsString());
-
-								if(i == commits.size() - 1) {
-									message.append("\", ");
-								}
-								else {
-									message.append("\"");
-								}
-							}
-						} else {
-							message.append(", hook test successful for ");
-							requestBody.get("repository").getAsJsonObject().get("name").getAsString();
 						}
 					}
 
