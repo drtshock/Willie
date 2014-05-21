@@ -28,7 +28,7 @@ public class WebHelper {
     public static String shortenURL(String url) {
         try {
             String str = readURLToString(new URL("http://is.gd/create.php?format=simple&url=" + URLEncoder.encode(url, "UTF-8")));
-            return str;
+            return str.startsWith("<html>") ? url : str;
         } catch (IOException e) {
             return "";
         }
