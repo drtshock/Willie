@@ -24,72 +24,98 @@ public class JoinCommandHandler implements CommandHandler {
                 }
             }
 
-            List<Channel> joinChannels = new ArrayList<>();
+            List<String> alreadyIn = new ArrayList<>();
+            List<String> joined = new ArrayList<>();
+            List<String> nonexistent = new ArrayList<>();
 
-            for (String s : channels) {
-                joinChannels.add(bot.getChannel(s));
-            }
-
-            List<Channel> inChannel = new ArrayList<>();
-            List<Channel> notInChannel = new ArrayList<>();
-
-            for (Channel c : joinChannels) {
-                if (bot.isOnChannel(c.getName())) {
-                    inChannel.add(c);
+            for (String c : channels) {
+                if (bot.isOnChannel(c)) {
+                    alreadyIn.add(c);
                 } else {
-                    notInChannel.add(c);
-                    if (!(args.length == 2 && args[1].equalsIgnoreCase("silent"))) {
-                        bot.getChannel(args[0]).sendMessage(sender.getNick() + " told me I belong here.");
+                    if(bot.channelExists(c)) {
+                        joined.add(c);
+                        if (!(args.length == 2 && args[1].equalsIgnoreCase("silent"))) {
+                            bot.getChannel(args[0]).sendMessage(sender.getNick() + " told me I belong here.");
+                        }
+                        bot.joinChannel(c);
+                    } else {
+                        nonexistent.add(c);
                     }
-                    bot.joinChannel(c.getName());
                 }
             }
 
             StringBuilder sb = new StringBuilder();
-            if (notInChannel.size() >= 1) {
+            if (!joined.isEmpty()) {
                 sb.append("See you in ");
 
-                for (int i = 0; i < notInChannel.size(); i++) {
-                    sb.append(notInChannel.get(i).getName());
+                for (int i = 0; i < joined.size(); i++) {
+                    sb.append(joined.get(i));
 
-                    if (i < notInChannel.size() - 1) {
-                        if (notInChannel.size() > 2) {
+                    if (i < joined.size() - 1) {
+                        if (joined.size() > 2) {
                             sb.append(",");
                         }
                         sb.append(" ");
                     }
 
-                    if (i == notInChannel.size() - 2) {
+                    if (i == joined.size() - 2) {
                         sb.append("and ");
                     }
                 }
 
                 sb.append("!");
 
-                if (inChannel.size() >= 1) {
+                if (alreadyIn.size() >= 1) {
                     sb.append(" ");
                 }
             }
 
-            if (inChannel.size() >= 1) {
+            if (!alreadyIn.isEmpty()) {
                 sb.append("I was already in ");
 
-                for (int i = 0; i < inChannel.size(); i++) {
-                    sb.append(inChannel.get(i).getName());
+                for (int i = 0; i < alreadyIn.size(); i++) {
+                    sb.append(alreadyIn.get(i));
 
-                    if (i < inChannel.size() - 1) {
-                        if (inChannel.size() > 2) {
+                    if (i < alreadyIn.size() - 1) {
+                        if (alreadyIn.size() > 2) {
                             sb.append(",");
                         }
                         sb.append(" ");
                     }
 
-                    if (i == inChannel.size() - 2) {
+                    if (i == alreadyIn.size() - 2) {
                         sb.append("and ");
                     }
                 }
 
                 sb.append("though...");
+
+                if(!nonexistent.isEmpty()) {
+                    sb.append(" And ");
+                }
+            }
+
+            if(!nonexistent.isEmpty()) {
+                for(int i = 0; i < nonexistent.size(); i++) {
+                    sb.append(nonexistent.get(i));
+
+                    if (i < nonexistent.size() - 1) {
+                        if (nonexistent.size() > 2) {
+                            sb.append(",");
+                        }
+                        sb.append(" ");
+                    }
+
+                    if (i == nonexistent.size() - 2) {
+                        sb.append("and ");
+                    }
+                }
+
+                if(nonexistent.size() > 2) {
+                    sb.append(" don't even exist...");
+                } else {
+                    sb.append(" doesn't even exist...");
+                }
             }
 
             channel.sendMessage(sb.toString());
