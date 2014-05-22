@@ -8,11 +8,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 
 public class JenkinsServer {
 
     private String baseURL;
-    private HashMap<String, JenkinsJob> jobs;
+    private Map<String, JenkinsJob> jobs;
 
     public JenkinsServer(String baseURL) {
         this.baseURL = baseURL;

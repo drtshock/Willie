@@ -8,14 +8,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
 
 public class JenkinsJob {
 
     private String displayName;
     private String url;
     private String gitHubUrl;
-    private ArrayList<HealthReport> healthReport;
+    private List<HealthReport> healthReport;
 
     public static class HealthReport {
 
@@ -31,7 +31,7 @@ public class JenkinsJob {
         return this.url;
     }
 
-    public ArrayList<HealthReport> getHealthReports() {
+    public List<HealthReport> getHealthReports() {
         return healthReport;
     }
 

@@ -40,8 +40,9 @@ import org.pircbotx.exception.IrcException;
 import org.pircbotx.exception.NickAlreadyInUseException;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.*;
 
@@ -61,7 +62,7 @@ public class Willie extends PircBotX {
     public CommandManager commandManager;
     public JoinListener joinListener;
     private WillieConfig willieConfig;
-    private HashMap<String, ChannelConfiguration> channelConfigurations = new HashMap<>();
+    private Map<String, ChannelConfiguration> channelConfigurations = new HashMap<>();
 
     public static Willie getInstance() {
         return instance;
@@ -128,8 +129,7 @@ public class Willie extends PircBotX {
 					String actualMessage = message.toString();
 
 					if(!actualMessage.isEmpty()) {
-						for(String channel : config.getGitlabChannels())
-						{
+						for(String channel : config.getGitlabChannels()) {
 							getChannel(channel).sendMessage(actualMessage);
 						}
 					}
@@ -334,7 +334,7 @@ public class Willie extends PircBotX {
         }
 
         // Channels
-        ArrayList<String> newChannels = willieConfig.getChannels();
+        List<String> newChannels = willieConfig.getChannels();
         Set<String> oldChannels = getChannelsNames();
         for (String channel : willieConfig.getChannels()) {
             if (!oldChannels.contains(channel)) {
@@ -370,7 +370,7 @@ public class Willie extends PircBotX {
         return channelConfigurations.containsKey(channel.toString()) ? channelConfigurations.get(channel.toString()) : new ChannelConfiguration(channel);
     }
 
-    public HashMap<String, ChannelConfiguration> getChannelConfigurationMap() {
+    public Map<String, ChannelConfiguration> getChannelConfigurationMap() {
         return this.channelConfigurations;
     }
 

@@ -6,27 +6,25 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
+import java.util.*;
 
 @SuppressWarnings("unchecked")
 public final class YamlHelper {
 
-    private LinkedHashMap<String, Object> dataMap;
+    private Map<String, Object> dataMap;
     private Yaml yaml = new Yaml();
 
     public YamlHelper(String filePath) throws FileNotFoundException {
         loadFile(filePath);
     }
 
-    public YamlHelper(LinkedHashMap<String, Object> dataMap) {
+    public YamlHelper(Map<String, Object> dataMap) {
         this.dataMap = dataMap;
     }
 
     public YamlHelper loadFile(String filePath) throws FileNotFoundException, ClassCastException {
         InputStream fileStream = new FileInputStream(filePath);
-        dataMap = ((LinkedHashMap<String, Object>) yaml.load(fileStream));
+        dataMap = ((Map<String, Object>) yaml.load(fileStream));
         try {
             fileStream.close();
         } catch (IOException e) {
@@ -38,13 +36,13 @@ public final class YamlHelper {
         if (path.isEmpty()) {
             return dataMap;
         }
-        LinkedHashMap<String, Object> currentMap = dataMap;
+        Map<String, Object> currentMap = dataMap;
         String[] pathArray = path.split("\\.");
         for (int i = 0; i < pathArray.length; i++) {
             if (i == pathArray.length - 1) {
                 return currentMap.get(pathArray[i]);
             } else {
-                currentMap = (LinkedHashMap<String, Object>) currentMap.get(pathArray[i]);
+                currentMap = (Map<String, Object>) currentMap.get(pathArray[i]);
             }
         }
         return null;
@@ -57,15 +55,15 @@ public final class YamlHelper {
     public ArrayList<String> getKeys(String path) throws ClassCastException {
         ArrayList<String> keys = new ArrayList<>();
 
-        ArrayList<String> pathList = new ArrayList<>();
+        List<String> pathList = new ArrayList<>();
         Collections.addAll(pathList, path.split("\\."));
 
         if (pathList.contains("")) {
             keys.addAll(dataMap.keySet());
         } else {
-            LinkedHashMap<String, Object> currentMap = dataMap;
+            Map<String, Object> currentMap = dataMap;
             for (String pathKey : path.split("\\.")) {
-                currentMap = (LinkedHashMap<String, Object>) currentMap.get(pathKey);
+                currentMap = (Map<String, Object>) currentMap.get(pathKey);
             }
             if (currentMap != null) {
                 keys.addAll(currentMap.keySet());
@@ -100,15 +98,15 @@ public final class YamlHelper {
         return (float) getObject(path);
     }
 
-    public LinkedHashMap<String, Object> getMap(String path) throws ClassCastException {
-        return (LinkedHashMap<String, Object>) getObject(path);
+    public Map<String, Object> getMap(String path) throws ClassCastException {
+        return (Map<String, Object>) getObject(path);
     }
 
-    public LinkedHashMap<String, Integer> getIntMap(String path) throws ClassCastException {
-        return (LinkedHashMap<String, Integer>) getObject(path);
+    public Map<String, Integer> getIntMap(String path) throws ClassCastException {
+        return (Map<String, Integer>) getObject(path);
     }
 
-    public LinkedHashMap<String, Double> getDoubleMap(String path) throws ClassCastException {
-        return (LinkedHashMap<String, Double>) getObject(path);
+    public Map<String, Double> getDoubleMap(String path) throws ClassCastException {
+        return (Map<String, Double>) getObject(path);
     }
 }

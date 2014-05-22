@@ -6,12 +6,13 @@ import org.pircbotx.Channel;
 import org.pircbotx.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author stuntguy3000
  */
 public class CakeCommandHandler implements CommandHandler {
-    private ArrayList<String> messages;
+    private List<String> messages;
 
     public CakeCommandHandler() {
         this.messages = new ArrayList<String>();

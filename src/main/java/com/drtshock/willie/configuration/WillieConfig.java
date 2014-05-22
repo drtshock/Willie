@@ -16,11 +16,11 @@ import java.util.logging.Logger;
 public class WillieConfig {
 
     private static final Logger logger = Logger.getLogger(WillieConfig.class.getName());
-    private LinkedHashMap<String, Object> configMap = new LinkedHashMap<>();
+    private Map<String, Object> configMap = new LinkedHashMap<>();
 	private List<String> gitlabChannels = new ArrayList<>();
-    private ArrayList<String> botChannels = new ArrayList<>();
-    private ArrayList<String> jenkinsAdmins = new ArrayList<>();
-    private ArrayList<String> blacklistedWords = new ArrayList<>();
+    private List<String> botChannels = new ArrayList<>();
+    private List<String> jenkinsAdmins = new ArrayList<>();
+    private List<String> blacklistedWords = new ArrayList<>();
     private Map<String, List<String>> ignoredChannels = new HashMap<String, List<String>>();
 
     public WillieConfig() {
@@ -60,14 +60,14 @@ public class WillieConfig {
         configMap.put("ignored-channels", ignoredChannels);
     }
 
-    public LinkedHashMap<String, Object> getConfigMap() {
+    public Map<String, Object> getConfigMap() {
         return configMap;
     }
 
     public WillieConfig update() {
-        botChannels = (ArrayList<String>) configMap.get("channels");
-        jenkinsAdmins = (ArrayList<String>) configMap.get("jenkins-admins");
-        blacklistedWords = (ArrayList<String>) configMap.get("blacklisted-words");
+        botChannels = (List<String>) configMap.get("channels");
+        jenkinsAdmins = (List<String>) configMap.get("jenkins-admins");
+        blacklistedWords = (List<String>) configMap.get("blacklisted-words");
         ignoredChannels = (Map<String, List<String>>) configMap.get("ignored-channels");
 		gitlabChannels = (List<String>) configMap.get("gitlab-channels");
         return this;
@@ -95,7 +95,7 @@ public class WillieConfig {
 
     public static WillieConfig loadFromFile(String fileName) {
         WillieConfig willieConfig = new WillieConfig();
-        LinkedHashMap<String, Object> config = willieConfig.getConfigMap();
+        Map<String, Object> config = willieConfig.getConfigMap();
         try {
             YamlHelper yml = new YamlHelper(fileName);
 
@@ -141,10 +141,7 @@ public class WillieConfig {
     }
 
     public boolean hasJoinMessage(Channel c) {
-        if (configMap.containsKey(c.toString()) && !(configMap.get(c.toString()).equals(""))) {
-            return true;
-        }
-        return false;
+        return configMap.containsKey(c.toString()) && !(configMap.get(c.toString()).equals(""));
     }
 
     public String getJenkinsServer() {
@@ -210,7 +207,7 @@ public class WillieConfig {
         return this;
     }
 
-    public ArrayList<String> getChannels() {
+    public List<String> getChannels() {
         return botChannels;
     }
 
@@ -257,11 +254,11 @@ public class WillieConfig {
         return this;
     }
 
-    public ArrayList<String> getJenkinsAdmins() {
+    public List<String> getJenkinsAdmins() {
         return jenkinsAdmins;
     }
 
-    public ArrayList<String> getBlacklistedWords() {
+    public List<String> getBlacklistedWords() {
         return blacklistedWords;
     }
 

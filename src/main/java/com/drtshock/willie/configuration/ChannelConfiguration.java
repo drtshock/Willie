@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class ChannelConfiguration {
 
     private static final Logger logger = Logger.getLogger(ChannelConfiguration.class.getName());
-    private LinkedHashMap<String, Object> configMap = new LinkedHashMap<>();
+    private Map<String, Object> configMap = new LinkedHashMap<>();
 
     public ChannelConfiguration(Channel channel) {
         Willie.getInstance().getChannelConfigurationMap().put(channel.toString(), this);
@@ -25,7 +25,7 @@ public class ChannelConfiguration {
     }
 
     public void loadFromFile(String fileName) {
-        LinkedHashMap config = getConfig();
+        Map<String, Object> config = getConfig();
         try {
             YamlHelper yml = new YamlHelper(fileName);
 
@@ -66,7 +66,7 @@ public class ChannelConfiguration {
      *
      * @return ChannelConfiguration map.
      */
-    public LinkedHashMap getConfig() {
+    public Map<String, Object> getConfig() {
         return configMap;
     }
 }

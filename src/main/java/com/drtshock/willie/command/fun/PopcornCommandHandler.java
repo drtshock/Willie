@@ -6,12 +6,13 @@ import org.pircbotx.Channel;
 import org.pircbotx.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PopcornCommandHandler implements CommandHandler {
-    private ArrayList<String> messages;
+    private List<String> messages;
 
     public PopcornCommandHandler() {
-        this.messages = new ArrayList<String>();
+        this.messages = new ArrayList<>();
 
         this.messages.add("pops some plain popcorn.");
         this.messages.add("pops some popcorn with butter.");
@@ -21,6 +22,6 @@ public class PopcornCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
-        bot.sendAction(channel, this.messages.get(this.rand.nextInt(this.messages.size())));
+        bot.sendAction(channel, this.messages.get(rand.nextInt(this.messages.size())));
     }
 }

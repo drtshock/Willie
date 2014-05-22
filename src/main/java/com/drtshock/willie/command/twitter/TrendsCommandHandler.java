@@ -33,7 +33,8 @@ public class TrendsCommandHandler implements CommandHandler {
                     if (trendsToShow == 0) {
                         sb.append(t.getName());
                     } else {
-                        sb.append(t.getName() + ", ");
+                        sb.append(t.getName());
+                        sb.append(", ");
                     }
                 }
             }

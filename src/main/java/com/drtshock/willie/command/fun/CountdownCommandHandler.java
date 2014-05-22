@@ -9,7 +9,7 @@ import java.util.*;
 
 public class CountdownCommandHandler implements CommandHandler {
 
-    private final HashSet<Timer> timers = new HashSet<>();
+    private final Set<Timer> timers = new HashSet<>();
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {

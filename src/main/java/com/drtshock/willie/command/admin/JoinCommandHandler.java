@@ -6,13 +6,14 @@ import org.pircbotx.Channel;
 import org.pircbotx.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class JoinCommandHandler implements CommandHandler {
 
     @Override
     public void handle(Willie bot, Channel channel, User sender, String[] args) {
         if (args.length <= 2) {
-            ArrayList<String> channels = new ArrayList<>();
+            List<String> channels = new ArrayList<>();
 
             for (String s : args[0].split(",")) {
                 if (!s.startsWith("#")) {
@@ -23,14 +24,14 @@ public class JoinCommandHandler implements CommandHandler {
                 }
             }
 
-            ArrayList<Channel> joinChannels = new ArrayList<>();
+            List<Channel> joinChannels = new ArrayList<>();
 
             for (String s : channels) {
                 joinChannels.add(bot.getChannel(s));
             }
 
-            ArrayList<Channel> inChannel = new ArrayList<>();
-            ArrayList<Channel> notInChannel = new ArrayList<>();
+            List<Channel> inChannel = new ArrayList<>();
+            List<Channel> notInChannel = new ArrayList<>();
 
             for (Channel c : joinChannels) {
                 if (bot.isOnChannel(c.getName())) {
@@ -38,8 +39,9 @@ public class JoinCommandHandler implements CommandHandler {
                 } else {
                     notInChannel.add(c);
                     if (!(args.length == 2 && args[1].equalsIgnoreCase("silent"))) {
-                        bot.getChannel(args[0]).sendMessage(sender.getNick() + "told me I belong here.");
+                        bot.getChannel(args[0]).sendMessage(sender.getNick() + " told me I belong here.");
                     }
+                    bot.joinChannel(c.getName());
                 }
             }
 

@@ -6,6 +6,7 @@ import org.pircbotx.Channel;
 import org.pircbotx.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LeaveCommandHandler implements CommandHandler {
 
@@ -14,7 +15,7 @@ public class LeaveCommandHandler implements CommandHandler {
         if (bot.getUserBot().getChannels().size() == 1) {
             channel.sendMessage("Please don't make me leave!");
         } else if (args.length >= 1) {
-            ArrayList<String> channels = new ArrayList<>();
+            List<String> channels = new ArrayList<>();
 
             for (String s : args[0].split(",")) {
                 if (!s.startsWith("#")) {
@@ -25,15 +26,15 @@ public class LeaveCommandHandler implements CommandHandler {
                 }
             }
 
-            ArrayList<Channel> leaveChannels = new ArrayList<>();
+            List<Channel> leaveChannels = new ArrayList<>();
 
             for (String s : channels) {
                 leaveChannels.add(bot.getChannel(s));
             }
 
             if (leaveChannels.size() < bot.getUserBot().getChannels().size()) {
-                ArrayList<Channel> inChannel = new ArrayList<>();
-                ArrayList<Channel> notInChannel = new ArrayList<>();
+                List<Channel> inChannel = new ArrayList<>();
+                List<Channel> notInChannel = new ArrayList<>();
 
                 for (Channel c : leaveChannels) {
                     if (bot.isOnChannel(c.getName())) {

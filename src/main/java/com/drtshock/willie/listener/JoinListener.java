@@ -10,6 +10,7 @@ import org.pircbotx.hooks.events.JoinEvent;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -18,7 +19,7 @@ import java.util.regex.Pattern;
 public class JoinListener extends ListenerAdapter<Willie> implements Listener<Willie> {
 
     private Willie bot;
-    private HashMap<String, String> users = new HashMap<>();
+    private Map<String, String> users = new HashMap<>();
     private final String URL_REGEX = "\\b\\d{1,3}+\\p{P}*\\d{1,3}+\\p{P}*\\d{1,3}+\\p{P}*\\d{1,3}+\\b|([\\w-\\.]+)((?:[\\w]+\\.)+)([a-zA-Z]{2,4})";
     private Pattern pattern = Pattern.compile(URL_REGEX);
 

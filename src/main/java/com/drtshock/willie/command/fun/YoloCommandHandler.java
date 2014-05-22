@@ -15,7 +15,7 @@ public class YoloCommandHandler implements CommandHandler {
     private List<String> messages;
 
     public YoloCommandHandler() {
-        this.messages = new ArrayList<String>();
+        this.messages = new ArrayList<>();
 
         this.messages.add("%s only lives once.");
         this.messages.add("You only live once!");

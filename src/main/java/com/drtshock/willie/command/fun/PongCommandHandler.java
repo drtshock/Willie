@@ -6,15 +6,16 @@ import org.pircbotx.Channel;
 import org.pircbotx.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author stuntguy3000
  */
 public class PongCommandHandler implements CommandHandler {
-    private ArrayList<String> messages;
+    private List<String> messages;
 
     public PongCommandHandler() {
-        this.messages = new ArrayList<String>();
+        this.messages = new ArrayList<>();
 
         this.messages.add("Come at me {u}! I will smash you at ping-pong");
         this.messages.add("{u} can't play ping-pong");
