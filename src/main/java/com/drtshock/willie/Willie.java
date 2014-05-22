@@ -31,6 +31,7 @@ import com.drtshock.willie.configuration.WillieConfig;
 import com.drtshock.willie.jenkins.JenkinsServer;
 import com.drtshock.willie.listener.JoinListener;
 import com.drtshock.willie.pastebin.Pastebin;
+import com.drtshock.willie.util.WebHelper;
 import com.google.gson.*;
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
@@ -89,6 +90,9 @@ public class Willie extends PircBotX {
 						throw new IllegalArgumentException("Unsupported object-kind \"" + requestBody.get("object-kind") + "\"");
 						//TODO: Parse issues & merge requests
 					} else {
+						String prefix = '[' + Colors.MAGENTA + requestBody.get("repository").getAsJsonObject().get("name").getAsString() + Colors.NORMAL + ']';
+
+						message.append(prefix);
 						message.append(requestBody.get("user_name").getAsString());
 						message.append(" pushed ");
 
@@ -98,27 +102,26 @@ public class Willie extends PircBotX {
 
 						if(count == 1) {
 							message.append(" commit to ");
-						}
-						else {
+						} else {
 							message.append(" commits to ");
 						}
-						message.append(requestBody.get("ref").getAsString().replace("refs/heads", requestBody.get("repository").getAsJsonObject().get("name").getAsString()));
+						message.append(requestBody.get("ref").getAsString().replace("refs/heads", ""));
 						message.append(": ");
 
 						JsonArray commits = requestBody.get("commits").getAsJsonArray();
 
-
 						for(int i = 0; i < commits.size(); i++) {
 							JsonObject commit = commits.get(i).getAsJsonObject();
 
+							if(i > 0) {
+								message.append('\n');
+								message.append(prefix);
+							}
+
 							message.append('"');
 							message.append(commit.get("message").getAsString());
-
-							if(i != commits.size() - 1) {
-								message.append("\", ");
-							} else {
-								message.append("\"");
-							}
+							message.append("\" ");
+							message.append(WebHelper.shortenURL(commit.get("url").getAsString()));
 						}
 					}
 
@@ -130,9 +133,6 @@ public class Willie extends PircBotX {
 							getChannel(channel).sendMessage(actualMessage);
 						}
 					}
-
-					//TODO: Stop using a hack
-					getChannel("#puzldevs").sendMessage(actualMessage);
 				} else {
 					throw new IllegalArgumentException("Recieved non-object JSON for gitlab hook: " + request.body());
 				}
