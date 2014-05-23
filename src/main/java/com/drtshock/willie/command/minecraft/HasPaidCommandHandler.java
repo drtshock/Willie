@@ -2,15 +2,14 @@ package com.drtshock.willie.command.minecraft;
 
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
+import com.drtshock.willie.util.WebHelper;
+
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.User;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * @author stuntguy3000
@@ -35,7 +34,7 @@ public class HasPaidCommandHandler implements CommandHandler {
             return;
         }
 
-        String result = getPage("https://minecraft.net/haspaid.jsp?user=" + user);
+        String result = WebHelper.readURLToString(new URL("https://minecraft.net/haspaid.jsp?user=" + URLEncoder.encode(user, "UTF-8")));
 
         if (result.equalsIgnoreCase("true")) {
             channel.sendMessage(Colors.GREEN + Colors.BOLD + user + Colors.NORMAL + Colors.GREEN + " has paid!");
@@ -44,30 +43,5 @@ public class HasPaidCommandHandler implements CommandHandler {
         } else {
             throw new Exception("Page Output: " + result);
         }
-    }
-
-    private String getPage(String urlString) throws IOException {
-        URL url = new URL(urlString);
-
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-        connection.setConnectTimeout(10000);
-        connection.setReadTimeout(10000);
-        connection.setUseCaches(false);
-
-        BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-        StringBuilder buffer = new StringBuilder();
-        String line;
-
-        while ((line = input.readLine()) != null) {
-            buffer.append(line);
-        }
-
-        String page = buffer.toString();
-
-        input.close();
-
-        return page;
     }
 }

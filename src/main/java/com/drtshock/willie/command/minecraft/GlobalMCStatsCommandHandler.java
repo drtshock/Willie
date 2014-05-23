@@ -3,6 +3,7 @@ package com.drtshock.willie.command.minecraft;
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
 import com.drtshock.willie.util.Tools;
+import com.drtshock.willie.util.WebHelper;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -73,32 +74,6 @@ public class GlobalMCStatsCommandHandler implements CommandHandler {
         }
     }
 
-    private String getPage(String urlString) throws IOException {
-        URL url = new URL(urlString);
-
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-        connection.setConnectTimeout(10000);
-        connection.setReadTimeout(10000);
-        connection.setUseCaches(false);
-
-        BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-        StringBuilder buffer = new StringBuilder();
-        String line;
-
-        while ((line = input.readLine()) != null) {
-            buffer.append(line);
-            buffer.append('\n');
-        }
-
-        String page = buffer.toString();
-
-        input.close();
-
-        return page;
-    }
-
     // !gstats
     private class GlobalStats {
 
@@ -115,7 +90,7 @@ public class GlobalMCStatsCommandHandler implements CommandHandler {
 
         public GlobalStats() throws IOException {
             final String apiUrl = "http://api.mcstats.org/1.0/All+Servers/graph/Global+Statistics";
-            final String jsonString = getPage(apiUrl);
+            final String jsonString = WebHelper.readURLToString(new URL(apiUrl));
             final JsonObject jsonObject = new JsonParser().parse(jsonString).getAsJsonObject();
             final JsonObject data = jsonObject.getAsJsonObject("data");
             final JsonArray playersArray = data.getAsJsonArray("Players");
@@ -242,7 +217,7 @@ public class GlobalMCStatsCommandHandler implements CommandHandler {
 
         public AuthStats() throws IOException {
             final String authUrl = "http://api.mcstats.org/1.0/All+Servers/graph/Auth+Mode";
-            final String jsonString = getPage(authUrl);
+            final String jsonString = WebHelper.readURLToString(new URL(authUrl));
             final JsonObject jsonObject = new JsonParser().parse(jsonString).getAsJsonObject();
             final JsonArray data = jsonObject.getAsJsonArray("data");
             final JsonArray firstArray = data.get(0).getAsJsonArray();
