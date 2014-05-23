@@ -2,6 +2,7 @@ package com.drtshock.willie.command.fun;
 
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
+import com.drtshock.willie.util.WebHelper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.pircbotx.Channel;
@@ -30,26 +31,7 @@ public class ChuckCommandHandler implements CommandHandler {
 
     private String getQuote(String urlString) throws IOException {
         // Get page
-        URL url = new URL(urlString);
-
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-        connection.setConnectTimeout(10000);
-        connection.setReadTimeout(10000);
-        connection.setUseCaches(false);
-
-        BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-        StringBuilder buffer = new StringBuilder();
-        String line;
-
-        while ((line = input.readLine()) != null) {
-            buffer.append(line);
-        }
-
-        String page = buffer.toString();
-
-        input.close();
+    	String page = WebHelper.readURLToString(new URL(urlString));
 
         // JSON - Get the quote
         JsonObject o = new JsonParser().parse(page).getAsJsonObject();
