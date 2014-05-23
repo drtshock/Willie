@@ -28,7 +28,7 @@ public class MCStatusCommandHandler implements CommandHandler {
         	for (Entry<String, JsonElement> parsedEntry : entry.getAsJsonObject().entrySet()) {
         		final String serviceName = parsedEntry.getKey().replace(".mojang.com", "").replace(".minecraft.net", "");
         		final boolean isOnline = parsedEntry.getValue().getAsString().equalsIgnoreCase("green");
-        		statusText.append(isOnline ? Colors.DARK_GREEN : Colors.DARK_GREEN);
+        		statusText.append(isOnline ? Colors.DARK_GREEN : Colors.RED);
         		statusText.append(serviceName.substring(0, 1).toUpperCase() + serviceName.substring(1));
         		statusText.append(isOnline ? " (Online)" : " (Offline)");
         	}
