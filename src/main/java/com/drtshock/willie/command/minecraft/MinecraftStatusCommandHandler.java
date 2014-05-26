@@ -39,12 +39,12 @@ public class MinecraftStatusCommandHandler implements CommandHandler {
 		    JsonObject serverStuff = new JsonParser().parse(statusJson).getAsJsonObject();
 			
 			if(serverStuff.get("status").getAsBoolean() == false){
-				sender.sendMessage(args[0] + " is: Offline");
+				sender.sendMessage("Status: Offline");
 			}
 			else{
-				sender.sendMessage(args[0] + " is: Online");
-				sender.sendMessage("It has: " + serverStuff.get("players").getAsJsonObject().get("online") + "/" + serverStuff.get("players").getAsJsonObject().get("max") + " players");
-				sender.sendMessage("They also happen to be running on: " + serverStuff.get("version").getAsString());
+				sender.sendMessage("Status: Online");
+				sender.sendMessage("Players: " + serverStuff.get("players").getAsJsonObject().get("online") + "/" + serverStuff.get("players").getAsJsonObject().get("max") + " online");
+				sender.sendMessage("Version: " + serverStuff.get("version").getAsString());
 			}
 		}
 	}
