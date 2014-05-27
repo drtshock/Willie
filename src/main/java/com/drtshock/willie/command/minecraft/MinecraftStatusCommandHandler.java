@@ -28,7 +28,6 @@ public class MinecraftStatusCommandHandler implements CommandHandler {
 				statusConn = (HttpURLConnection) new URL("http://minecraft-api.com/v1/get/?server=" + args[0]).openConnection();
 				statusConn.addRequestProperty("User-Agent", "Mozilla/4.76"); 
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
