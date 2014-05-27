@@ -8,6 +8,9 @@ import org.pircbotx.User;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * @author ParaPenguin
+ */
 public class YesNoCommandHandler implements CommandHandler {
 
     @Override

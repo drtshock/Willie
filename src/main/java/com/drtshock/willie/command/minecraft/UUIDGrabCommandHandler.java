@@ -2,16 +2,19 @@ package com.drtshock.willie.command.minecraft;
 
 import com.drtshock.willie.Willie;
 import com.drtshock.willie.command.CommandHandler;
-import org.json.JSONObject;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.Proxy;
 import java.net.URL;
-import java.net.URLConnection;
-import java.util.Scanner;
 
 /**
- * @author stuntguy3000
+ * @author ParaPenguin
  */
 public class UUIDGrabCommandHandler implements CommandHandler {
 
@@ -42,25 +45,66 @@ public class UUIDGrabCommandHandler implements CommandHandler {
         }
     }
 
-    public static String[] getUUID(String player) {
+    public String[] getUUID(String name) {
         try {
-            // Get the UUID from SwordPVP
-            URL url = new URL("https://uuid.swordpvp.com/uuid/" + player);
-            URLConnection uc = url.openConnection();
-            uc.setUseCaches(false);
-            uc.setDefaultUseCaches(false);
-            uc.addRequestProperty("User-Agent", "Mozilla/5.0");
-            uc.addRequestProperty("Cache-Control", "no-cache, no-store, must-revalidate");
-            uc.addRequestProperty("Pragma", "no-cache");
-
-            String json = new Scanner(uc.getInputStream(), "UTF-8").useDelimiter("\\A").next();
-            JSONObject object = new JSONObject(json).getJSONArray("profiles").getJSONObject(0);
-            return new String[]{object.getString("name"), object.getString("id")};
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            ProfileData profC = new ProfileData(name);
+            PlayerProfile[] result = post(new URL("https://api.mojang.com/profiles/minecraft"), Proxy.NO_PROXY, Willie.gson.toJson(profC).getBytes());
+            name = result[1].getId();
+            String uuid = result[0].getId();
+            return new String[]{name, uuid};
+        } catch(Exception e) {
+            e.printStackTrace();
         }
-
         return null;
+    }
+
+    private PlayerProfile[] post(URL url, Proxy proxy, byte[] bytes) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection(proxy);
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setDoInput(true);
+        connection.setDoOutput(true);
+
+        DataOutputStream out = new DataOutputStream(connection.getOutputStream());
+        out.write(bytes);
+        out.flush();
+        out.close();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        StringBuffer response = new StringBuffer();
+        String line;
+        while((line = reader.readLine()) != null) {
+            response.append(line);
+            response.append('\r');
+        }
+        reader.close();
+        return Willie.gson.fromJson(response.toString(), SearchResult.class).getProfiles();
+    }
+
+    private class PlayerProfile {
+        private String id;
+
+        public String getId() {
+            return id;
+        }
+    }
+
+    private class SearchResult {
+        private PlayerProfile[] profiles;
+
+        public PlayerProfile[] getProfiles() {
+            return profiles;
+        }
+    }
+
+    private static class ProfileData {
+
+        private String name;
+        private String agent = "minecraft";
+
+        public ProfileData(String name) {
+            this.name = name;
+        }
     }
 
 }
