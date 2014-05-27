@@ -33,6 +33,7 @@ import com.drtshock.willie.listener.JoinListener;
 import com.drtshock.willie.pastebin.Pastebin;
 import com.drtshock.willie.util.WebHelper;
 import com.google.gson.*;
+
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.PircBotX;
@@ -254,6 +255,7 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("wtweet", "<message> tweet a message through @WillieIRC", new WTweetCommandHandler(), true));
         this.commandManager.registerCommand(new Command("xkcd", "<nb> - Get an xkcd", new XKCDCommandHandler()));
         this.commandManager.registerCommand(new Command("yolo", "yolo - Random YOLO messages!", new YoloCommandHandler()));
+        this.commandManager.registerCommand(new Command("mcstatus", "mcstatus - Get a minecraft server's status!", new MinecraftStatusCommandHandler()));
 
         this.setName(willieConfig.getNick());
         this.setVerbose(false);
