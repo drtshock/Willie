@@ -32,7 +32,7 @@ public class JoinCommandHandler implements CommandHandler {
                 if (bot.isOnChannel(c)) {
                     alreadyIn.add(c);
                 } else {
-                    if(bot.channelExists(c)) {
+                    if (bot.channelExists(c)) {
                         joined.add(c);
                         if (!(args.length == 2 && args[1].equalsIgnoreCase("silent"))) {
                             bot.getChannel(args[0]).sendMessage(sender.getNick() + " told me I belong here.");
@@ -90,13 +90,13 @@ public class JoinCommandHandler implements CommandHandler {
 
                 sb.append("though...");
 
-                if(!nonexistent.isEmpty()) {
+                if (!nonexistent.isEmpty()) {
                     sb.append(" And ");
                 }
             }
 
-            if(!nonexistent.isEmpty()) {
-                for(int i = 0; i < nonexistent.size(); i++) {
+            if (!nonexistent.isEmpty()) {
+                for (int i = 0; i < nonexistent.size(); i++) {
                     sb.append(nonexistent.get(i));
 
                     if (i < nonexistent.size() - 1) {
@@ -111,7 +111,7 @@ public class JoinCommandHandler implements CommandHandler {
                     }
                 }
 
-                if(nonexistent.size() > 2) {
+                if (nonexistent.size() > 2) {
                     sb.append(" don't even exist...");
                 } else {
                     sb.append(" doesn't even exist...");

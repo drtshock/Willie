@@ -8,10 +8,7 @@ import com.google.gson.JsonParser;
 import org.pircbotx.Channel;
 import org.pircbotx.User;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
@@ -31,7 +28,7 @@ public class ChuckCommandHandler implements CommandHandler {
 
     private String getQuote(String urlString) throws IOException {
         // Get page
-    	String page = WebHelper.readURLToString(new URL(urlString));
+        String page = WebHelper.readURLToString(new URL(urlString));
 
         // JSON - Get the quote
         JsonObject o = new JsonParser().parse(page).getAsJsonObject();

@@ -85,18 +85,20 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
 
             logger.log(Level.SEVERE, e.getMessage(), e);
 
-            final String msg1 = e.getClass().getSimpleName() + " caught when " + sender.getNick() + " used the command \"" + message + "\" in " + channel.getName() + ".";
+            final String bold = Colors.BOLD;
+            final String normal = Colors.NORMAL;
+            final String msg1 = bold + e.getClass().getSimpleName() + normal + " caught when " + bold + sender.getNick() + normal + " used the command \"" + bold + message + normal + "\" in " + bold + channel.getName() + normal + ".";
             Channel home = Willie.getInstance().getChannel("#willie");
-            home.sendMessage(Colors.RED + msg1);
+            home.sendMessage(msg1);
             logger.severe(msg1);
             channel.sendMessage("Something went wrong :(");
-            
+
             if (!(e instanceof AbstractStupidException)) {
-                final String msg2 = "Got a stacktrace for you, human: " + GistHelper.gist(stackTrace);
+                final String msg2 = "Here's the gist: " + GistHelper.gist(stackTrace);
                 home.sendMessage(msg2);
                 logger.severe(msg2);
             } else {
-                final String msg2 = "I will not paste this, human.";
+                final String msg2 = "I will not paste this.";
                 home.sendMessage(msg2);
             }
         }

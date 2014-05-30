@@ -33,7 +33,6 @@ import com.drtshock.willie.listener.JoinListener;
 import com.drtshock.willie.pastebin.Pastebin;
 import com.drtshock.willie.util.WebHelper;
 import com.google.gson.*;
-
 import org.pircbotx.Channel;
 import org.pircbotx.Colors;
 import org.pircbotx.PircBotX;
@@ -76,74 +75,74 @@ public class Willie extends PircBotX {
     private Willie(WillieConfig config) {
         super();
 
-		setPort(config.getHttpPort());
+        setPort(config.getHttpPort());
 
-		//Start route mapping
-		post("/gitlab-hook/", (request, response) -> {
-			try {
-				JsonElement requestElement = parser.parse(request.body());
+        //Start route mapping
+        post("/gitlab-hook/", (request, response) -> {
+            try {
+                JsonElement requestElement = parser.parse(request.body());
 
-				if(requestElement.isJsonObject()) {
-					JsonObject requestBody = requestElement.getAsJsonObject();
+                if (requestElement.isJsonObject()) {
+                    JsonObject requestBody = requestElement.getAsJsonObject();
 
-					StringBuilder message = new StringBuilder();
+                    StringBuilder message = new StringBuilder();
 
-					if(requestBody.has("object-kind")) {
-						throw new IllegalArgumentException("Unsupported object-kind \"" + requestBody.get("object-kind") + "\"");
-						//TODO: Parse issues & merge requests
-					} else {
-						String prefix = '[' + Colors.MAGENTA + requestBody.get("repository").getAsJsonObject().get("name").getAsString() + Colors.NORMAL + ']';
+                    if (requestBody.has("object-kind")) {
+                        throw new IllegalArgumentException("Unsupported object-kind \"" + requestBody.get("object-kind") + "\"");
+                        //TODO: Parse issues & merge requests
+                    } else {
+                        String prefix = '[' + Colors.MAGENTA + requestBody.get("repository").getAsJsonObject().get("name").getAsString() + Colors.NORMAL + ']';
 
-						message.append(prefix);
-						message.append(requestBody.get("user_name").getAsString());
-						message.append(" pushed ");
+                        message.append(prefix);
+                        message.append(requestBody.get("user_name").getAsString());
+                        message.append(" pushed ");
 
-						int count = requestBody.get("total_commits_count").getAsInt();
+                        int count = requestBody.get("total_commits_count").getAsInt();
 
-						message.append(count);
+                        message.append(count);
 
-						if(count == 1) {
-							message.append(" commit to ");
-						} else {
-							message.append(" commits to ");
-						}
-						message.append(requestBody.get("ref").getAsString().replace("refs/heads", ""));
-						message.append(": ");
+                        if (count == 1) {
+                            message.append(" commit to ");
+                        } else {
+                            message.append(" commits to ");
+                        }
+                        message.append(requestBody.get("ref").getAsString().replace("refs/heads", ""));
+                        message.append(": ");
 
-						JsonArray commits = requestBody.get("commits").getAsJsonArray();
+                        JsonArray commits = requestBody.get("commits").getAsJsonArray();
 
-						for(int i = 0; i < commits.size(); i++) {
-							JsonObject commit = commits.get(i).getAsJsonObject();
+                        for (int i = 0; i < commits.size(); i++) {
+                            JsonObject commit = commits.get(i).getAsJsonObject();
 
-							if(i > 0) {
-								message.append('\n');
-								message.append(prefix);
-							}
+                            if (i > 0) {
+                                message.append('\n');
+                                message.append(prefix);
+                            }
 
-							message.append('"');
-							message.append(commit.get("message").getAsString());
-							message.append("\" ");
-							message.append(WebHelper.shortenURL(commit.get("url").getAsString()));
-						}
-					}
+                            message.append('"');
+                            message.append(commit.get("message").getAsString());
+                            message.append("\" ");
+                            message.append(WebHelper.shortenURL(commit.get("url").getAsString()));
+                        }
+                    }
 
-					String actualMessage = message.toString();
+                    String actualMessage = message.toString();
 
-					if(!actualMessage.isEmpty()) {
-						for(String channel : config.getGitlabChannels()) {
-							getChannel(channel).sendMessage(actualMessage);
-						}
-					}
-				} else {
-					throw new IllegalArgumentException("Recieved non-object JSON for gitlab hook: " + request.body());
-				}
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
+                    if (!actualMessage.isEmpty()) {
+                        for (String channel : config.getGitlabChannels()) {
+                            getChannel(channel).sendMessage(actualMessage);
+                        }
+                    }
+                } else {
+                    throw new IllegalArgumentException("Recieved non-object JSON for gitlab hook: " + request.body());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-			return 0;
-		});
-		//End route mapping
+            return 0;
+        });
+        //End route mapping
 
         try {
             // Get Root Logger

@@ -59,11 +59,11 @@ public class WolframCommandHandler implements CommandHandler {
                 }
 
                 channel.sendMessage(answer + " - " + WebHelper.shortenURL(QUERY_URL + input));
-            } else if(root.getAttribute("error").getBooleanValue()) {
+            } else if (root.getAttribute("error").getBooleanValue()) {
                 channel.sendMessage("Query failed - " + root.getChild("error").getChild("msg").getText());
             } else {
-				channel.sendMessage("Wolfram Alpha doesn't know how to interpret that!");
-			}
+                channel.sendMessage("Wolfram Alpha doesn't know how to interpret that!");
+            }
         }
     }
 }
