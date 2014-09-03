@@ -51,11 +51,11 @@ public class CommandManager extends ListenerAdapter<Willie> implements Listener<
         final Channel channel = event.getChannel();
         final User sender = event.getUser();
 
-        if (message.toLowerCase().endsWith("o/") && (!message.contains("\\o/"))) {
+        if (message.toLowerCase().matches("(^|\\s)o/$")) {
             channel.sendMessage("\\o");
             return;
         }
-        if (message.toLowerCase().endsWith("\\o") && (!message.contains("\\o/"))) {
+        if (message.toLowerCase().matches("(^|\\s)\\o$")) {
             channel.sendMessage("o/");
             return;
         }
