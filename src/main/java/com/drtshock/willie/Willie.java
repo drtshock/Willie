@@ -255,6 +255,8 @@ public class Willie extends PircBotX {
         this.commandManager.registerCommand(new Command("xkcd", "<nb> - Get an xkcd", new XKCDCommandHandler()));
         this.commandManager.registerCommand(new Command("yolo", "yolo - Random YOLO messages!", new YoloCommandHandler()));
         this.commandManager.registerCommand(new Command("mcstatus", "mcstatus - Get a minecraft server's status!", new MinecraftStatusCommandHandler()));
+        this.commandManager.registerCommand(new Command("yn", "<question> - Yes or no questions only please!", new YesNoCommandHandler()));
+        this.commandManager.registerCommand(new Command("uuid", "<username(s)> - Prints a list of UUIDs for the specified players", new UUIDGrabCommandHandler()));
 
         this.setName(willieConfig.getNick());
         this.setVerbose(false);
