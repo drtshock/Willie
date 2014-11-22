@@ -11,8 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WillieChannelConfig {
-    // TODO: create generic YamlEnumMapConfig to prevent code repetition between WillieConfig and WillieChannelConfig
-
     private final EnumMap<WillieChannelConfigOption, Object> configMap = new EnumMap<>(WillieChannelConfigOption.class);
 
     public Object getOptionValue(WillieChannelConfigOption option) {
