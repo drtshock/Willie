@@ -19,7 +19,6 @@ public class WillieChannelConfig {
         if (configMap.containsKey(option)) {
             return configMap.get(option);
         }
-
         return option.getDefaultValue();
     }
 
@@ -29,11 +28,9 @@ public class WillieChannelConfig {
 
     public String toYaml() {
         Map<String, Object> valueMap = new HashMap<>();
-
         for (Map.Entry<WillieChannelConfigOption, Object> entry : configMap.entrySet()) {
             valueMap.put(entry.getKey().getOptionNode(), entry.getValue());
         }
-
         Yaml yaml = new Yaml();
         return yaml.dump(valueMap);
     }
@@ -41,22 +38,16 @@ public class WillieChannelConfig {
     public static WillieChannelConfig fromYaml(String yamlData) {
         Yaml yaml = new Yaml();
         Map<String, Object> valueMap = (Map<String, Object>) yaml.load(yamlData);
-
         WillieChannelConfig willieChannelConfig = new WillieChannelConfig();
-
         for (Map.Entry<String, Object> entry : valueMap.entrySet()) {
             WillieChannelConfigOption matchedOption = WillieChannelConfigOption.fromOptionNode(entry.getKey());
-
             // TODO: check entry value matches the type required by matchedOption
-
             if (matchedOption == null) {
                 // TODO: raise a fuss
                 continue;
             }
-
             willieChannelConfig.putOptionValue(matchedOption, entry.getValue());
         }
-
         return willieChannelConfig;
     }
 

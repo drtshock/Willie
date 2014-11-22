@@ -31,7 +31,6 @@ public enum WillieChannelConfigOption {
                 return willieChannelConfigOption;
             }
         }
-
         return null;
     }
 }

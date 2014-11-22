@@ -41,7 +41,6 @@ public enum WillieConfigOption {
                 return willieConfigOption;
             }
         }
-
         return null;
     }
 }
