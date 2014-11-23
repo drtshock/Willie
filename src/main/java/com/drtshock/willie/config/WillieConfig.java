@@ -38,8 +38,8 @@ public class WillieConfig {
 
     public String toYaml() {
         Map<String, Object> valueMap = new HashMap<>();
-        for (Map.Entry<WillieConfigOption, Object> entry : configMap.entrySet()) {
-            valueMap.put(entry.getKey().getOptionNode(), entry.getValue());
+        for (WillieConfigOption willieConfigOption : WillieConfigOption.values()) {
+            valueMap.put(willieConfigOption.getOptionNode(), this.getOptionValue(willieConfigOption));
         }
         Yaml yaml = new Yaml();
         return yaml.dump(valueMap);
@@ -70,7 +70,6 @@ public class WillieConfig {
         // TODO: remove magic numbers
         if (!willieConfigDirectory.isDirectory()) {
             boolean greatSuccess = willieConfigDirectory.mkdir();
-
             if (!greatSuccess) {
                 // TODO: raise a fuss
             }
@@ -87,12 +86,17 @@ public class WillieConfig {
         } else {
             resultingConfig = new WillieConfig();
             try {
+                boolean greatSuccess = willieConfigFile.createNewFile();
+                if (!greatSuccess) {
+                    // TODO: raise a fuss
+                }
                 Files.write(Paths.get(willieConfigFile.getPath()), resultingConfig.toYaml().getBytes());
             } catch (IOException e) {
                 // TODO: raise a fuss
                 e.printStackTrace();
             }
         }
+        // TODO: create channel config files if they don't exist
         File channelConfigDirectory = new File(willieConfigDirectory, "channel");
         if (channelConfigDirectory.isDirectory()) {
             File[] potentialChannelConfigs = channelConfigDirectory.listFiles();
