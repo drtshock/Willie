@@ -9,14 +9,32 @@ import org.kitteh.irc.BotBuilder;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+/**
+ * A configurable IRC bot.
+ */
 public class Willie {
+    /**
+     * The bot that handles connections and interfacing with the IRC server.
+     */
     private final Bot bot;
+
+    /**
+     * The configuration options in the form of an Object.
+     */
     private final WillieConfig config;
 
+    /**
+     * Instantiate Willie with default options.
+     */
     public Willie() {
         this(new WillieConfig());
     }
 
+    /**
+     * Instantiate Willie with specified options.
+     *
+     * @param config config object containing specified options
+     */
     public Willie(WillieConfig config) {
         this.config = config;
         // TODO: check that config has bound values to correct type, or account for errors if not
@@ -40,6 +58,11 @@ public class Willie {
         }
     }
 
+    /**
+     * Gets the config holding the options being used by Willie.
+     *
+     * @return the WillieConfig object holding the options being used by Willie
+     */
     public WillieConfig getConfig() {
         return this.config;
     }
