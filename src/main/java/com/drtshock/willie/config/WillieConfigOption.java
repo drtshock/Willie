@@ -13,7 +13,7 @@ public enum WillieConfigOption {
     NICK("nick", "Willie"),
     REAL_NAME("real-name", "Willie"),
     USER("user", "Willie"),
-    DEFAULT_CHANNELS("default-channels", new String[] {});
+    DEFAULT_CHANNELS("default-channels", new ArrayList<String>());
 
     private final String optionNode;
     private final Object defaultValue;

@@ -3,7 +3,7 @@ package com.drtshock.willie.config;
 import java.util.ArrayList;
 
 public enum WillieChannelConfigOption {
-    ENABLED_MODULES("enabled-modules", new String[] {});
+    ENABLED_MODULES("enabled-modules", new ArrayList<String>());
 
     private final String optionNode;
     private final Object defaultValue;

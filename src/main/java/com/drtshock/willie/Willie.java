@@ -36,7 +36,7 @@ public class Willie {
         botBuilder.user((String) config.getOptionValue(WillieConfigOption.USER));
         this.bot = botBuilder.build();
         for (String channel : (ArrayList<String>) config.getOptionValue(WillieConfigOption.DEFAULT_CHANNELS)) {
-            this.bot.addChannel(channel);
+            this.bot.addChannel(channel.toLowerCase());
         }
     }
 

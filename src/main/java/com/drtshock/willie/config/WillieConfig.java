@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -80,6 +81,7 @@ public class WillieConfig {
             try {
                 resultingConfig = WillieConfig.fromYamlFile(willieConfigFile);
             } catch (IOException e) {
+                resultingConfig = new WillieConfig();
                 // TODO: raise a fuss
                 e.printStackTrace();
             }
@@ -98,26 +100,33 @@ public class WillieConfig {
         }
         // TODO: create channel config files if they don't exist
         File channelConfigDirectory = new File(willieConfigDirectory, "channel");
-        if (channelConfigDirectory.isDirectory()) {
-            File[] potentialChannelConfigs = channelConfigDirectory.listFiles();
-            for (File potentialChannelConfig : potentialChannelConfigs) {
-                String lowerCaseFileName = potentialChannelConfig.getName().toLowerCase();
-                if (!lowerCaseFileName.endsWith(".yml")) {
-                    continue;
-                }
+        if (!channelConfigDirectory.isDirectory()) {
+            boolean greatSuccess = channelConfigDirectory.mkdir();
+            if (!greatSuccess) {
+                // TODO: raise a fuss
+            }
+        }
+        for (String channelName : (ArrayList<String>) resultingConfig.getOptionValue(WillieConfigOption.DEFAULT_CHANNELS)) {
+            File channelConfigFile = new File(channelConfigDirectory, channelName.toLowerCase() + ".yml");
+            WillieChannelConfig resultingChannelConfig = null;
+            if (channelConfigFile.isFile()) {
                 try {
-                    WillieChannelConfig channelConfig = WillieChannelConfig.fromYamlFile(potentialChannelConfig);
-                    resultingConfig.putChannelConfig(lowerCaseFileName.substring(0, lowerCaseFileName.length() - 4), channelConfig);
+                    resultingChannelConfig = WillieChannelConfig.fromYamlFile(channelConfigFile);
+                } catch (IOException e) {
+                    resultingChannelConfig = new WillieChannelConfig();
+                    // TODO: raise a fuss
+                    e.printStackTrace();
+                }
+            } else {
+                resultingChannelConfig = new WillieChannelConfig();
+                try {
+                    Files.write(Paths.get(willieConfigFile.getPath()), resultingChannelConfig.toYaml().getBytes());
                 } catch (IOException e) {
                     // TODO: raise a fuss
                     e.printStackTrace();
                 }
             }
-        } else {
-            boolean greatSuccess = channelConfigDirectory.mkdir();
-            if (!greatSuccess) {
-                // TODO: raise a fuss
-            }
+            resultingConfig.putChannelConfig(channelName, resultingChannelConfig);
         }
         return resultingConfig;
     }

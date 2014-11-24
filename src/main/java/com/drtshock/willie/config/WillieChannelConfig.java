@@ -26,8 +26,8 @@ public class WillieChannelConfig {
 
     public String toYaml() {
         Map<String, Object> valueMap = new HashMap<>();
-        for (Map.Entry<WillieChannelConfigOption, Object> entry : configMap.entrySet()) {
-            valueMap.put(entry.getKey().getOptionNode(), entry.getValue());
+        for (WillieChannelConfigOption willieChannelConfigOption : WillieChannelConfigOption.values()) {
+            valueMap.put(willieChannelConfigOption.getOptionNode(), this.getOptionValue(willieChannelConfigOption));
         }
         Yaml yaml = new Yaml();
         return yaml.dump(valueMap);
