@@ -25,8 +25,6 @@ public class QuestionResponse {
         this.willie = willie;
     }
 
-    // I have no idea whether or not a HashMap.get() call would throw null if it wasn't added
-    // So until I actually figure that out, this is just a simple fix
     @EventHandler
     public void onChannelJoin(ChannelJoinEvent event){
         if(willie.isModuleEnabled(event.getChannel().getName(), FEATURE_NAME)) {
