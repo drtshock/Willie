@@ -5,6 +5,7 @@ import com.drtshock.willie.config.WillieChannelConfigOption;
 import com.drtshock.willie.config.WillieConfig;
 import com.drtshock.willie.config.WillieConfigOption;
 import com.drtshock.willie.feature.JenkinsEasterEgg;
+import com.drtshock.willie.feature.QuestionResponse;
 import com.drtshock.willie.util.FileUtil;
 import org.kitteh.irc.Bot;
 import org.kitteh.irc.BotBuilder;
@@ -106,5 +107,6 @@ public class Willie {
 
     private void registerFeatures() {
         this.getBot().getEventManager().registerEventListener(new JenkinsEasterEgg(this));
+        this.getBot().getEventManager().registerEventListener(new QuestionResponse(this));
     }
 }
