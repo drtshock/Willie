@@ -218,7 +218,7 @@ public class WillieConfig {
 
                 try {
                     // write the default config
-                    Files.write(Paths.get(willieConfigFile.getPath()), resultingChannelConfig.toYaml().getBytes());
+                    Files.write(Paths.get(channelConfigFile.getPath()), resultingChannelConfig.toYaml().getBytes());
                 } catch (IOException e) {
                     // TODO: raise a fuss
                     e.printStackTrace();
