@@ -13,7 +13,9 @@ public class JenkinsEasterEgg {
     public static final String EASTER_EGG_MESSAGE = "Oops, looks like Jenkins is going down!";
 
     public static final int MESSAGE_AMOUNT = 5;
-    public static final long MESSAGE_TIME_SPAM = 10000; // 10 seconds
+    public static final long MESSAGE_TIME_SPAM = 5000; // 5 seconds
+
+    // TODO: implement random chance
 
     private final HashMap<String, ArrayList<Long>> lastChannelMessageTimes = new HashMap<>();
     private final Willie willie;
@@ -45,7 +47,7 @@ public class JenkinsEasterEgg {
                     lastMessageTimes = new ArrayList<>(lastMessageTimes.subList(lastMessageTimes.size() - MESSAGE_AMOUNT, lastMessageTimes.size()));
                 }
             }
-            
+
             lastChannelMessageTimes.put(channelName, lastMessageTimes);
         }
     }
