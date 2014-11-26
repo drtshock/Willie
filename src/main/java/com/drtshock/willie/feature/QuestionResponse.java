@@ -2,6 +2,7 @@ package com.drtshock.willie.feature;
 
 import com.drtshock.willie.Willie;
 import org.kitteh.irc.EventHandler;
+import org.kitteh.irc.elements.User;
 import org.kitteh.irc.event.channel.ChannelJoinEvent;
 import org.kitteh.irc.event.channel.ChannelMessageEvent;
 
@@ -29,7 +30,8 @@ public class QuestionResponse {
     public void onChannelJoin(ChannelJoinEvent event){
         if(willie.isModuleEnabled(event.getChannel().getName(), FEATURE_NAME)) {
             if (!hasSpoken.containsKey(event.getChannel().getName())) {
-                hasSpoken.put(event.getChannel().getName(), Arrays.asList("Willie"));
+                List useMe = Arrays.asList("Willie");
+                hasSpoken.put(event.getChannel().getName(), useMe);
             }
         }
     }
@@ -38,11 +40,19 @@ public class QuestionResponse {
     public void onChannelMessage(ChannelMessageEvent channelMessageEvent){
         String channelName = channelMessageEvent.getChannel().getName();
         if(willie.isModuleEnabled(channelName, FEATURE_NAME)) {
+            String message = channelMessageEvent.getMessage();
+            if(!message.endsWith("?")) {
+                return;
+            }
             String username = channelMessageEvent.getActor().getName();
+            User nick = (User) channelMessageEvent.getActor();
+            String nickName = nick.getNick();
             if(!hasSpoken.get(channelName).contains(username)){
-                String sendMe = QUESTION_RESPONSE.replace("%s", username);
+                String sendMe = QUESTION_RESPONSE.replace("%s", nickName);
                 willie.getBot().sendMessage(channelName, sendMe);
-                hasSpoken.get(channelName).add(username);
+                List list = hasSpoken.get(channelName);
+                list.add(username);
+                hasSpoken.put(channelName, list);
             }
         }
     }
