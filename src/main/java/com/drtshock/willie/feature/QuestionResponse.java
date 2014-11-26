@@ -6,6 +6,7 @@ import org.kitteh.irc.elements.User;
 import org.kitteh.irc.event.channel.ChannelJoinEvent;
 import org.kitteh.irc.event.channel.ChannelMessageEvent;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +31,7 @@ public class QuestionResponse {
     public void onChannelJoin(ChannelJoinEvent event){
         if(willie.isModuleEnabled(event.getChannel().getName(), FEATURE_NAME)) {
             if (!hasSpoken.containsKey(event.getChannel().getName())) {
-                List useMe = Arrays.asList("Willie");
+                List<String> useMe = new ArrayList<String>(Arrays.asList("Willie"));
                 hasSpoken.put(event.getChannel().getName(), useMe);
             }
         }
