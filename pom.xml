@@ -32,6 +32,13 @@
         </dependency>
 
         <dependency>
+            <!-- jsoup HTML parser library @ http://jsoup.org/ -->
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.8.1</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.kitteh</groupId>
             <artifactId>ircbot</artifactId>
             <version>1.0.0-SNAPSHOT</version>
