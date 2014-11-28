@@ -39,8 +39,8 @@ public class UrlHeader {
         }
     }
 
-    private String getTitle(String URL) throws IOException {
-        Document doc = Jsoup.connect(URL).get();
+    private String getTitle(String url) throws IOException {
+        Document doc = Jsoup.connect(url).get();
         return doc.title();
     }
 }
